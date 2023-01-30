@@ -1,19 +1,21 @@
 project:
   type: book
 
-website:
+book:
   title: "."
-  navbar:
-    left:
-      - href: index.qmd
-        text: Home
-      - about.qmd
+  author: "Emrah Kırdök, Ph.D."
+  date: "30/01/2023"
+  chapters:
+    - href: index.qmd
+      text: Home
+    - about.qmd
+
 
 format:
   html:
     theme: cosmo
-    css: styles.css
-    toc: true
+    pdf:
+      documentclass: scrreprt
 
 
 
