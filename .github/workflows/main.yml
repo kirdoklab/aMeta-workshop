@@ -18,7 +18,6 @@ jobs:
         uses: quarto-dev/quarto-actions/render@v2
         with:
           path: source-folder
-          to: html
      
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
