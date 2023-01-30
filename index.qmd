@@ -1,5 +1,5 @@
 ---
-title: "."
+title: "aMeta Workshop at Mersin"
 ---
 
 This is a Quarto website.
