@@ -17,11 +17,6 @@ jobs:
         with:
           tinytex: true
           
-      - name: Render Quarto Project
-        uses: quarto-dev/quarto-actions/render@v2
-        with:
-          path: source-folder
-     
       - name: Render and Publish
         uses: quarto-dev/quarto-actions/publish@v2
         with:
