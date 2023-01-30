@@ -2,13 +2,14 @@ project:
   type: book
 
 book:
-  title: "."
+  title: "aMeta Workshop"
   author: "Emrah Kırdök, Ph.D."
   date: "30/01/2023"
   chapters:
     - href: index.qmd
       text: Home
-    - about.qmd
+    - href: about.qmd
+      text: "About the team"
 
 
 format:
