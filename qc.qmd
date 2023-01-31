@@ -28,7 +28,10 @@ rule FastQC_BeforeTrimming:
 Here is a simplified version of this code:
 
 ```bash
-fastqc FASTQ --threads 2 --nogroup --outdir results/FASTQC_BEFORE_TRIMMING/
+fastqc FASTQ \
+    --threads 2 \
+    --nogroup \
+    --outdir results/FASTQC_BEFORE_TRIMMING/
 
 ```
 
