@@ -1,8 +1,3 @@
----
-
-title: "KrakenUniq"
-
----
 
 ## KrakenUniq database
 
