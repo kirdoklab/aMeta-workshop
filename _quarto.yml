@@ -10,6 +10,10 @@ book:
       text: Home
     - href: about.qmd
       text: "About the team"
+    - href: course-style.qmd
+      text: "How to follow the course?"
+    - href : qc.qmd
+      text: "Quality Control Step"
 
 
 format:
