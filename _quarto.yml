@@ -4,6 +4,8 @@ project:
 book:
   title: "aMeta Workshop"
   reader-mode: true
+  repo-url: https://github.com/kirdoklab/aMeta-workshop
+  site-url: kirdoklab.gitub.io/aMeta-workshop/
 
   author: "Zoe Pochon, Nora Bergfeldt, Emrah Kırdök"
   date: "30/01/2023"
