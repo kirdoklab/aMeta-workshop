@@ -3,6 +3,8 @@ title: "Quality control and trimming"
 
 ---
 
+## Quality control before trimming
+
 The pipeline starts with quality control step. We will first run `FastQC` tool to check the qualitu of the fastq files.
 
 This is the rule in the `workflow/rules/qc.smk` file. Input files are retrieved from the samplesheet that you provided. And you will have two output files `html` and `zip` files. The `html` file contains the final report.
@@ -31,6 +33,8 @@ Here is a simplified version of this code:
 fastqc FASTQ --threads 2 --nogroup --outdir results/FASTQC_BEFORE_TRIMMING/
 
 ```
+
+## Quality trimming step
 
 After we run quality controls. We will run `cutadapt` tool to remove the leftover adapters and low quality bases. Here is the overview of this rule. 
 
@@ -61,3 +65,26 @@ cutadapt -a ADAPTERS --minimum-length 30 -o results/CUTADAPT_ADAPTER_TRIMMING/sa
 
 ```
 
+
+## Quality control after trimming
+
+
+rule FastQC_AfterTrimming:
+    output:
+        html="results/FASTQC_AFTER_TRIMMING/{sample}.trimmed_fastqc.html",
+        zip="results/FASTQC_AFTER_TRIMMING/{sample}.trimmed_fastqc.zip",
+    input:
+        fastq="results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz",
+    threads: 2
+    log:
+        "logs/FASTQC_AFTER_TRIMMING/{sample}.log",
+    conda:
+        "../envs/fastqc.yaml"
+    envmodules:
+        *config["envmodules"]["fastqc"],
+    benchmark:
+        "benchmarks/FASTQC_AFTER_TRIMMING/{sample}.benchmark.txt"
+    message:
+        "FastQC_AfterTrimming: RUNNING QUALITY CONTROL WITH FASTQC FOR SAMPLE {input.fastq} AFTER TRIMMING ADAPTERS"
+    shell:
+        "fastqc {input.fastq} --threads {threads} --nogroup --outdir results/FASTQC_AFTER_TRIMMING &> {log}"
