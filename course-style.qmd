@@ -1,0 +1,79 @@
+---
+title: "How to follow the Course?"
+
+---
+
+In this course, we would like to show you the mechanics of the aMeta workflow by creating a step-by-step tutorial.
+
+The aim is to give information on the every snakemake rule, and let you run it manually.
+
+The tutorial part of the course is designed on a specific system. So, if you want to follow this tutorial in your server system, you need to instal the tools by yourself using conda or any other package manager.
+
+We will first show you the snakemake rule. For example this code in the quality control part:
+
+```
+
+rule FastQC_BeforeTrimming:
+    """Run fastq before trimming"""
+    output:
+        html="results/FASTQC_BEFORE_TRIMMING/{sample}_fastqc.html",
+        zip="results/FASTQC_BEFORE_TRIMMING/{sample}_fastqc.zip",
+    input:
+        fastq=lambda wildcards: samples.loc[wildcards.sample].fastq,
+    conda:
+        "../envs/fastqc.yaml"
+    envmodules:
+        *config["envmodules"]["fastqc"],
+    benchmark:
+        "benchmarks/FASTQC_BEFORE_TRIMMING/{sample}.benchmark.txt"
+    message:
+        "FastQC_BeforeTrimming: RUNNING QUALITY CONTROL WITH FASTQC FOR SAMPLE {input.fastq} BEFORE TRIMMING ADAPTERS"
+    log:
+        "logs/FASTQC_BEFORE_TRIMMING/{sample}.log",
+    threads: 2
+    shell:
+        "fastqc {input.fastq} --threads {threads} --nogroup --outdir results/FASTQC_BEFORE_TRIMMING &> {log}"
+```
+
+There are specific snakemake commands in here. To improve the readablity, we will delete some of the content in each rule.
+
+Here we would like to first explain the parameters in each rule:
+
+## Using conda package manager
+
+Each rule can conain a conda environment. So, if you will run snakemake with `--use-conda` flag, the specified environment will be installed given you have the conda package manager already installed:
+
+```
+    conda:
+        "../envs/fastqc.yaml"
+```
+
+## Using environment modules
+
+If you want to use the environmental modules, then you need to use `envmodules` flag with the snakemake. In this case, you would like to modify the envirınmental module file.
+
+```
+ envmodules:
+        *config["envmodules"]["fastqc"]
+
+```
+
+## Benchmarks
+
+You could find benchmarking stats with under the `benchmarking` folder.
+
+```
+    benchmark:
+        "benchmarks/FASTQC_BEFORE_TRIMMING/{sample}.benchmark.txt"
+
+```
+
+## Logs
+
+If you have problems with your snakemake run, each rule will have a log file. So you can check the errors:
+
+```
+    log:
+        "logs/FASTQC_BEFORE_TRIMMING/{sample}.log",
+```
+
