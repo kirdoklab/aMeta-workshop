@@ -4,8 +4,8 @@ project:
 book:
   title: "aMeta Workshop"
   reader-mode: true
-  
-  author: "Emrah Kırdök, Ph.D."
+
+  author: "Zoe Pochon, Nora Bergfeldt, Emrah Kırdök"
   date: "30/01/2023"
   chapters:
     - href: index.qmd
