@@ -10,7 +10,6 @@ The pipeline starts with quality control step. We will first run `FastQC` tool t
 This is the rule in the `workflow/rules/qc.smk` file. Input files are retrieved from the samplesheet that you provided. And you will have two output files `html` and `zip` files. The `html` file contains the final report.
 
 ```
-
 rule FastQC_BeforeTrimming:
     """Run fastq before trimming"""
     output:
@@ -28,13 +27,11 @@ rule FastQC_BeforeTrimming:
 
 Here is a simplified version of this code:
 
-```
-
+```bash
 fastqc FASTQ --threads 2 --nogroup --outdir results/FASTQC_BEFORE_TRIMMING/
-
 ```
 
-## Quality trimming step
+## Quality trimming step
 
 After we run quality controls. We will run `cutadapt` tool to remove the leftover adapters and low quality bases. Here is the overview of this rule. 
 
@@ -60,16 +57,16 @@ rule Cutadapt_Adapter_Trimming:
 
 Here is how we will run it for one file:
 
-```
+```bash
 cutadapt -a ADAPTERS --minimum-length 30 -o results/CUTADAPT_ADAPTER_TRIMMING/sample  
 
 ```
-
 
 ## Quality control after trimming
 
 Then we will run the quality control after the trimming step:
 
+```
 rule FastQC_AfterTrimming:
     output:
         html="results/FASTQC_AFTER_TRIMMING/{sample}.trimmed_fastqc.html",
@@ -81,11 +78,11 @@ rule FastQC_AfterTrimming:
         "FastQC_AfterTrimming: RUNNING QUALITY CONTROL WITH FASTQC FOR SAMPLE {input.fastq} AFTER TRIMMING ADAPTERS"
     shell:
         "fastqc {input.fastq} --threads {threads} --nogroup --outdir results/FASTQC_AFTER_TRIMMING &> {log}"
-
+```
 
 Here is how we will run it for one file:
 
-```
+```bash
 fastqc results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz --threads 2 --nogroup --outdir results/FASTQC_AFTER_TRIMMING
 ```
 
