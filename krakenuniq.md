@@ -5,8 +5,6 @@ A full NT database for KrakenUniq is [available for download](https://www.biorxi
 
 KrakenUniq is relatively fast and allows to screen aDNA samples against as large database as possible. The KrakenUniq paper suggests that KrakenUniq is not less accurate compared to alignment tools such as `BLAST` and `MEGAN`.
 
-KrakenUniq is very handy as it provides k-mer coverage information that is equivalent to "breadth of coverage" that one can extract via alignment. 
-
 To start we need to set up links to the database and the software:
 
 ```bash
