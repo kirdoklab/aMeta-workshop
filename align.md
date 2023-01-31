@@ -82,4 +82,4 @@ samtools index results/BOWTIE2/{sample}/AlignedToPathogenome.bam
 ```
 
 Again, no need to run that line of code. You can find how the output is supposed to look like in the folder with expected results.
-Basically, this line asks Bowtie2 to align each fastq file to the Bowtie2 database. This will generate a sam file containing the information of alignment for each DNA sequence and the reference genome to which it aligns to. The sam file is then directly changed into a bam file using samtools, sorted and later indexed so that it is ready to be used.
+Basically, this line asks Bowtie2 to align each fastq file to the Bowtie2 database. This will generate a sam file containing the information of alignment for each DNA sequence and the reference genome to which it aligns to. The sam file is then directly changed into a bam file using samtools, sorted and later indexed so that it is ready to be used. In order to run this line, you would still need to replace {sample} with the name of each sample that you have provided in the samples.tsv file and run this line for each of them.
