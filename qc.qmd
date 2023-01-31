@@ -68,6 +68,7 @@ cutadapt -a ADAPTERS --minimum-length 30 -o results/CUTADAPT_ADAPTER_TRIMMING/sa
 
 ## Quality control after trimming
 
+Then we will run the quality control after the trimming step:
 
 rule FastQC_AfterTrimming:
     output:
@@ -76,15 +77,40 @@ rule FastQC_AfterTrimming:
     input:
         fastq="results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz",
     threads: 2
-    log:
-        "logs/FASTQC_AFTER_TRIMMING/{sample}.log",
-    conda:
-        "../envs/fastqc.yaml"
-    envmodules:
-        *config["envmodules"]["fastqc"],
-    benchmark:
-        "benchmarks/FASTQC_AFTER_TRIMMING/{sample}.benchmark.txt"
     message:
         "FastQC_AfterTrimming: RUNNING QUALITY CONTROL WITH FASTQC FOR SAMPLE {input.fastq} AFTER TRIMMING ADAPTERS"
     shell:
         "fastqc {input.fastq} --threads {threads} --nogroup --outdir results/FASTQC_AFTER_TRIMMING &> {log}"
+
+
+Here is how we will run it for one file:
+
+```
+fastqc results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz --threads 2 --nogroup --outdir results/FASTQC_AFTER_TRIMMING
+```
+
+## Combine quality control outputs
+
+At last we will combine all the fastqc reports into one file using Multifastqc tool:
+
+``` 
+rule MultiQC:
+    """Run MultiQC"""
+    output:
+        html="results/MULTIQC/multiqc_report.html",
+    input:
+        unpack(multiqc_input),
+    params:
+        config=os.path.join(WORKFLOW_DIR, "envs", "multiqc_config.yaml"),
+    envmodules:
+        *config["envmodules"]["multiqc"],
+    benchmark:
+        "benchmarks/MULTIQC/MULTIQC.benchmark.txt"
+    message:
+        "MultiQC: COMBINING QUALITY CONTROL METRICS WITH MULTIQC"
+    shell:
+        'echo {input} | tr " " "\n" > {output.html}.fof;'
+        "multiqc -c {params.config} -l {output.html}.fof --verbose --force --outdir results/MULTIQC &> {log}"
+
+```
+
