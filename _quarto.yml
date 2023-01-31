@@ -18,6 +18,8 @@ book:
       text: "Quality Control Step"
     - href: krakenuniq.md
       text: "KrakenUniq Step"
+    - href: references.qmd
+      text: "References"
 
 bibliography: bibliography.bib
 
