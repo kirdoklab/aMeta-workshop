@@ -1,1 +1,1 @@
-Sitemap: https://github.com/kirdoklab/aMeta-workshop/sitemap.xml
+Sitemap: kirdoklab.gitub.io/aMeta-workshop/sitemap.xml
