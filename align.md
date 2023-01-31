@@ -77,7 +77,7 @@ rule Bowtie2_Pathogenome_Alignment:
 Here is a simplified version of this code:
 
 ```
-bowtie2 --large-index -x resources/library.fna --end-to-end --threads 10 --very-sensitive -U results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz 2> logs/BOWTIE2/{sample}.log | samtools view -bS -q 1 -h -@ 10 - | samtools sort -@ 10 -o results/BOWTIE2/{sample}/AlignedToPathogenome.bam >> logs/BOWTIE2/{sample}.log
+bowtie2 --large-index -x resources/library.fna --end-to-end --threads 10 --very-sensitive -U results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz 2> logs/BOWTIE2/{sample}.log | samtools view -bS -q 1 -h -@ 10 - | samtools sort - -@ 10 -o results/BOWTIE2/{sample}/AlignedToPathogenome.bam >> logs/BOWTIE2/{sample}.log
 samtools index results/BOWTIE2/{sample}/AlignedToPathogenome.bam
 ```
 
