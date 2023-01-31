@@ -53,5 +53,33 @@ For real life projects, these are the Bowtie2 databases we have made available f
 
 For more information and links to download the databases, please refer to the official GitHub of aMeta.
 
-WARNING: if you are using the Bowtie2_Full_NT database, make sure that you have **unzipped** the files before running the pipeline, otherwise it will automatically overwrite the index files to regenerate them and will need a huge amount of memory and time to succeed which you probably don't want to happen ;-)
+WARNING: if you are using the Bowtie2_Full_NT database, make sure that you have **unzipped** the files before running the pipeline, otherwise it will automatically overwrite the index files to regenerate them and will need a huge amount of memory and time to succeed, which you probably don't want to happen ;-)
 
+## Bowtie2 alignment
+
+```
+rule Bowtie2_Pathogenome_Alignment:
+    output:
+        bam="results/BOWTIE2/{sample}/AlignedToPathogenome.bam",
+        bai="results/BOWTIE2/{sample}/AlignedToPathogenome.bam.bai",
+    input:
+        fastq="results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz",
+        db=rules.Bowtie2_Index.output,
+    params:
+        PATHO_DB=lambda wildcards, input: config["bowtie2_patho_db"],
+    log:
+        "logs/BOWTIE2/{sample}.log",
+    shell:
+        """bowtie2 --large-index -x {params.PATHO_DB} --end-to-end --threads 10 --very-sensitive -U {input.fastq} 2> {log} | samtools view -bS -q 1 -h -@ 10 - | samtools sort -@ 10 -o {output.bam} >> {log};"""
+        """samtools index {output.bam}"""
+```
+
+Here is a simplified version of this code:
+
+```
+bowtie2 --large-index -x resources/library.fna --end-to-end --threads 10 --very-sensitive -U results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz 2> logs/BOWTIE2/{sample}.log | samtools view -bS -q 1 -h -@ 10 - | samtools sort -@ 10 -o results/BOWTIE2/{sample}/AlignedToPathogenome.bam >> logs/BOWTIE2/{sample}.log
+samtools index results/BOWTIE2/{sample}/AlignedToPathogenome.bam
+```
+
+Again, no need to run that line of code. You can find how the output is supposed to look like in the folder with expected results.
+Basically, this line asks Bowtie2 to align each fastq file to the Bowtie2 database. This will generate a sam file containing the information of alignment for each DNA sequence and the reference genome to which it aligns to. The sam file is then directly changed into a bam file using samtools, sorted and later indexed so that it is ready to be used.
