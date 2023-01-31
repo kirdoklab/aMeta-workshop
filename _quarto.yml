@@ -19,6 +19,7 @@ book:
     - href: krakenuniq.md
       text: "KrakenUniq Step"
 
+bibliography: bibliography.bib
 
 format:
   html:
