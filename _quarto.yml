@@ -3,7 +3,9 @@ project:
 
 book:
   title: "aMeta Workshop"
-  author: "Emrah Kırdök, Ph.D."
+  reader-mode: true
+
+  author: "Zoe Pochon, Nora Bergfeldt, Emrah Kırdök"
   date: "30/01/2023"
   chapters:
     - href: index.qmd
@@ -16,7 +18,10 @@ book:
       text: "Quality Control Step"
     - href: krakenuniq.md
       text: "KrakenUniq Step"
+    - href: references.qmd
+      text: "References"
 
+bibliography: bibliography.bib
 
 format:
   html:
