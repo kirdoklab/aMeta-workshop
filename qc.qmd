@@ -32,5 +32,32 @@ fastqc FASTQ --threads 2 --nogroup --outdir results/FASTQC_BEFORE_TRIMMING/
 
 ```
 
-After we run quality controls. We will run `cutadapt` tool to remove the leftover adapters and low quality bases. 
+After we run quality controls. We will run `cutadapt` tool to remove the leftover adapters and low quality bases. Here is the overview of this rule. 
+
+You can add or remove adapters using the `config/config.yaml` file. 
+
+In this file the inputs will be retrieved again from the samplesheet file. And the outputs will be placed to the `results/CUTADAPT_ADAPTER_TRIMMING/` folder. 
+
+```
+rule Cutadapt_Adapter_Trimming:
+    output:
+        fastq="results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz",
+    input:
+        fastq=lambda wildcards: samples.loc[wildcards.sample].fastq,
+    params:
+        adapters=" ".join([f"-a {x}" for x in ADAPTERS]),
+    message:
+        "Cutadapt_Adapter_Trimming: TRIMMING ADAPTERS FOR SAMPLE {input.fastq} WITH CUTADAPT"
+    threads: 1
+    shell:
+        "cutadapt {params.adapters} --minimum-length 30 -o {output.fastq} {input.fastq} &> {log}"
+
+```
+
+Here is how we will run it for one file:
+
+```
+cutadapt -a ADAPTERS --minimum-length 30 -o results/CUTADAPT_ADAPTER_TRIMMING/sample  
+
+```
 
