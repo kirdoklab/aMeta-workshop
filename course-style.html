@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Emrah Kırdök, Ph.D.">
-<meta name="dcterms.date" content="2025-06-01">
 
-<title>aMeta Workshop</title>
+<title>aMeta Workshop - 3&nbsp; How to follow the Course?</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -32,7 +30,8 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./about.html" rel="next">
+<link href="./qc.html" rel="next">
+<link href="./about.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -65,13 +64,13 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar floating fullcontent">
+<body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">aMeta Workshop</h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">How to follow the Course?</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -96,7 +95,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Home</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Home</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -106,7 +105,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./course-style.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">How to follow the course?</span></a>
+  <a href="./course-style.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">How to follow the course?</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -118,32 +117,31 @@ ul.task-list li input[type="checkbox"] {
     </div>
 </nav>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#using-conda-package-manager" id="toc-using-conda-package-manager" class="nav-link active" data-scroll-target="#using-conda-package-manager"><span class="toc-section-number">3.1</span>  Using conda package manager</a></li>
+  <li><a href="#using-environment-modules" id="toc-using-environment-modules" class="nav-link" data-scroll-target="#using-environment-modules"><span class="toc-section-number">3.2</span>  Using environment modules</a></li>
+  <li><a href="#benchmarks" id="toc-benchmarks" class="nav-link" data-scroll-target="#benchmarks"><span class="toc-section-number">3.3</span>  Benchmarks</a></li>
+  <li><a href="#logs" id="toc-logs" class="nav-link" data-scroll-target="#logs"><span class="toc-section-number">3.4</span>  Logs</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">aMeta Workshop</h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">How to follow the Course?</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Emrah Kırdök, Ph.D. </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">June 1, 2025</p>
-    </div>
-  </div>
   
     
   </div>
@@ -151,11 +149,61 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>In this webpage, we aim to present a tutorail for our tool aMeta, a workflow to analyse the microbial content in ancient specimens from wide variety of source organisms (including humans).</p>
-<p>Please find our preprint through this <a href="https://www.biorxiv.org/content/10.1101/2022.10.03.510579v1">link</a>.</p>
-<p>Please find the whole pipline through this <a href="https://github.com/NBISweden/aMeta">github repo</a></p>
+<p>In this course, we would like to show you the mechanics of the aMeta workflow by creating a step-by-step tutorial.</p>
+<p>The aim is to give information on the every snakemake rule, and let you run it manually.</p>
+<p>The tutorial part of the course is designed on a specific system. So, if you want to follow this tutorial in your server system, you need to instal the tools by yourself using conda or any other package manager.</p>
+<p>We will first show you the snakemake rule. For example this code in the quality control part:</p>
+<pre><code>
+rule FastQC_BeforeTrimming:
+    """Run fastq before trimming"""
+    output:
+        html="results/FASTQC_BEFORE_TRIMMING/{sample}_fastqc.html",
+        zip="results/FASTQC_BEFORE_TRIMMING/{sample}_fastqc.zip",
+    input:
+        fastq=lambda wildcards: samples.loc[wildcards.sample].fastq,
+    conda:
+        "../envs/fastqc.yaml"
+    envmodules:
+        *config["envmodules"]["fastqc"],
+    benchmark:
+        "benchmarks/FASTQC_BEFORE_TRIMMING/{sample}.benchmark.txt"
+    message:
+        "FastQC_BeforeTrimming: RUNNING QUALITY CONTROL WITH FASTQC FOR SAMPLE {input.fastq} BEFORE TRIMMING ADAPTERS"
+    log:
+        "logs/FASTQC_BEFORE_TRIMMING/{sample}.log",
+    threads: 2
+    shell:
+        "fastqc {input.fastq} --threads {threads} --nogroup --outdir results/FASTQC_BEFORE_TRIMMING &amp;&gt; {log}"</code></pre>
+<p>There are specific snakemake commands in here. To improve the readablity, we will delete some of the content in each rule.</p>
+<p>Here we would like to first explain the parameters in each rule:</p>
+<section id="using-conda-package-manager" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="using-conda-package-manager"><span class="header-section-number">3.1</span> Using conda package manager</h2>
+<p>Each rule can conain a conda environment. So, if you will run snakemake with <code>--use-conda</code> flag, the specified environment will be installed given you have the conda package manager already installed:</p>
+<pre><code>    conda:
+        "../envs/fastqc.yaml"</code></pre>
+</section>
+<section id="using-environment-modules" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="using-environment-modules"><span class="header-section-number">3.2</span> Using environment modules</h2>
+<p>If you want to use the environmental modules, then you need to use <code>envmodules</code> flag with the snakemake. In this case, you would like to modify the envirınmental module file.</p>
+<pre><code> envmodules:
+        *config["envmodules"]["fastqc"]
+</code></pre>
+</section>
+<section id="benchmarks" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="benchmarks"><span class="header-section-number">3.3</span> Benchmarks</h2>
+<p>You could find benchmarking stats with under the <code>benchmarking</code> folder.</p>
+<pre><code>    benchmark:
+        "benchmarks/FASTQC_BEFORE_TRIMMING/{sample}.benchmark.txt"
+</code></pre>
+</section>
+<section id="logs" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="logs"><span class="header-section-number">3.4</span> Logs</h2>
+<p>If you have problems with your snakemake run, each rule will have a log file. So you can check the errors:</p>
+<pre><code>    log:
+        "logs/FASTQC_BEFORE_TRIMMING/{sample}.log",</code></pre>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -293,10 +341,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./about.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">About the team</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./about.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">About the team</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./qc.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quality Control Step</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

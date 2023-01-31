@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Emrah Kırdök, Ph.D.">
-<meta name="dcterms.date" content="2025-06-01">
 
-<title>aMeta Workshop</title>
+<title>aMeta Workshop - 4&nbsp; Quality control and trimming</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -32,7 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./about.html" rel="next">
+<link href="./course-style.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -65,13 +63,13 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-sidebar floating fullcontent">
+<body class="nav-sidebar floating">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">aMeta Workshop</h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quality control and trimming</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -96,7 +94,7 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Home</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Home</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -111,39 +109,37 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./qc.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quality Control Step</span></a>
+  <a href="./qc.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quality Control Step</span></a>
   </div>
 </li>
     </ul>
     </div>
 </nav>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#quality-control-before-trimming" id="toc-quality-control-before-trimming" class="nav-link active" data-scroll-target="#quality-control-before-trimming"><span class="toc-section-number">4.1</span>  Quality control before trimming</a></li>
+  <li><a href="#quality-control-after-trimming" id="toc-quality-control-after-trimming" class="nav-link" data-scroll-target="#quality-control-after-trimming"><span class="toc-section-number">4.2</span>  Quality control after trimming</a></li>
+  <li><a href="#combine-quality-control-outputs" id="toc-combine-quality-control-outputs" class="nav-link" data-scroll-target="#combine-quality-control-outputs"><span class="toc-section-number">4.3</span>  Combine quality control outputs</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">aMeta Workshop</h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quality control and trimming</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Emrah Kırdök, Ph.D. </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">June 1, 2025</p>
-    </div>
-  </div>
   
     
   </div>
@@ -151,11 +147,80 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>In this webpage, we aim to present a tutorail for our tool aMeta, a workflow to analyse the microbial content in ancient specimens from wide variety of source organisms (including humans).</p>
-<p>Please find our preprint through this <a href="https://www.biorxiv.org/content/10.1101/2022.10.03.510579v1">link</a>.</p>
-<p>Please find the whole pipline through this <a href="https://github.com/NBISweden/aMeta">github repo</a></p>
+<section id="quality-control-before-trimming" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="quality-control-before-trimming"><span class="header-section-number">4.1</span> Quality control before trimming</h2>
+<p>The pipeline starts with quality control step. We will first run <code>FastQC</code> tool to check the qualitu of the fastq files.</p>
+<p>This is the rule in the <code>workflow/rules/qc.smk</code> file. Input files are retrieved from the samplesheet that you provided. And you will have two output files <code>html</code> and <code>zip</code> files. The <code>html</code> file contains the final report.</p>
+<pre><code>
+rule FastQC_BeforeTrimming:
+    """Run fastq before trimming"""
+    output:
+        html="results/FASTQC_BEFORE_TRIMMING/{sample}_fastqc.html",
+        zip="results/FASTQC_BEFORE_TRIMMING/{sample}_fastqc.zip",
+    input:
+        fastq=lambda wildcards: samples.loc[wildcards.sample].fastq,
+    message:
+        "FastQC_BeforeTrimming: RUNNING QUALITY CONTROL WITH FASTQC FOR SAMPLE {input.fastq} BEFORE TRIMMING ADAPTERS"
+    threads: 2
+    shell:
+        "fastqc {input.fastq} --threads {threads} --nogroup --outdir results/FASTQC_BEFORE_TRIMMING &amp;&gt; {log}"
+</code></pre>
+<p>Here is a simplified version of this code:</p>
+<pre><code>
+fastqc FASTQ --threads 2 --nogroup --outdir results/FASTQC_BEFORE_TRIMMING/
+</code></pre>
+<p>##&nbsp;Quality trimming step</p>
+<p>After we run quality controls. We will run <code>cutadapt</code> tool to remove the leftover adapters and low quality bases. Here is the overview of this rule.</p>
+<p>You can add or remove adapters using the <code>config/config.yaml</code> file.</p>
+<p>In this file the inputs will be retrieved again from the samplesheet file. And the outputs will be placed to the <code>results/CUTADAPT_ADAPTER_TRIMMING/</code> folder.</p>
+<pre><code>rule Cutadapt_Adapter_Trimming:
+    output:
+        fastq="results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz",
+    input:
+        fastq=lambda wildcards: samples.loc[wildcards.sample].fastq,
+    params:
+        adapters=" ".join([f"-a {x}" for x in ADAPTERS]),
+    message:
+        "Cutadapt_Adapter_Trimming: TRIMMING ADAPTERS FOR SAMPLE {input.fastq} WITH CUTADAPT"
+    threads: 1
+    shell:
+        "cutadapt {params.adapters} --minimum-length 30 -o {output.fastq} {input.fastq} &amp;&gt; {log}"
+</code></pre>
+<p>Here is how we will run it for one file:</p>
+<pre><code>cutadapt -a ADAPTERS --minimum-length 30 -o results/CUTADAPT_ADAPTER_TRIMMING/sample  
+</code></pre>
+</section>
+<section id="quality-control-after-trimming" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="quality-control-after-trimming"><span class="header-section-number">4.2</span> Quality control after trimming</h2>
+<p>Then we will run the quality control after the trimming step:</p>
+<p>rule FastQC_AfterTrimming: output: html=“results/FASTQC_AFTER_TRIMMING/{sample}.trimmed_fastqc.html”, zip=“results/FASTQC_AFTER_TRIMMING/{sample}.trimmed_fastqc.zip”, input: fastq=“results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz”, threads: 2 message: “FastQC_AfterTrimming: RUNNING QUALITY CONTROL WITH FASTQC FOR SAMPLE {input.fastq} AFTER TRIMMING ADAPTERS” shell: “fastqc {input.fastq} –threads {threads} –nogroup –outdir results/FASTQC_AFTER_TRIMMING &amp;&gt; {log}”</p>
+<p>Here is how we will run it for one file:</p>
+<pre><code>fastqc results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz --threads 2 --nogroup --outdir results/FASTQC_AFTER_TRIMMING</code></pre>
+</section>
+<section id="combine-quality-control-outputs" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="combine-quality-control-outputs"><span class="header-section-number">4.3</span> Combine quality control outputs</h2>
+<p>At last we will combine all the fastqc reports into one file using Multifastqc tool:</p>
+<pre class="&nbsp;"><code>rule MultiQC:
+    """Run MultiQC"""
+    output:
+        html="results/MULTIQC/multiqc_report.html",
+    input:
+        unpack(multiqc_input),
+    params:
+        config=os.path.join(WORKFLOW_DIR, "envs", "multiqc_config.yaml"),
+    envmodules:
+        *config["envmodules"]["multiqc"],
+    benchmark:
+        "benchmarks/MULTIQC/MULTIQC.benchmark.txt"
+    message:
+        "MultiQC: COMBINING QUALITY CONTROL METRICS WITH MULTIQC"
+    shell:
+        'echo {input} | tr " " "\n" &gt; {output.html}.fof;'
+        "multiqc -c {params.config} -l {output.html}.fof --verbose --force --outdir results/MULTIQC &amp;&gt; {log}"
+</code></pre>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -293,11 +358,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="./course-style.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">How to follow the course?</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./about.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">About the team</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
