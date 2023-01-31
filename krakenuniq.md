@@ -12,12 +12,19 @@ KrakenUniq is relatively fast and allows to screen aDNA samples against as large
 
 KrakenUniq is very handy as it provides k-mer coverage information that is equivalent to "breadth of coverage" that one can extract via alignment. 
 
-Here we show an example of how to run a sample using the full NT KrakenUniq database:
+To start we need to set up links to the database and the software:
+
+```bash
+DBNAME=/proj/mnt/NEOGENE4/share/KrakenUniqDatabase
+PATH_TO_KRAKENUNIQ=/usr/local/sw/anaconda3/envs/aMeta/KrakenUniq
+time $PATH_TO_KRAKENUNIQ/./krakenuniq --db $DBNAME --fastq-input sample_name.fastq.gz --threads 80 --output sample_name.fastq.gz_sequences.krakenuniq_Full_NT --report-file sample_name.fastq.gz_krakenuniq.output_Full_NT --gzip-compressed --only-classified-out
+
+```
 
 
 ## Run KrakenUniq
 
-This is the rule in the workflow/rules/krakenuniq.smk file. Input files are retrieved from the samplesheet that you provided. 
+This is the rule in the workflow/rules/krakenuniq.smk file. Input files are retrieved from the output of the Quality Control step.
 
 ```
 rule KrakenUniq:
@@ -34,7 +41,15 @@ rule KrakenUniq:
         "krakenuniq --preload --db {params.DB} --fastq-input {input.fastq} --threads {threads} --output {output.seqs} --report-file {output.report} --gzip-compressed --only-classified-out &> {log}"
 ```
 
-After running KrakenUniq, the next step is to filter the output:
+Here is a simplified version of this code:
+
+```bash
+krakenuniq --db $DBNAME --fastq-input $SAMPLE --threads 10 --output $SAMPLE.sequences.krakenuniq --report-file $SAMPLE.krakenuniq.output --gzip-compressed --only-classified-out
+
+```
+
+
+After running KrakenUniq, the next step is to filter the output. The input is the `krakenuniq.output` generated in the previous step.
 
 
 ```
@@ -53,7 +68,25 @@ rule Filter_KrakenUniq_Output:
         """cut -f7 {output.pathogens} | tail -n +2 > {output.pathogen_tax_id}"""
 ```
 
-We can then visualize using Krona:
+```bash
+cd $OUTPUT; Rscript $PATH_TO_SCRIPTS/pipeline.R
+cut -f7 $OUTPUT/krakenuniq.output.pathogens | tail -n +2 > $OUTPUT/taxID.pathogens
+```
+
+```
+cat $OUTPUT/taxID.pathogens | parallel "${PATH_TO_KRAKENUNIQ}/./krakenuniq-extract-reads {} $OUTPUT/sequences.krakenuniq ${SAMPLE} > $OUTPUT/{}.temp.fq"
+echo "MeanReadLength" > $OUTPUT/mean.reads.length; cd $OUTPUT
+for i in $(cat taxID.pathogens); do awk '{if(NR%4==2) print length($1)}' ${i}.temp.fq | awk '{ sum += $0 } END { if (NR > 0) print sum / NR }' >> mean.reads.length; done; rm *.temp.fq
+
+```
+
+```bash
+paste krakenuniq.output.pathogens mean.reads.length > krakenuniq.output.pathogens_with_mean_read_length
+cat krakenuniq.output.pathogens_with_mean_read_length
+```
+
+
+We then visualize our filtered output using Krona:
 
 ```
 rule KrakenUniq2Krona:
@@ -65,12 +98,9 @@ rule KrakenUniq2Krona:
     input:
         report="results/KRAKENUNIQ/{sample}/krakenuniq.output.filtered",
         seqs="results/KRAKENUNIQ/{sample}/sequences.krakenuniq",
-
     params:
         exe=WORKFLOW_DIR / "scripts/krakenuniq2krona.py",
         DB=f"--tax {config['krona_db']}" if "krona_db" in config else "",
-    benchmark:
-        "benchmarks/KRAKENUNIQ2KRONA/{sample}.benchmark.txt"
     message:
         "KrakenUniq2Krona: VISUALIZING KRAKENUNIQ RESULTS WITH KRONA FOR SAMPLE {input.report}"
     shell:
@@ -106,57 +136,9 @@ rule KrakenUniq_AbundanceMatrix:
 
 
 
-To start we need to set up links to the database and the software:
 
 
 ```bash
-DBNAME=/proj/mnt/NEOGENE4/share/KrakenUniqDatabase
-PATH_TO_KRAKENUNIQ=/usr/local/sw/anaconda3/envs/aMeta/KrakenUniq
-time $PATH_TO_KRAKENUNIQ/./krakenuniq --db $DBNAME --fastq-input sample_name.fastq.gz --threads 80 --output sample_name.fastq.gz_sequences.krakenuniq_Full_NT --report-file sample_name.fastq.gz_krakenuniq.output_Full_NT --gzip-compressed --only-classified-out
-
-```
-
-To run KrakenUniq we then 
-
-
- 
-```bash
-printf "\n"; echo "RUNNING KRAKEN-UNIQ"
-if [ ! -f $OUTPUT/krakenuniq.output ];
-then
-time $PATH_TO_KRAKENUNIQ/./krakenuniq --db $DBNAME --fastq-input $SAMPLE --threads 10 --output $OUTPUT/sequences.krakenuniq --report-file $OUTPUT/krakenuniq.output --gzip-compressed --only-classified-out
-else
-echo "SKIPPING RUNNING KRAKEN-UNIQ BECAUSE OUTPUT EXISTS"
-fi
-
-```
-
-
-
-
-```bash
-printf "\n"; echo "FILTERING KRAKEN-UNIQ OUTPUT"
-cd $OUTPUT; Rscript $PATH_TO_SCRIPTS/pipeline.R
-cut -f7 $OUTPUT/krakenuniq.output.pathogens | tail -n +2 > $OUTPUT/taxID.pathogens
- 
-printf "\n"; echo "STEP6: COMPUTING MEAN READ LENGTH"
-if [ ! -f $OUTPUT/mean.reads.length ];
-then
-cat $OUTPUT/taxID.pathogens | parallel "${PATH_TO_KRAKENUNIQ}/./krakenuniq-extract-reads {} $OUTPUT/sequences.krakenuniq ${SAMPLE} > $OUTPUT/{}.temp.fq"
-echo "MeanReadLength" > $OUTPUT/mean.reads.length; cd $OUTPUT
-for i in $(cat taxID.pathogens); do awk '{if(NR%4==2) print length($1)}' ${i}.temp.fq | awk '{ sum += $0 } END { if (NR > 0) print sum / NR }' >> mean.reads.length; done; rm *.temp.fq
-else
-echo "SKIPPING COMPUTING MEAN READ LENGTH BECAUSE OUTPUT EXISTS"
-fi
-
-```
-
-```bash
- 
-printf "\n"; echo "GENERATING FINAL KRAKENUNIQ OUTPUT"
-paste krakenuniq.output.pathogens mean.reads.length > krakenuniq.output.pathogens_with_mean_read_length
-cat krakenuniq.output.pathogens_with_mean_read_length
- 
 printf "\n"; echo "PERFORMING ALIGNMENT TO PATHO-GENOME"
 time bowtie2 --large-index -x $PATHO_GENOME --threads 10 --end-to-end --very-sensitive -U $SAMPLE | samtools view -bS -q 1 -h -@ 10 - > $OUTPUT/test_sample_AlignedToSpecies.bam
 samtools sort $OUTPUT/test_sample_AlignedToSpecies.bam -@ 10 > $OUTPUT/test_sample_AlignedToSpecies.sorted.bam; samtools index $OUTPUT/test_sample_AlignedToSpecies.sorted.bam
@@ -175,7 +157,6 @@ Rscript $PATH_TO_SCRIPTS/ancient_status.R 0.05 0.9 $OUTPUT
 ```
 
 ```bash
- 
 printf "\n"; echo "COMPUTE DEPTH AND BREADTH OF COVERAGE FROM ALIGNMENTS"
 echo "NUMBER_OF_READS" > DepthOfCoverage.${FASTQ_FILE}.txt; echo "GENOME_LENGTH" > GenomeLength.${FASTQ_FILE}.txt; echo "BREADTH_OF_COVERAGE" > BreadthOfCoverage.${FASTQ_FILE}.txt
 for j in $(cut -f7 final_output.txt | sed '1d')
