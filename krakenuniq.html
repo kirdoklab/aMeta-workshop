@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.313">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>aMeta Workshop - 5&nbsp; KrakenUniq</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./qc.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">KrakenUniq</span></h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">aMeta Workshop</a> 
+    </div>
+      </div>
+      <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Home</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./about.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">About the team</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./course-style.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">How to follow the course?</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./qc.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quality Control Step</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./krakenuniq.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">KrakenUniq Step</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#krakenuniq-database" id="toc-krakenuniq-database" class="nav-link active" data-scroll-target="#krakenuniq-database"><span class="toc-section-number">5.1</span>  KrakenUniq database</a></li>
+  <li><a href="#run-krakenuniq" id="toc-run-krakenuniq" class="nav-link" data-scroll-target="#run-krakenuniq"><span class="toc-section-number">5.2</span>  Run KrakenUniq</a></li>
+  <li><a href="#screening-workflow" id="toc-screening-workflow" class="nav-link" data-scroll-target="#screening-workflow"><span class="toc-section-number">5.3</span>  Screening workflow</a>
+  <ul class="collapse">
+  <li><a href="#kraken2-vs-krakenuniq" id="toc-kraken2-vs-krakenuniq" class="nav-link" data-scroll-target="#kraken2-vs-krakenuniq"><span class="toc-section-number">5.3.1</span>  Kraken2 vs KrakenUniq</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">KrakenUniq</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="krakenuniq-database" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="krakenuniq-database"><span class="header-section-number">5.1</span> KrakenUniq database</h2>
+<p>A full NT database for KrakenUniq is [available for download] (https://www.biorxiv.org/node/2777891.external-links.html) through SciLifeLab. Other databases are available online and for this workshop, we will be using <a href="https://benlangmead.github.io/aws-indexes/k2">MinusB</a>. The database is installed on the cluster.</p>
+<p>KrakenUniq is relatively fast and allows to screen aDNA samples against as large database as possible. The KrakenUniq paper suggests that KrakenUniq is not less accurate compared to alignment tools such as BLAST and MEGAN.</p>
+<p>KrakenUniq is very handy as it provides k-mer coverage information that is equivalent to “breadth of coverage” that one can extract via alignment.</p>
+<p>Here we show an example of how to run a sample using the full NT KrakenUniq database:</p>
+</section>
+<section id="run-krakenuniq" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="run-krakenuniq"><span class="header-section-number">5.2</span> Run KrakenUniq</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">DBNAME</span><span class="op">=</span>/proj/mnt/NEOGENE4/share/KrakenUniqDatabase</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="va">PATH_TO_KRAKENUNIQ</span><span class="op">=</span>/usr/local/sw/anaconda3/envs/aMeta/KrakenUniq</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">time</span> <span class="va">$PATH_TO_KRAKENUNIQ</span>/./krakenuniq <span class="at">--db</span> <span class="va">$DBNAME</span> <span class="at">--fastq-input</span> sample_name.fastq.gz <span class="at">--threads</span> 80 <span class="at">--output</span> sample_name.fastq.gz_sequences.krakenuniq_Full_NT <span class="at">--report-file</span> sample_name.fastq.gz_krakenuniq.output_Full_NT <span class="at">--gzip-compressed</span> <span class="at">--only-classified-out</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Here we demonstrate how to filter the KrakenUniq output using the kmers=1000 threshold, extract sequence IDs associated with the taxIDs that passed the kmers=1000 threshold and visualize the abundances with Krona:</p>
+</section>
+<section id="screening-workflow" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="screening-workflow"><span class="header-section-number">5.3</span> Screening workflow</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"STEP1: PREPARING PIPELINE"</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="ex">module</span> load bioinfo-tools<span class="kw">;</span> <span class="ex">module</span> load perl<span class="kw">;</span> <span class="ex">module</span> load bowtie2<span class="kw">;</span> <span class="ex">module</span> load samtools<span class="kw">;</span> <span class="ex">module</span> load mapDamage/2.0.9<span class="kw">;</span> <span class="ex">module</span> load gnuparallel<span class="kw">;</span> <span class="ex">module</span> load Kraken2<span class="kw">;</span> <span class="ex">module</span> load FastQC</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="va">FASTQ_FILE</span><span class="op">=</span><span class="va">$1</span><span class="kw">;</span> <span class="bu">cd</span> <span class="va">$SNIC_TMP</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">!</span> <span class="ot">-d</span> <span class="va">$SNIC_TMP</span>/<span class="va">${FASTQ_FILE}</span>_PipelineOutput <span class="bu">]</span><span class="kw">;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="cf">then</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> /proj/snic2018-8-150/uppstore2018095/private/NBIS_Demo/fastq_files/<span class="va">${FASTQ_FILE}</span> <span class="va">$SNIC_TMP</span><span class="kw">;</span> <span class="fu">mkdir</span> <span class="va">$SNIC_TMP</span>/<span class="va">${FASTQ_FILE}</span>_PipelineOutput</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">!</span> <span class="ot">-d</span> <span class="va">$SNIC_TMP</span>/DBDIR <span class="bu">]</span><span class="kw">;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="cf">then</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-r</span> /proj/snic2018-8-150/uppstore2018095/private/NBIS_Demo/KrakenUniq/krakenuniq/KrakenUniq/DBDIR <span class="va">$SNIC_TMP</span><span class="kw">;</span> <span class="fu">cp</span> <span class="at">-r</span> /proj/snic2018-8-150/uppstore2018095/private/NBIS_Demo/PathoGenome <span class="va">$SNIC_TMP</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="va">SAMPLE</span><span class="op">=</span><span class="va">$SNIC_TMP</span>/<span class="va">${FASTQ_FILE}</span><span class="kw">;</span> <span class="va">DBNAME</span><span class="op">=</span><span class="va">$SNIC_TMP</span>/DBDIR<span class="kw">;</span> <span class="va">OUTPUT</span><span class="op">=</span><span class="va">$SNIC_TMP</span>/<span class="va">${FASTQ_FILE}</span>_PipelineOutput<span class="kw">;</span> <span class="va">PATH_TO_PATHO_GENOME</span><span class="op">=</span><span class="va">$SNIC_TMP</span>/PathoGenome<span class="kw">;</span> <span class="va">PATHO_GENOME</span><span class="op">=</span><span class="va">$PATH_TO_PATHO_GENOME</span>/library.pathogen.fna</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="va">PATH_TO_KRAKENUNIQ</span><span class="op">=</span>/proj/snic2018-8-150/uppstore2018095/private/NBIS_Demo/KrakenUniq/krakenuniq/KrakenUniq<span class="kw">;</span> <span class="va">PATH_TO_SCRIPTS</span><span class="op">=</span>/proj/snic2018-8-150/uppstore2018095/private/NBIS_Demo/scripts</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="va">KRAKEN2_DB</span><span class="op">=</span>/proj/snic2018-8-150/uppstore2018095/private/NBIS_Demo/DBDIR_Kraken2_MicrobialNT</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">"\n"</span><span class="kw">;</span> <span class="bu">echo</span> <span class="st">"STEP2: RUNNING QUALITY CONTROL WITH FASTQC"</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">!</span> <span class="ot">-f</span> <span class="va">$OUTPUT</span>/<span class="pp">*</span>_fastqc.zip <span class="bu">]</span><span class="kw">;</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="cf">then</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="bu">time</span> fastqc <span class="va">${SAMPLE}</span> <span class="at">--outdir</span> <span class="va">$OUTPUT</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"SKIPPING RUNNING QUALITY CONTROL WITH FASTQC BECAUSE OUTPUT EXISTS"</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">"\n"</span><span class="kw">;</span> <span class="bu">echo</span> <span class="st">"STEP3: RUNNING KRAKEN2"</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">!</span> <span class="ot">-f</span> <span class="va">$OUTPUT</span>/kraken2.output <span class="bu">]</span><span class="kw">;</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="cf">then</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="bu">time</span> kraken2 <span class="va">${SAMPLE}</span> <span class="at">--db</span> <span class="va">$KRAKEN2_DB</span> <span class="at">--gzip-compressed</span> <span class="at">--threads</span> 10 <span class="at">--classified-out</span> <span class="va">$OUTPUT</span>/classified_sequences.kraken2 <span class="at">--unclassified-out</span> <span class="va">$OUTPUT</span>/unclassified_sequences.kraken2 <span class="at">--output</span> <span class="va">$OUTPUT</span>/sequences.kraken2 <span class="at">--use-names</span> <span class="at">--report</span> <span class="va">$OUTPUT</span>/kraken2.output</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"SKIPPING RUNNING KRAKEN2 BECAUSE OUTPUT EXISTS"</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">"\n"</span><span class="kw">;</span> <span class="bu">echo</span> <span class="st">"STEP4: RUNNING KRAKEN-UNIQ"</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">!</span> <span class="ot">-f</span> <span class="va">$OUTPUT</span>/krakenuniq.output <span class="bu">]</span><span class="kw">;</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="cf">then</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="bu">time</span> <span class="va">$PATH_TO_KRAKENUNIQ</span>/./krakenuniq <span class="at">--db</span> <span class="va">$DBNAME</span> <span class="at">--fastq-input</span> <span class="va">$SAMPLE</span> <span class="at">--threads</span> 10 <span class="at">--output</span> <span class="va">$OUTPUT</span>/sequences.krakenuniq <span class="at">--report-file</span> <span class="va">$OUTPUT</span>/krakenuniq.output <span class="at">--gzip-compressed</span> <span class="at">--only-classified-out</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"SKIPPING RUNNING KRAKEN-UNIQ BECAUSE OUTPUT EXISTS"</span></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">"\n"</span><span class="kw">;</span> <span class="bu">echo</span> <span class="st">"STEP5: FILTERING KRAKEN-UNIQ OUTPUT"</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="va">$OUTPUT</span><span class="kw">;</span> <span class="ex">Rscript</span> <span class="va">$PATH_TO_SCRIPTS</span>/pipeline.R</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f7</span> <span class="va">$OUTPUT</span>/krakenuniq.output.pathogens <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> +2 <span class="op">&gt;</span> <span class="va">$OUTPUT</span>/taxID.pathogens</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">"\n"</span><span class="kw">;</span> <span class="bu">echo</span> <span class="st">"STEP6: COMPUTING MEAN READ LENGTH"</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">!</span> <span class="ot">-f</span> <span class="va">$OUTPUT</span>/mean.reads.length <span class="bu">]</span><span class="kw">;</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a><span class="cf">then</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="va">$OUTPUT</span>/taxID.pathogens <span class="kw">|</span> <span class="ex">parallel</span> <span class="st">"</span><span class="va">${PATH_TO_KRAKENUNIQ}</span><span class="st">/./krakenuniq-extract-reads {} </span><span class="va">$OUTPUT</span><span class="st">/sequences.krakenuniq </span><span class="va">${SAMPLE}</span><span class="st"> &gt; </span><span class="va">$OUTPUT</span><span class="st">/{}.temp.fq"</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"MeanReadLength"</span> <span class="op">&gt;</span> <span class="va">$OUTPUT</span>/mean.reads.length<span class="kw">;</span> <span class="bu">cd</span> <span class="va">$OUTPUT</span></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> taxID.pathogens<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span> <span class="fu">awk</span> <span class="st">'{if(NR%4==2) print length($1)}'</span> <span class="va">${i}</span>.temp.fq <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'{ sum += $0 } END { if (NR &gt; 0) print sum / NR }'</span> <span class="op">&gt;&gt;</span> mean.reads.length<span class="kw">;</span> <span class="cf">done</span><span class="kw">;</span> <span class="fu">rm</span> <span class="pp">*</span>.temp.fq</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span></span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"SKIPPING COMPUTING MEAN READ LENGTH BECAUSE OUTPUT EXISTS"</span></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">"\n"</span><span class="kw">;</span> <span class="bu">echo</span> <span class="st">"STEP7: GENERATING FINAL KRAKENUNIQ OUTPUT"</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span> krakenuniq.output.pathogens mean.reads.length <span class="op">&gt;</span> krakenuniq.output.pathogens_with_mean_read_length</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> krakenuniq.output.pathogens_with_mean_read_length</span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">"\n"</span><span class="kw">;</span> <span class="bu">echo</span> <span class="st">"STEP8: PERFORMING ALIGNMENT TO PATHO-GENOME"</span></span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a><span class="bu">time</span> bowtie2 <span class="at">--large-index</span> <span class="at">-x</span> <span class="va">$PATHO_GENOME</span> <span class="at">--threads</span> 10 <span class="at">--end-to-end</span> <span class="at">--very-sensitive</span> <span class="at">-U</span> <span class="va">$SAMPLE</span> <span class="kw">|</span> <span class="ex">samtools</span> view <span class="at">-bS</span> <span class="at">-q</span> 1 <span class="at">-h</span> <span class="at">-@</span> 10 <span class="at">-</span> <span class="op">&gt;</span> <span class="va">$OUTPUT</span>/test_sample_AlignedToSpecies.bam</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> sort <span class="va">$OUTPUT</span>/test_sample_AlignedToSpecies.bam <span class="at">-@</span> 10 <span class="op">&gt;</span> <span class="va">$OUTPUT</span>/test_sample_AlignedToSpecies.sorted.bam<span class="kw">;</span> <span class="ex">samtools</span> index <span class="va">$OUTPUT</span>/test_sample_AlignedToSpecies.sorted.bam</span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> markdup <span class="at">-r</span> <span class="va">$OUTPUT</span>/test_sample_AlignedToSpecies.sorted.bam <span class="va">$OUTPUT</span>/test_sample_AlignedToSpecies.sorted.dedup.bam<span class="kw">;</span> <span class="ex">samtools</span> index <span class="va">$OUTPUT</span>/test_sample_AlignedToSpecies.sorted.dedup.bam</span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">"\n"</span><span class="kw">;</span> <span class="bu">echo</span> <span class="st">"STEP9: EXTRACTING ALIGNMENTS FOR CANDIDATES"</span></span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="va">$OUTPUT</span>/taxID.pathogens <span class="kw">|</span> <span class="ex">parallel</span> <span class="st">"grep -w {} </span><span class="va">${PATH_TO_PATHO_GENOME}</span><span class="st">/seqid2taxid.pathogen.map | cut -f1 &gt; </span><span class="va">${OUTPUT}</span><span class="st">/{}.seq.ids"</span></span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> <span class="va">$OUTPUT</span>/taxID.pathogens<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span> <span class="ex">samtools</span> view <span class="at">-bh</span> <span class="va">$OUTPUT</span>/test_sample_AlignedToSpecies.sorted.dedup.bam <span class="at">-@</span> 10 <span class="va">$(</span><span class="fu">cat</span> <span class="va">$OUTPUT</span>/<span class="va">${i}</span>.seq.ids <span class="kw">|</span> <span class="fu">tr</span> <span class="st">"\n"</span> <span class="st">" "</span><span class="va">)</span> <span class="op">&gt;</span> <span class="va">$OUTPUT</span>/<span class="va">${i}</span>.output.bam<span class="kw">;</span> <span class="cf">done</span></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">"\n"</span><span class="kw">;</span> <span class="bu">echo</span> <span class="st">"STEP10: RUNNING MAPDAMAGE ANCIENT STATUS ANALYSIS"</span></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a><span class="fu">find</span> . <span class="at">-name</span> <span class="st">'*.output.bam'</span> <span class="kw">|</span> <span class="ex">parallel</span> <span class="st">"mapDamage -i {} -r </span><span class="va">${PATHO_GENOME}</span><span class="st"> --merge-reference-sequences -d </span><span class="va">${OUTPUT}</span><span class="st">/results_{}"</span></span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">"\n"</span><span class="kw">;</span> <span class="bu">echo</span> <span class="st">"STEP11: ASSIGN ANCIENT STATUS"</span></span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> <span class="va">$PATH_TO_SCRIPTS</span>/ancient_status.R 0.05 0.9 <span class="va">$OUTPUT</span></span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">"\n"</span><span class="kw">;</span> <span class="bu">echo</span> <span class="st">"STEP12: COMPUTE DEPTH AND BREADTH OF COVERAGE FROM ALIGNMENTS"</span></span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"NUMBER_OF_READS"</span> <span class="op">&gt;</span> DepthOfCoverage.<span class="va">${FASTQ_FILE}</span>.txt<span class="kw">;</span> <span class="bu">echo</span> <span class="st">"GENOME_LENGTH"</span> <span class="op">&gt;</span> GenomeLength.<span class="va">${FASTQ_FILE}</span>.txt<span class="kw">;</span> <span class="bu">echo</span> <span class="st">"BREADTH_OF_COVERAGE"</span> <span class="op">&gt;</span> BreadthOfCoverage.<span class="va">${FASTQ_FILE}</span>.txt</span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="va">$(</span><span class="fu">cut</span> <span class="at">-f7</span> final_output.txt <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'1d'</span><span class="va">)</span></span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Organism </span><span class="va">$j</span><span class="st">"</span></span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">-s</span> <span class="va">${j}</span>.output.bam <span class="bu">]</span> <span class="kw">&amp;&amp;</span> <span class="bu">[</span> <span class="st">"</span><span class="va">$(</span><span class="ex">samtools</span> view <span class="va">${j}</span>.output.bam <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span><span class="va">)</span><span class="st">"</span> <span class="ot">-ne</span> <span class="st">"0"</span> <span class="bu">]</span><span class="kw">;</span></span>
+<span id="cb2-79"><a href="#cb2-79" aria-hidden="true" tabindex="-1"></a><span class="cf">then</span></span>
+<span id="cb2-80"><a href="#cb2-80" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> sort <span class="va">${j}</span>.output.bam <span class="op">&gt;</span> <span class="va">${j}</span>.output.sorted.bam<span class="kw">;</span> <span class="ex">samtools</span> depth <span class="va">${j}</span>.output.sorted.bam <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="op">&gt;</span> Genomes_<span class="va">${j}</span>.txt</span>
+<span id="cb2-81"><a href="#cb2-81" aria-hidden="true" tabindex="-1"></a><span class="va">GENOME_LENGTH</span><span class="op">=</span><span class="va">$(</span><span class="fu">grep</span> <span class="at">-wFf</span> Genomes_<span class="va">${j}</span>.txt <span class="va">$PATH_TO_PATHO_GENOME</span>/GenomeLength.txt <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f2</span> <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'{ sum += $1; } END { print sum; }'</span><span class="va">)</span></span>
+<span id="cb2-82"><a href="#cb2-82" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">-s</span> <span class="va">${j}</span>.output.sorted.bam <span class="bu">]</span><span class="kw">;</span></span>
+<span id="cb2-83"><a href="#cb2-83" aria-hidden="true" tabindex="-1"></a><span class="cf">then</span></span>
+<span id="cb2-84"><a href="#cb2-84" aria-hidden="true" tabindex="-1"></a><span class="va">NUMBER_OF_READS</span><span class="op">=</span><span class="va">$(</span><span class="ex">samtools</span> view <span class="va">${j}</span>.output.sorted.bam <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span><span class="va">)</span><span class="kw">;</span> <span class="va">NUMBER_OF_COVERED_POSITIONS</span><span class="op">=</span><span class="va">$(</span><span class="ex">samtools</span> depth <span class="va">${j}</span>.output.sorted.bam <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span><span class="va">)</span></span>
+<span id="cb2-85"><a href="#cb2-85" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span></span>
+<span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"NA"</span> <span class="op">&gt;&gt;</span> DepthOfCoverage.<span class="va">${FASTQ_FILE}</span>.txt<span class="kw">;</span> <span class="bu">echo</span> <span class="st">"NA"</span> <span class="op">&gt;&gt;</span> BreadthOfCoverage.<span class="va">${FASTQ_FILE}</span>.txt<span class="kw">;</span> <span class="bu">echo</span> <span class="st">"NA"</span> <span class="op">&gt;&gt;</span> GenomeLength.<span class="va">${FASTQ_FILE}</span>.txt</span>
+<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a><span class="cf">continue</span></span>
+<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$NUMBER_OF_READS</span> <span class="op">&gt;&gt;</span> DepthOfCoverage.<span class="va">${FASTQ_FILE}</span>.txt<span class="kw">;</span> <span class="bu">echo</span> <span class="va">$GENOME_LENGTH</span> <span class="op">&gt;&gt;</span> GenomeLength.<span class="va">${FASTQ_FILE}</span>.txt</span>
+<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"scale=10 ; (</span><span class="va">$NUMBER_OF_COVERED_POSITIONS</span><span class="st"> / </span><span class="va">$GENOME_LENGTH</span><span class="st">)*100"</span> <span class="kw">|</span> <span class="fu">bc</span> <span class="op">&gt;&gt;</span> BreadthOfCoverage.<span class="va">${FASTQ_FILE}</span>.txt</span>
+<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span></span>
+<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"NA"</span> <span class="op">&gt;&gt;</span> DepthOfCoverage.<span class="va">${FASTQ_FILE}</span>.txt<span class="kw">;</span> <span class="bu">echo</span> <span class="st">"NA"</span> <span class="op">&gt;&gt;</span> BreadthOfCoverage.<span class="va">${FASTQ_FILE}</span>.txt<span class="kw">;</span> <span class="bu">echo</span> <span class="st">"NA"</span> <span class="op">&gt;&gt;</span> GenomeLength.<span class="va">${FASTQ_FILE}</span>.txt</span>
+<span id="cb2-93"><a href="#cb2-93" aria-hidden="true" tabindex="-1"></a><span class="cf">continue</span></span>
+<span id="cb2-94"><a href="#cb2-94" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb2-95"><a href="#cb2-95" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span><span class="kw">;</span> <span class="fu">rm</span> Genomes_<span class="pp">*</span>.txt<span class="kw">;</span> <span class="fu">paste</span> final_output.txt DepthOfCoverage.<span class="va">${FASTQ_FILE}</span>.txt GenomeLength.<span class="va">${FASTQ_FILE}</span>.txt BreadthOfCoverage.<span class="va">${FASTQ_FILE}</span>.txt <span class="op">&gt;</span> final_output_corrected.txt</span>
+<span id="cb2-96"><a href="#cb2-96" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb2-97"><a href="#cb2-97" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-r</span> <span class="va">$OUTPUT</span> /proj/snic2018-8-150/uppstore2018095/private/NBIS_Demo<span class="kw">;</span> <span class="fu">cat</span> final_output_corrected.txt</span>
+<span id="cb2-98"><a href="#cb2-98" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">"\n"</span><span class="kw">;</span> <span class="bu">echo</span> <span class="st">"PIPELINE FINISHED SUCCESSFULLY"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="kraken2-vs-krakenuniq" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="kraken2-vs-krakenuniq"><span class="header-section-number">5.3.1</span> Kraken2 vs KrakenUniq</h3>
+<p>Kraken2 is incredibly fast but unfortunately has a high False Positive Rate. KrakenUniq reduces the fraction of false discoveries (compared to Kraken2) by reporting the number of unique k-mers that is analogous to breadth of coverage information. Therefore filtering KrakenUniq output by number of unique k-mers, we get a more reliable list of candidates compared to Kraken2 (the output from Kraken2 can only be filtered by microbial abundance, i.e.&nbsp;depth of coverage). Considering filtered KrakenUniq output as a ground truth, we investigated how many records from Kraken2 output should be retained in order to capture all the species identified with KareknUniq, i.e.&nbsp;how long down the Kraken2 list one needs to go in order to detect all the species reported by KrakenUniq.</p>
+<p>What we can conclude after having screened ~100 samples is that a typical sample contains ~100 species reported (after filtering) by KrakenUniq. This corresponds to approximately ~1000 species in Kraken2 output (or 0.01% assigned reads). This implies that if we select top 1000 species in Kraken2, 900 species will probably be false positives and only 10% of all species will be true positives. If we consider KrakenUniq output as a ground truth.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./qc.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quality Control Step</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
