@@ -2,6 +2,8 @@
 title: "aMeta Workshop at Mersin"
 ---
 
-This is a Quarto website.
+In this webpage, we aim to present a tutorail for our tool aMeta, a workflow to analyse the microbial content in ancient specimens from wide variety of source organisms (including humans).
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.
+Please find our preprint through this [link](https://www.biorxiv.org/content/10.1101/2022.10.03.510579v1).
+
+Please find the whole pipline through this [github repo](https://github.com/NBISweden/aMeta)
