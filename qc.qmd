@@ -1,0 +1,36 @@
+---
+title: "Quality control and trimming"
+
+---
+
+The pipeline starts with quality control step. We will first run `FastQC` tool to check the qualitu of the fastq files.
+
+This is the rule in the `workflow/rules/qc.smk` file. Input files are retrieved from the samplesheet that you provided. And you will have two output files `html` and `zip` files. The `html` file contains the final report.
+
+```
+
+rule FastQC_BeforeTrimming:
+    """Run fastq before trimming"""
+    output:
+        html="results/FASTQC_BEFORE_TRIMMING/{sample}_fastqc.html",
+        zip="results/FASTQC_BEFORE_TRIMMING/{sample}_fastqc.zip",
+    input:
+        fastq=lambda wildcards: samples.loc[wildcards.sample].fastq,
+    message:
+        "FastQC_BeforeTrimming: RUNNING QUALITY CONTROL WITH FASTQC FOR SAMPLE {input.fastq} BEFORE TRIMMING ADAPTERS"
+    threads: 2
+    shell:
+        "fastqc {input.fastq} --threads {threads} --nogroup --outdir results/FASTQC_BEFORE_TRIMMING &> {log}"
+
+```
+
+Here is a simplified version of this code:
+
+```
+
+fastqc FASTQ --threads 2 --nogroup --outdir results/FASTQC_BEFORE_TRIMMING/
+
+```
+
+After we run quality controls. We will run `cutadapt` tool to remove the leftover adapters and low quality bases. 
+
