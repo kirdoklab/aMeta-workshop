@@ -1,5 +1,6 @@
 ---
 title: "aMeta Workshop at Mersin"
+date: "31 January 2023"
 ---
 
 In this webpage, we aim to present a tutorail for our tool aMeta, a workflow to analyse the microbial content in ancient specimens from wide variety of source organisms (including humans).
