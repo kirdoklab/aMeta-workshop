@@ -3,6 +3,8 @@ project:
 
 book:
   title: "aMeta Workshop"
+  reader-mode: true
+  
   author: "Emrah Kırdök, Ph.D."
   date: "30/01/2023"
   chapters:
