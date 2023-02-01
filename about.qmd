@@ -2,21 +2,23 @@
 title: "About"
 ---
 
-About this site
+## About this site
 
+This site is built for the aMeta workshop in Mersin Feb 6-10 2023.
 
-# The team
+## The team
 
 ### Emrah Kırdök
-Emrah is an assistant professor at the University of Mersin. 
+[Emrah Kırdök](https://scholar-google-se.ezp.sub.su.se/citations?user=BUj9itoAAAAJ&hl=sv&oi=ao) is an assistant professor at Mersin University. 
 
 
 ### Zoé Pochon
 
-Zoé started her PhD in Archaeology in 2021.
+[Zoé](http://palaeogenetics.com/zp/) started her PhD in Archaeology at the Centre for Palaeogenetics in 2021. 
 
 ### Nora Bergfeldt
 
-Nora started her PhD in Zoology in 2019.
+[Nora](http://palaeogenetics.com/nora-bergfeldt-2/) started her PhD in Zoology at the Centre for Palaeogenetics in 2019.
 
 ### Anders Götherström
+Professor [Anders Götherström](http://palaeogenetics.com/people/prof-anders-gotherstrom/) 
