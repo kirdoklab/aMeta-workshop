@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>aMeta Workshop - 5&nbsp; KrakenUniq database</title>
+<title>aMeta Workshop - 6&nbsp; KrakenUniq database</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -133,7 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">KrakenUniq database</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">KrakenUniq database</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -176,22 +176,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./course-style.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">How to follow the course?</span></a>
+  <a href="./cluster-connection.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Computing details</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./qc.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quality Control Step</span></a>
+  <a href="./course-style.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">How to follow the course?</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./krakenuniq.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">KrakenUniq Step</span></a>
+  <a href="./qc.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Quality Control Step</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./align.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Bowtie2 Step</span></a>
+  <a href="./krakenuniq.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">KrakenUniq Step</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./align.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Bowtie2 Step</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -208,9 +213,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#run-krakenuniq" id="toc-run-krakenuniq" class="nav-link active" data-scroll-target="#run-krakenuniq"><span class="toc-section-number">5.1</span>  Run KrakenUniq</a>
+  <li><a href="#run-krakenuniq" id="toc-run-krakenuniq" class="nav-link active" data-scroll-target="#run-krakenuniq"><span class="toc-section-number">6.1</span>  Run KrakenUniq</a>
   <ul class="collapse">
-  <li><a href="#kraken2-vs-krakenuniq" id="toc-kraken2-vs-krakenuniq" class="nav-link" data-scroll-target="#kraken2-vs-krakenuniq"><span class="toc-section-number">5.1.1</span>  Kraken2 vs KrakenUniq</a></li>
+  <li><a href="#kraken2-vs-krakenuniq" id="toc-kraken2-vs-krakenuniq" class="nav-link" data-scroll-target="#kraken2-vs-krakenuniq"><span class="toc-section-number">6.1.1</span>  Kraken2 vs KrakenUniq</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -220,7 +225,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">KrakenUniq database</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">KrakenUniq database</span></h1>
 </div>
 
 
@@ -241,8 +246,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">DBNAME</span><span class="op">=</span>/proj/mnt/NEOGENE4/share/KrakenUniqDatabase</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="va">PATH_TO_KRAKENUNIQ</span><span class="op">=</span>/usr/local/sw/anaconda3/envs/aMeta/KrakenUniq</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">time</span> <span class="va">$PATH_TO_KRAKENUNIQ</span>/./krakenuniq <span class="at">--db</span> <span class="va">$DBNAME</span> <span class="at">--fastq-input</span> sample_name.fastq.gz <span class="at">--threads</span> 80 <span class="at">--output</span> sample_name.fastq.gz_sequences.krakenuniq_Full_NT <span class="at">--report-file</span> sample_name.fastq.gz_krakenuniq.output_Full_NT <span class="at">--gzip-compressed</span> <span class="at">--only-classified-out</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="run-krakenuniq" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="run-krakenuniq"><span class="header-section-number">5.1</span> Run KrakenUniq</h2>
+<section id="run-krakenuniq" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="run-krakenuniq"><span class="header-section-number">6.1</span> Run KrakenUniq</h2>
 <p>This is the rule in the workflow/rules/krakenuniq.smk file. Input files are retrieved from the output of the Quality Control step.</p>
 <pre><code>rule KrakenUniq:
     """Run KrakenUniq on trimmed fastq data"""
@@ -360,8 +365,8 @@ for i in $(cat taxID.pathogens); do awk '{if(NR%4==2) print length($1)}' ${i}.te
 <span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a> </span>
 <span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-r</span> <span class="va">$OUTPUT</span> /proj/snic2018-8-150/uppstore2018095/private/NBIS_Demo<span class="kw">;</span> <span class="fu">cat</span> final_output_corrected.txt</span>
 <span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">"\n"</span><span class="kw">;</span> <span class="bu">echo</span> <span class="st">"PIPELINE FINISHED SUCCESSFULLY"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="kraken2-vs-krakenuniq" class="level3" data-number="5.1.1">
-<h3 data-number="5.1.1" class="anchored" data-anchor-id="kraken2-vs-krakenuniq"><span class="header-section-number">5.1.1</span> Kraken2 vs KrakenUniq</h3>
+<section id="kraken2-vs-krakenuniq" class="level3" data-number="6.1.1">
+<h3 data-number="6.1.1" class="anchored" data-anchor-id="kraken2-vs-krakenuniq"><span class="header-section-number">6.1.1</span> Kraken2 vs KrakenUniq</h3>
 <p>Kraken2 is incredibly fast but unfortunately has a high False Positive Rate. KrakenUniq reduces the fraction of false discoveries (compared to Kraken2) by reporting the number of unique k-mers that is analogous to breadth of coverage information. Therefore filtering KrakenUniq output by number of unique k-mers, we get a more reliable list of candidates compared to Kraken2 (the output from Kraken2 can only be filtered by microbial abundance, i.e.&nbsp;depth of coverage). Considering filtered KrakenUniq output as a ground truth, we investigated how many records from Kraken2 output should be retained in order to capture all the species identified with KareknUniq, i.e.&nbsp;how long down the Kraken2 list one needs to go in order to detect all the species reported by KrakenUniq.</p>
 <p>What we can conclude after having screened ~100 samples is that a typical sample contains ~100 species reported (after filtering) by KrakenUniq. This corresponds to approximately ~1000 species in Kraken2 output (or 0.01% assigned reads). This implies that if we select top 1000 species in Kraken2, 900 species will probably be false positives and only 10% of all species will be true positives. If we consider KrakenUniq output as a ground truth.</p>
 
@@ -506,12 +511,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./qc.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Quality Control Step</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Quality Control Step</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./align.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Bowtie2 Step</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Bowtie2 Step</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
