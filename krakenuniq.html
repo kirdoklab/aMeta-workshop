@@ -223,10 +223,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#run-krakenuniq" id="toc-run-krakenuniq" class="nav-link active" data-scroll-target="#run-krakenuniq"><span class="toc-section-number">6.1</span>  Run KrakenUniq</a>
-  <ul class="collapse">
-  <li><a href="#kraken2-vs-krakenuniq" id="toc-kraken2-vs-krakenuniq" class="nav-link" data-scroll-target="#kraken2-vs-krakenuniq"><span class="toc-section-number">6.1.1</span>  Kraken2 vs KrakenUniq</a></li>
-  </ul></li>
+  <li><a href="#run-krakenuniq" id="toc-run-krakenuniq" class="nav-link active" data-scroll-target="#run-krakenuniq"><span class="toc-section-number">6.1</span>  Run KrakenUniq</a></li>
   </ul>
 </nav>
     </div>
@@ -375,13 +372,8 @@ for i in $(cat taxID.pathogens); do awk '{if(NR%4==2) print length($1)}' ${i}.te
 <span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a> </span>
 <span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-r</span> <span class="va">$OUTPUT</span> /proj/snic2018-8-150/uppstore2018095/private/NBIS_Demo<span class="kw">;</span> <span class="fu">cat</span> final_output_corrected.txt</span>
 <span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">"\n"</span><span class="kw">;</span> <span class="bu">echo</span> <span class="st">"PIPELINE FINISHED SUCCESSFULLY"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="kraken2-vs-krakenuniq" class="level3" data-number="6.1.1">
-<h3 data-number="6.1.1" class="anchored" data-anchor-id="kraken2-vs-krakenuniq"><span class="header-section-number">6.1.1</span> Kraken2 vs KrakenUniq</h3>
-<p>Kraken2 is incredibly fast but unfortunately has a high False Positive Rate. KrakenUniq reduces the fraction of false discoveries (compared to Kraken2) by reporting the number of unique k-mers that is analogous to breadth of coverage information. Therefore filtering KrakenUniq output by number of unique k-mers, we get a more reliable list of candidates compared to Kraken2 (the output from Kraken2 can only be filtered by microbial abundance, i.e.&nbsp;depth of coverage). Considering filtered KrakenUniq output as a ground truth, we investigated how many records from Kraken2 output should be retained in order to capture all the species identified with KareknUniq, i.e.&nbsp;how long down the Kraken2 list one needs to go in order to detect all the species reported by KrakenUniq.</p>
-<p>What we can conclude after having screened ~100 samples is that a typical sample contains ~100 species reported (after filtering) by KrakenUniq. This corresponds to approximately ~1000 species in Kraken2 output (or 0.01% assigned reads). This implies that if we select top 1000 species in Kraken2, 900 species will probably be false positives and only 10% of all species will be true positives. If we consider KrakenUniq output as a ground truth.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

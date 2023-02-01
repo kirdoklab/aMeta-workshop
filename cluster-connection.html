@@ -232,9 +232,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#cluster-systems" id="toc-cluster-systems" class="nav-link" data-scroll-target="#cluster-systems"><span class="toc-section-number">3.2</span>  Cluster systems</a>
   <ul class="collapse">
   <li><a href="#truba-cluster-system" id="toc-truba-cluster-system" class="nav-link" data-scroll-target="#truba-cluster-system"><span class="toc-section-number">3.2.1</span>  TRUBA Cluster system</a></li>
-  <li><a href="#baggins-cluster" id="toc-baggins-cluster" class="nav-link" data-scroll-target="#baggins-cluster"><span class="toc-section-number">3.2.2</span>  Baggins Cluster</a></li>
+  <li><a href="#middle-east-technical-university-computing-systems" id="toc-middle-east-technical-university-computing-systems" class="nav-link" data-scroll-target="#middle-east-technical-university-computing-systems"><span class="toc-section-number">3.2.2</span>  Middle East Technical University computing systems</a></li>
   <li><a href="#connecting-to-truba-system-outside-of-universiy-network" id="toc-connecting-to-truba-system-outside-of-universiy-network" class="nav-link" data-scroll-target="#connecting-to-truba-system-outside-of-universiy-network"><span class="toc-section-number">3.2.3</span>  Connecting to TRUBA system outside of universiy network</a></li>
   </ul></li>
+  <li><a href="#configuration" id="toc-configuration" class="nav-link" data-scroll-target="#configuration"><span class="toc-section-number">3.3</span>  Configuration</a></li>
   </ul>
 </nav>
     </div>
@@ -285,22 +286,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> egitim@levrek1.ulakbim.gov.tr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>There is a trick to connect TRUBA system outside of university network. We will describe it in the document.</p>
 </section>
-<section id="baggins-cluster" class="level3" data-number="3.2.2">
-<h3 data-number="3.2.2" class="anchored" data-anchor-id="baggins-cluster"><span class="header-section-number">3.2.2</span> Baggins Cluster</h3>
-<p>This computer is located at Middle East Technical University and it can accept <code>ssh</code> connections outside the university network. Your username and password will be provided on the first day of the workshop.</p>
-<p>Connect to this server with your <code>username</code> like this:</p>
+<section id="middle-east-technical-university-computing-systems" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="middle-east-technical-university-computing-systems"><span class="header-section-number">3.2.2</span> Middle East Technical University computing systems</h3>
+<p>This computer system is located at Middle East Technical University. It consists of two clusters: <code>baggins</code> and <code>NEOGENE</code>. We will work mostly on <code>baggings</code> to explain tools. At the end, we plan to send snakemake jobs on the NEOGENE system.</p>
+<p>However, NEOGENE system does not accept conections outside from university networks but <code>baggins</code> can. So we will first connect to <code>baggins</code> via <code>ssh</code> first. Then we can connect to <code>NEOGENE</code> from this system.</p>
+<p>Your username and password will be provided on the first day of the workshop.</p>
+<p>Connect to <code>baggins</code> server with your <code>username</code> like this:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-p</span> 2275 username@144.122.38.49</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Afterwards, you can connect to <code>NEOGENE</code> like this:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> username@144.122.38.50</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="connecting-to-truba-system-outside-of-universiy-network" class="level3" data-number="3.2.3">
 <h3 data-number="3.2.3" class="anchored" data-anchor-id="connecting-to-truba-system-outside-of-universiy-network"><span class="header-section-number">3.2.3</span> Connecting to TRUBA system outside of universiy network</h3>
 <p>We can connect to TRUBA system with a small trick. First we will connect to Baggins cluster, so we will be on the Middle East Technical Univerisy network. Then we can connect to TRUBA.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-p</span> 2275 username@144.122.38.49</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> egitim@levrek1.ulakbim.gov.tr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-p</span> 2275 username@144.122.38.49</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> egitim@levrek1.ulakbim.gov.tr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
+</section>
+<section id="configuration" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="configuration"><span class="header-section-number">3.3</span> Configuration</h2>
+<p>All the tools are installed on these server systems. Before using the tools, we need to set the <code>PATH</code> variable and show the system where these tools are installed.</p>
+
+
 </section>
 
 </main> <!-- /main -->
