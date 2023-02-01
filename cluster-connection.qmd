@@ -1,0 +1,62 @@
+---
+title: "Cluster Details"
+
+--- 
+
+## How we will work?
+
+In this workshop, we will use our computers and we will connect to high performance computing systems. Therefore, you will need to bring your laptops with you. 
+
+You should have be comfortable with using the Unix/Linux command line to follow the course. We know that there will be several operating systems. So please check these reccomendations based on your operating system.
+
+### Linux systems
+
+If you have a Linux system (e.g. Ubuntu), you do not need to worry a lot. Most of the command line tools (like `ssh`) will be already installed on your system
+
+### Mac systems
+
+Mac systems also have a default support on command line. The `terminal` application on your mac system would be enough. But we advise you to install [iTerm2](https://iterm2.com/) as a `terminal` replacement for your Mac.
+
+### Windows systems
+
+If you have a Windows system, the easiest chioice to connect a remote server is [Mobaxterm](https://mobaxterm.mobatek.net) tool.
+
+## Cluster systems
+
+In this workshop, we have two different cluster systems at our disposal. The first system TRUBA (Turkish National Scientific Cluster) that is funded by the TUBİTAK (The Scientific and Technological Research Council of Türkiye). The second system is located at Middle East Technical University.
+
+### TRUBA Cluster system
+
+This cluster system accept connections from University networks. Therefore you should be in a University network in order to access TRUBA computers. We will provide a username and a password for your connection.
+
+Then, you can connect to this system like this:
+
+```bash
+ssh egitim@levrek1.ulakbim.gov.tr
+
+```
+
+There is a trick to connect TRUBA system outside of university network. We will describe it in the document.
+
+### Baggins Cluster
+
+This computer is located at Middle East Technical University and it can accept `ssh` connections outside the university network. Your username and password will be provided on the first day of the workshop.
+
+Connect to this server with your `username` like this:
+
+```
+ssh -p 2275 username@144.122.38.49
+
+```
+
+### Connecting to TRUBA system outside of universiy network
+
+We can connect to TRUBA system with a small trick. First we will connect to Baggins cluster, so we will be on the Middle East Technical Univerisy network. Then we can connect to TRUBA.
+
+```bash
+
+ssh -p 2275 username@144.122.38.49
+
+ssh egitim@levrek1.ulakbim.gov.tr
+
+```
