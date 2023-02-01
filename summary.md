@@ -1,4 +1,4 @@
-To plot the authentication score we use the following code:
+To plot the authentication score and summarise the output of the workflow, we use the following code:
 
 
 ```
