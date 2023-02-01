@@ -70,3 +70,7 @@ ssh -p 2275 username@144.122.38.49
 ssh egitim@levrek1.ulakbim.gov.tr
 
 ```
+
+## Configuration
+
+All the tools are installed on these server systems. Before using the tools, we need to set the `PATH` variable and show the system where these tools are installed.
