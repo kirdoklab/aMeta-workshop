@@ -3,3 +3,20 @@ title: "About"
 ---
 
 About this site
+
+
+# The team
+
+### Emrah Kırdök
+Emrah is an assistant professor at the University of Mersin. 
+
+
+### Zoé Pochon
+
+Zoé started her PhD in Archaeology in 2021.
+
+### Nora Bergfeldt
+
+Nora started her PhD in Zoology in 2019.
+
+### Anders Götherström
