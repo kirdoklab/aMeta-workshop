@@ -14,6 +14,8 @@ book:
       text: Home
     - href: about.qmd
       text: "About the team"
+    - href: cluster-connection.md
+      text: "Computing details"
     - href: course-style.qmd
       text: "How to follow the course?"
     - href : qc.qmd
