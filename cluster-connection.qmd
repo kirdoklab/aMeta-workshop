@@ -38,15 +38,25 @@ ssh egitim@levrek1.ulakbim.gov.tr
 
 There is a trick to connect TRUBA system outside of university network. We will describe it in the document.
 
-### Baggins Cluster
+### Middle East Technical University computing systems
 
-This computer is located at Middle East Technical University and it can accept `ssh` connections outside the university network. Your username and password will be provided on the first day of the workshop.
+This computer system is located at Middle East Technical University. It consists of two clusters: `baggins` and `NEOGENE`. We will work mostly on `baggings` to explain tools. At the end, we plan to send snakemake jobs on the NEOGENE system.
 
-Connect to this server with your `username` like this:
+However, NEOGENE system does not accept conections outside from university networks but `baggins` can. So we will first connect to `baggins` via `ssh` first. Then we can connect to `NEOGENE` from this system.
+
+Your username and password will be provided on the first day of the workshop.
+
+Connect to `baggins` server with your `username` like this:
 
 ```bash
 ssh -p 2275 username@144.122.38.49
 
+```
+
+Afterwards, you can connect to `NEOGENE` like this:
+
+```bash
+ssh username@144.122.38.50
 ```
 
 ### Connecting to TRUBA system outside of universiy network
