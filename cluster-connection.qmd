@@ -44,7 +44,7 @@ This computer is located at Middle East Technical University and it can accept `
 
 Connect to this server with your `username` like this:
 
-```
+```bash
 ssh -p 2275 username@144.122.38.49
 
 ```
