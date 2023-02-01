@@ -24,8 +24,13 @@ book:
       text: "KrakenUniq Step"
     - href: align.md
       text: "Bowtie2 Step"
+    - href: damage.md
+      text: "MapDamage"
+    - href: summary.md
+      text: "Summarizing the results"
     - href: references.qmd
       text: "References"
+
 
 bibliography: bibliography.bib
 
