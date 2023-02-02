@@ -75,7 +75,7 @@ ssh egitim@levrek1.ulakbim.gov.tr
 
 All the tools are installed on these server systems. Before using the tools, we need to set the `PATH` variable and show the system where these tools are installed.
 
-### Configuration on the TRUBA system
+### Configuration of the TRUBA system
 
 To use all the tools for aMeta, please set your `PATH` variable like this:
 
