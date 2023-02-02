@@ -284,6 +284,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="build-a-custom-malt-database-based-on-the-previous-results-from-the-filtering-of-krakenuniq" class="level2" data-number="12.1">
 <h2 data-number="12.1" class="anchored" data-anchor-id="build-a-custom-malt-database-based-on-the-previous-results-from-the-filtering-of-krakenuniq"><span class="header-section-number">12.1</span> Build a custom MALT database based on the previous results from the filtering of KrakenUniq</h2>
 <p>First we need to build the custom database with the rule Build_Malt_DB. This is done with the use of a python script. Inside the script, python will use the input and output variables provided by snakemake.</p>
+<p>WARNING: We won’t be able to run this command during the workshop because the files seqid2taxid.map.orig, library.fna and nucl_gb.accession2taxid were too large for our workshop folder.</p>
 <pre><code>rule Build_Malt_DB:
     output:
         seqid2taxid_project="results/MALT_DB/seqid2taxid.project.map",
@@ -312,12 +313,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         "../scripts/malt-build.py"</code></pre>
 <p>Here is a simplified version of this code:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> ../scripts/malt-build.py <span class="dt">\</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--seqid2taxid</span> <span class="va">${seqid2taxid}</span> <span class="dt">\</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--nt_fasta</span> <span class="va">${nt_fasta}</span> <span class="dt">\</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--accession2taxid</span> <span class="va">${accession2taxid}</span> <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--seqid2taxid</span> seqid2taxid.map.orig <span class="dt">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--nt_fasta</span> library.fna <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--accession2taxid</span> nucl_gb.accession2taxid <span class="dt">\</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--unique_taxids</span> results/KRAKENUNIQ_ABUNDANCE_MATRIX/unique_species_taxid_list.txt <span class="dt">\</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--output_dir</span> results/MALT_DB/ <span class="dt">\</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> 20 <span class="op">&amp;&gt;</span> logs/BUILD_MALT_DB/BUILD_MALT_DB.log</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> 16 <span class="op">&amp;&gt;</span> logs/BUILD_MALT_DB/BUILD_MALT_DB.log</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In summary, this command will build a custom malt database containing all the species detected by KrakenUniq that have passed are threshold. You can find the full list of species in results/KRAKENUNIQ_ABUNDANCE_MATRIX/unique_species_taxid_list.txt.</p>
 </section>
 <section id="align-the-fastq-files-using-malt" class="level2" data-number="12.2">
 <h2 data-number="12.2" class="anchored" data-anchor-id="align-the-fastq-files-using-malt"><span class="header-section-number">12.2</span> Align the FastQ files using MALT</h2>
@@ -344,13 +346,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     shell:
         "unset DISPLAY; malt-run -at SemiGlobal -m BlastN -i {input.fastq} -o {output.rma6} -a {params.gunzipped_sam} -t {threads} -d {input.db} &amp;&gt; {log}"</code></pre>
 <p>Here is a simplified version of this code:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">unset</span> <span class="va">DISPLAY</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">malt-run</span> <span class="at">-at</span> SemiGlobal <span class="at">-m</span> BlastN <span class="at">-i</span> results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz <span class="dt">\</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">-o</span> results/MALT/{sample}.trimmed.rma6 <span class="dt">\</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">-a</span> results/MALT/{sample}.trimmed.sam <span class="dt">\</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">-t</span> 20 <span class="at">-d</span> results/MALT_DB/maltDB.dat <span class="dt">\</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">&amp;&gt;</span> logs/MALT/{sample}.log</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> results/MALT/{sample}.trimmed.sam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> sample <span class="kw">in</span> <span class="va">$(</span><span class="fu">ls</span> results/CUTADAPT_ADAPTER_TRIMMING/<span class="pp">*</span>.fastq.gz<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>        <span class="bu">unset</span> <span class="va">DISPLAY</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="ex">malt-run</span> <span class="at">-at</span> SemiGlobal <span class="at">-m</span> BlastN <span class="at">-i</span> results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz <span class="dt">\</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">-o</span> results/MALT/{sample}.trimmed.rma6 <span class="dt">\</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">-a</span> results/MALT/{sample}.trimmed.sam <span class="dt">\</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">-t</span> 20 <span class="at">-d</span> results/MALT_DB/maltDB.dat <span class="dt">\</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                <span class="op">&amp;&gt;</span> logs/MALT/{sample}.log</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">gzip</span> results/MALT/{sample}.trimmed.sam</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In summary, we loop through the FastQ files and run an alignment with MALT and gzip the generated sam file. The “unset DISPLAY” command makes it possible to run MALT without it trying to open a graphical interface which can generate an error.</p>
 </section>
 <section id="quantify-the-microbial-abundance-using-the-sam-file-generated-by-the-malt-alignment" class="level2" data-number="12.3">
 <h2 data-number="12.3" class="anchored" data-anchor-id="quantify-the-microbial-abundance-using-the-sam-file-generated-by-the-malt-alignment"><span class="header-section-number">12.3</span> Quantify the microbial abundance using the sam file generated by the MALT alignment</h2>
@@ -373,8 +378,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         "mkdir -p {output.out_dir}; "
         "{params.exe} {input.sam} {params.unique_taxids} &gt; {output.counts} 2&gt; {log}"</code></pre>
 <p>Here is a simplified version of this code:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> results/MALT_QUANTIFY_ABUNDANCE/{sample}<span class="kw">;</span> </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">WORKFLOW_DIR/scripts/malt_quantify_abundance.py</span> results/MALT/{sample}.trimmed.sam.gz results/KRAKENUNIQ_ABUNDANCE_MATRIX/unique_species_taxid_list.txt <span class="op">&gt;</span> results/MALT_QUANTIFY_ABUNDANCE/{sample}/sam_counts.txt <span class="dv">2</span><span class="op">&gt;</span> logs/MALT_QUANTIFY_ABUNDANCE/{sample}.log</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> results/MALT_QUANTIFY_ABUNDANCE logs/MALT_QUANTIFY_ABUNDANCE</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> sample <span class="kw">in</span> <span class="va">$(</span><span class="fu">ls</span> results/CUTADAPT_ADAPTER_TRIMMING/<span class="pp">*</span>.fastq.gz<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="ex">python</span> scripts/malt_quantify_abundance.py results/MALT/{sample}.trimmed.sam.gz results/KRAKENUNIQ_ABUNDANCE_MATRIX/unique_species_taxid_list.txt <span class="op">&gt;</span> results/MALT_QUANTIFY_ABUNDANCE/{sample}/sam_counts.txt <span class="dv">2</span><span class="op">&gt;</span> logs/MALT_QUANTIFY_ABUNDANCE/{sample}.log</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In summary, this python script takes the results of the MALT alignment and counts the amount of reads per species.</p>
 </section>
 <section id="compute-the-malt-abundance-matrix-using-the-sam-files-generated-by-malt" class="level2" data-number="12.4">
 <h2 data-number="12.4" class="anchored" data-anchor-id="compute-the-malt-abundance-matrix-using-the-sam-files-generated-by-malt"><span class="header-section-number">12.4</span> Compute the MALT abundance matrix using the SAM files generated by MALT</h2>
@@ -401,8 +410,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     shell:
         "Rscript {params.exe} results/MALT_QUANTIFY_ABUNDANCE {output.out_dir} &amp;&gt; {log}"</code></pre>
 <p>Here is a simplified version of this code:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> results/MALT_ABUNDANCE_MATRIX_SAM<span class="kw">;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> WORKFLOW_DIR/scripts/malt_abundance_matrix.R results/MALT_QUANTIFY_ABUNDANCE results/MALT_ABUNDANCE_MATRIX_SAM/ <span class="op">&gt;</span> logs/MALT_ABUNDANCE_MATRIX_SAM/MALT_ABUNDANCE_MATRIX_SAM.log <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> results/MALT_ABUNDANCE_MATRIX_SAM logs/MALT_ABUNDANCE_MATRIX_SAM</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> sample <span class="kw">in</span> <span class="va">$(</span><span class="fu">ls</span> results/CUTADAPT_ADAPTER_TRIMMING/<span class="pp">*</span>.fastq.gz<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="ex">Rscript</span> scripts/malt_abundance_matrix.R results/MALT_QUANTIFY_ABUNDANCE results/MALT_ABUNDANCE_MATRIX_SAM/ <span class="op">&gt;</span> logs/MALT_ABUNDANCE_MATRIX_SAM/MALT_ABUNDANCE_MATRIX_SAM.log <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In summary, this R scripts takes the abundance of all samples and creates a matrix.</p>
 </section>
 <section id="compute-the-malt-abundance-matrix-using-the-rma6-files-generated-by-malt" class="level2" data-number="12.5">
 <h2 data-number="12.5" class="anchored" data-anchor-id="compute-the-malt-abundance-matrix-using-the-rma6-files-generated-by-malt"><span class="header-section-number">12.5</span> Compute the MALT abundance matrix using the rma6 files generated by MALT</h2>
