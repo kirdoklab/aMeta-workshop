@@ -19,7 +19,7 @@ Mac systems also have a default support on the command line. The `terminal` appl
 
 ### Windows systems
 
-If you have a Windows system, the easiest chioice to connect a remote server is [Mobaxterm](https://mobaxterm.mobatek.net) tool.
+If you have a Windows system, the easiest choice  to connect a remote server is [Mobaxterm](https://mobaxterm.mobatek.net) tool.
 
 ## Cluster systems
 
