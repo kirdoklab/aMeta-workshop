@@ -181,7 +181,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./organization.html" class="sidebar-item-text sidebar-link">NEOMATRIX Workshop Organization</a>
+            <a href="./organization.html" class="sidebar-item-text sidebar-link">NEOMATRIX Workshop</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -253,7 +253,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#run-krakenuniq" id="toc-run-krakenuniq" class="nav-link active" data-scroll-target="#run-krakenuniq"><span class="toc-section-number">9.1</span>  Run KrakenUniq</a></li>
+  <li><a href="#krakenuniq-workflow" id="toc-krakenuniq-workflow" class="nav-link active" data-scroll-target="#krakenuniq-workflow"><span class="toc-section-number">9.1</span>  KrakenUniq workflow</a>
+  <ul class="collapse">
+  <li><a href="#run-krakenuniq" id="toc-run-krakenuniq" class="nav-link" data-scroll-target="#run-krakenuniq"><span class="toc-section-number">9.1.1</span>  Run KrakenUniq</a></li>
+  <li><a href="#filtering-the-output" id="toc-filtering-the-output" class="nav-link" data-scroll-target="#filtering-the-output"><span class="toc-section-number">9.1.2</span>  Filtering the output</a></li>
+  <li><a href="#krakenuniq-to-krona" id="toc-krakenuniq-to-krona" class="nav-link" data-scroll-target="#krakenuniq-to-krona"><span class="toc-section-number">9.1.3</span>  KrakenUniq to Krona</a></li>
+  <li><a href="#abundancematrix" id="toc-abundancematrix" class="nav-link" data-scroll-target="#abundancematrix"><span class="toc-section-number">9.1.4</span>  AbundanceMatrix</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -277,14 +283,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p>A full NT database for KrakenUniq is <a href="https://www.biorxiv.org/node/2777891.external-links.html">available for download</a> through SciLifeLab. Other databases are available online and for this workshop, we will be using <a href="https://benlangmead.github.io/aws-indexes/k2">MinusB</a>. The database is installed on the cluster.</p>
 <p>KrakenUniq is relatively fast and allows to screen aDNA samples against as large database as possible. The KrakenUniq paper suggests that KrakenUniq is not less accurate compared to alignment tools such as <code>BLAST</code> and <code>MEGAN</code>.</p>
-<p>To start we need to set up links to the database and the software:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">DBNAME</span><span class="op">=</span>/proj/mnt/NEOGENE4/share/KrakenUniqDatabase</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="va">PATH_TO_KRAKENUNIQ</span><span class="op">=</span>/usr/local/sw/anaconda3/envs/aMeta/KrakenUniq</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">time</span> <span class="va">$PATH_TO_KRAKENUNIQ</span>/./krakenuniq <span class="at">--db</span> <span class="va">$DBNAME</span> <span class="at">--fastq-input</span> sample_name.fastq.gz <span class="at">--threads</span> 80 <span class="at">--output</span> sample_name.fastq.gz_sequences.krakenuniq_Full_NT <span class="at">--report-file</span> sample_name.fastq.gz_krakenuniq.output_Full_NT <span class="at">--gzip-compressed</span> <span class="at">--only-classified-out</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="run-krakenuniq" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="run-krakenuniq"><span class="header-section-number">9.1</span> Run KrakenUniq</h2>
+<p>A full NT database for KrakenUniq is <a href="https://www.biorxiv.org/node/2777891.external-links.html">available for download</a> through SciLifeLab. Other databases are available online and for this workshop, we use <a href="https://benlangmead.github.io/aws-indexes/k2">Standard-8</a>. The database is installed on the cluster.</p>
+<section id="krakenuniq-workflow" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="krakenuniq-workflow"><span class="header-section-number">9.1</span> KrakenUniq workflow</h2>
+<section id="run-krakenuniq" class="level3" data-number="9.1.1">
+<h3 data-number="9.1.1" class="anchored" data-anchor-id="run-krakenuniq"><span class="header-section-number">9.1.1</span> Run KrakenUniq</h3>
+<p><strong>Please note that it will not be possible to run this first step during this workshop due to issues with storage space. The output files will be provided by the course leaders.</strong></p>
+<p>To start, we need to set up the path to the database– we call it <code>DBNAME</code>.</p>
 <p>This is the rule in the workflow/rules/krakenuniq.smk file. Input files are retrieved from the output of the Quality Control step.</p>
 <pre><code>rule KrakenUniq:
     """Run KrakenUniq on trimmed fastq data"""
@@ -293,13 +299,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         seqs="results/KRAKENUNIQ/{sample}/sequences.krakenuniq",
     input:
         fastq="results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz",
+    params:
+        DB=config["krakenuniq_db"],
     threads: 10
+    log:
+        "logs/KRAKENUNIQ/{sample}.log",
+    conda:
+        "../envs/krakenuniq.yaml"
+    envmodules:
+        *config["envmodules"]["krakenuniq"],
+    benchmark:
+        "benchmarks/KRAKENUNIQ/{sample}.benchmark.txt"
     message:
         "KrakenUniq: PERFORMING TAXONOMIC CLASSIFICATION OF SAMPLE {input.fastq} WITH KRAKENUNIQ"
     shell:
         "krakenuniq --preload --db {params.DB} --fastq-input {input.fastq} --threads {threads} --output {output.seqs} --report-file {output.report} --gzip-compressed --only-classified-out &amp;&gt; {log}"</code></pre>
 <p>Here is a simplified version of this code:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">krakenuniq</span> <span class="at">--db</span> <span class="va">$DBNAME</span> <span class="at">--fastq-input</span> <span class="va">$SAMPLE</span> <span class="at">--threads</span> 10 <span class="at">--output</span> <span class="va">$SAMPLE</span>.sequences.krakenuniq <span class="at">--report-file</span> <span class="va">$SAMPLE</span>.krakenuniq.output <span class="at">--gzip-compressed</span> <span class="at">--only-classified-out</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">DBNAME</span><span class="op">=</span>db/</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="va">PATH</span><span class="op">=</span><span class="va">${PATH}</span>:/truba/home/egitim/miniconda3/envs/aMeta/bin/</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">krakenuniq</span> <span class="at">--preload</span> <span class="at">--db</span> <span class="va">$DBNAME</span> <span class="at">--fastq-input</span> <span class="va">${sample_name}</span> <span class="at">--threads</span> 4 <span class="at">--output</span> <span class="va">${sample_name}</span>.sequences.krakenuniq <span class="at">--report-file</span> <span class="va">${sample_name}</span>.krakenuniq.output <span class="at">--gzip-compressed</span> <span class="at">--only-classified-out</span> <span class="op">&amp;&gt;</span> logs/KRAKENUNIQ/<span class="va">${sample_name}</span>.log</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="filtering-the-output" class="level3" data-number="9.1.2">
+<h3 data-number="9.1.2" class="anchored" data-anchor-id="filtering-the-output"><span class="header-section-number">9.1.2</span> Filtering the output</h3>
 <p>After running KrakenUniq, the next step is to filter the output. The input is the <code>krakenuniq.output</code> generated in the previous step.</p>
 <pre><code>rule Filter_KrakenUniq_Output:
     output:
@@ -309,19 +330,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     input:
         krakenuniq="results/KRAKENUNIQ/{sample}/krakenuniq.output",
         pathogenomesFound=config["pathogenomesFound"],
+    log:
+        "logs/FILTER_KRAKENUNIQ_OUTPUT/{sample}.log",
+    params:
+        exe=WORKFLOW_DIR / "scripts/filter_krakenuniq.py",
+        n_unique_kmers=config["n_unique_kmers"],
+        n_tax_reads=config["n_tax_reads"],
+    conda:
+        "../envs/krakenuniq.yaml"
+    envmodules:
+        *config["envmodules"]["krakenuniq"],
+    benchmark:
+        "benchmarks/FILTER_KRAKENUNIQ_OUTPUT/{sample}.benchmark.txt"
     message:
         "Filter_KrakenUniq_Output: APPLYING DEPTH AND BREADTH OF COVERAGE FILTERS TO KRAKENUNIQ OUTPUT FOR SAMPLE {input}"
     shell:
         """{params.exe} {input.krakenuniq} {params.n_unique_kmers} {params.n_tax_reads} {input.pathogenomesFound} &amp;&gt; {log}; """
-        """cut -f7 {output.pathogens} | tail -n +2 &gt; {output.pathogen_tax_id}"""</code></pre>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="va">$OUTPUT</span><span class="kw">;</span> <span class="ex">Rscript</span> <span class="va">$PATH_TO_SCRIPTS</span>/pipeline.R</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cut</span> <span class="at">-f7</span> <span class="va">$OUTPUT</span>/krakenuniq.output.pathogens <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> +2 <span class="op">&gt;</span> <span class="va">$OUTPUT</span>/taxID.pathogens</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+        """cut -f7 {output.pathogens} | tail -n +2 &gt; {output.pathogen_tax_id}"""
+        
+``
+
+
+Breadth and depth of coverage filters 
+default thresholds are very conservative, can be tuned by users
+n_unique_kmers: 1000
+n_tax_reads: 200
+
+
+```bash
+cd $OUTPUT; Rscript $PATH_TO_SCRIPTS/pipeline.R
+cut -f7 $OUTPUT/krakenuniq.output.pathogens | tail -n +2 &gt; $OUTPUT/taxID.pathogens</code></pre>
 <pre><code>cat $OUTPUT/taxID.pathogens | parallel "${PATH_TO_KRAKENUNIQ}/./krakenuniq-extract-reads {} $OUTPUT/sequences.krakenuniq ${SAMPLE} &gt; $OUTPUT/{}.temp.fq"
 echo "MeanReadLength" &gt; $OUTPUT/mean.reads.length; cd $OUTPUT
 for i in $(cat taxID.pathogens); do awk '{if(NR%4==2) print length($1)}' ${i}.temp.fq | awk '{ sum += $0 } END { if (NR &gt; 0) print sum / NR }' &gt;&gt; mean.reads.length; done; rm *.temp.fq
 </code></pre>
-<div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span> krakenuniq.output.pathogens mean.reads.length <span class="op">&gt;</span> krakenuniq.output.pathogens_with_mean_read_length</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> krakenuniq.output.pathogens_with_mean_read_length</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span> krakenuniq.output.pathogens mean.reads.length <span class="op">&gt;</span> krakenuniq.output.pathogens_with_mean_read_length</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> krakenuniq.output.pathogens_with_mean_read_length</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="krakenuniq-to-krona" class="level3" data-number="9.1.3">
+<h3 data-number="9.1.3" class="anchored" data-anchor-id="krakenuniq-to-krona"><span class="header-section-number">9.1.3</span> KrakenUniq to Krona</h3>
 <p>We then visualize our filtered output using Krona:</p>
 <pre><code>rule KrakenUniq2Krona:
     output:
@@ -342,6 +389,9 @@ for i in $(cat taxID.pathogens); do awk '{if(NR%4==2) print length($1)}' ${i}.te
         "cat {output.seqs} | cut -f 2,3 &gt; {output.krona}; "
         "ktImportTaxonomy {output.krona} -o {output.html} {params.DB} &amp;&gt;&gt; {log}"
 </code></pre>
+</section>
+<section id="abundancematrix" class="level3" data-number="9.1.4">
+<h3 data-number="9.1.4" class="anchored" data-anchor-id="abundancematrix"><span class="header-section-number">9.1.4</span> AbundanceMatrix</h3>
 <p>Lastly, we create an Abundance matrix:</p>
 <pre><code>rule KrakenUniq_AbundanceMatrix:
     output:
@@ -362,48 +412,49 @@ for i in $(cat taxID.pathogens); do awk '{if(NR%4==2) print length($1)}' ${i}.te
     shell:
         "Rscript {params.exe} results/KRAKENUNIQ {output.out_dir} {params.n_unique_kmers} {params.n_tax_reads} &amp;&gt; {log};"
         "Rscript {params.exe_plot} {output.out_dir} {output.out_dir} &amp;&gt; {log}"</code></pre>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">"\n"</span><span class="kw">;</span> <span class="bu">echo</span> <span class="st">"PERFORMING ALIGNMENT TO PATHO-GENOME"</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">time</span> bowtie2 <span class="at">--large-index</span> <span class="at">-x</span> <span class="va">$PATHO_GENOME</span> <span class="at">--threads</span> 10 <span class="at">--end-to-end</span> <span class="at">--very-sensitive</span> <span class="at">-U</span> <span class="va">$SAMPLE</span> <span class="kw">|</span> <span class="ex">samtools</span> view <span class="at">-bS</span> <span class="at">-q</span> 1 <span class="at">-h</span> <span class="at">-@</span> 10 <span class="at">-</span> <span class="op">&gt;</span> <span class="va">$OUTPUT</span>/test_sample_AlignedToSpecies.bam</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> sort <span class="va">$OUTPUT</span>/test_sample_AlignedToSpecies.bam <span class="at">-@</span> 10 <span class="op">&gt;</span> <span class="va">$OUTPUT</span>/test_sample_AlignedToSpecies.sorted.bam<span class="kw">;</span> <span class="ex">samtools</span> index <span class="va">$OUTPUT</span>/test_sample_AlignedToSpecies.sorted.bam</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> markdup <span class="at">-r</span> <span class="va">$OUTPUT</span>/test_sample_AlignedToSpecies.sorted.bam <span class="va">$OUTPUT</span>/test_sample_AlignedToSpecies.sorted.dedup.bam<span class="kw">;</span> <span class="ex">samtools</span> index <span class="va">$OUTPUT</span>/test_sample_AlignedToSpecies.sorted.dedup.bam</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">"\n"</span><span class="kw">;</span> <span class="bu">echo</span> <span class="st">"EXTRACTING ALIGNMENTS FOR CANDIDATES"</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="va">$OUTPUT</span>/taxID.pathogens <span class="kw">|</span> <span class="ex">parallel</span> <span class="st">"grep -w {} </span><span class="va">${PATH_TO_PATHO_GENOME}</span><span class="st">/seqid2taxid.pathogen.map | cut -f1 &gt; </span><span class="va">${OUTPUT}</span><span class="st">/{}.seq.ids"</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> <span class="va">$OUTPUT</span>/taxID.pathogens<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span> <span class="ex">samtools</span> view <span class="at">-bh</span> <span class="va">$OUTPUT</span>/test_sample_AlignedToSpecies.sorted.dedup.bam <span class="at">-@</span> 10 <span class="va">$(</span><span class="fu">cat</span> <span class="va">$OUTPUT</span>/<span class="va">${i}</span>.seq.ids <span class="kw">|</span> <span class="fu">tr</span> <span class="st">"\n"</span> <span class="st">" "</span><span class="va">)</span> <span class="op">&gt;</span> <span class="va">$OUTPUT</span>/<span class="va">${i}</span>.output.bam<span class="kw">;</span> <span class="cf">done</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">"\n"</span><span class="kw">;</span> <span class="bu">echo</span> <span class="st">"RUNNING MAPDAMAGE ANCIENT STATUS ANALYSIS"</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="fu">find</span> . <span class="at">-name</span> <span class="st">'*.output.bam'</span> <span class="kw">|</span> <span class="ex">parallel</span> <span class="st">"mapDamage -i {} -r </span><span class="va">${PATHO_GENOME}</span><span class="st"> --merge-reference-sequences -d </span><span class="va">${OUTPUT}</span><span class="st">/results_{}"</span></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">"\n"</span><span class="kw">;</span> <span class="bu">echo</span> <span class="st">"ASSIGN ANCIENT STATUS"</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> <span class="va">$PATH_TO_SCRIPTS</span>/ancient_status.R 0.05 0.9 <span class="va">$OUTPUT</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">"\n"</span><span class="kw">;</span> <span class="bu">echo</span> <span class="st">"COMPUTE DEPTH AND BREADTH OF COVERAGE FROM ALIGNMENTS"</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"NUMBER_OF_READS"</span> <span class="op">&gt;</span> DepthOfCoverage.<span class="va">${FASTQ_FILE}</span>.txt<span class="kw">;</span> <span class="bu">echo</span> <span class="st">"GENOME_LENGTH"</span> <span class="op">&gt;</span> GenomeLength.<span class="va">${FASTQ_FILE}</span>.txt<span class="kw">;</span> <span class="bu">echo</span> <span class="st">"BREADTH_OF_COVERAGE"</span> <span class="op">&gt;</span> BreadthOfCoverage.<span class="va">${FASTQ_FILE}</span>.txt</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="va">$(</span><span class="fu">cut</span> <span class="at">-f7</span> final_output.txt <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'1d'</span><span class="va">)</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Organism </span><span class="va">$j</span><span class="st">"</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">-s</span> <span class="va">${j}</span>.output.bam <span class="bu">]</span> <span class="kw">&amp;&amp;</span> <span class="bu">[</span> <span class="st">"</span><span class="va">$(</span><span class="ex">samtools</span> view <span class="va">${j}</span>.output.bam <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span><span class="va">)</span><span class="st">"</span> <span class="ot">-ne</span> <span class="st">"0"</span> <span class="bu">]</span><span class="kw">;</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="cf">then</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> sort <span class="va">${j}</span>.output.bam <span class="op">&gt;</span> <span class="va">${j}</span>.output.sorted.bam<span class="kw">;</span> <span class="ex">samtools</span> depth <span class="va">${j}</span>.output.sorted.bam <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="op">&gt;</span> Genomes_<span class="va">${j}</span>.txt</span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="va">GENOME_LENGTH</span><span class="op">=</span><span class="va">$(</span><span class="fu">grep</span> <span class="at">-wFf</span> Genomes_<span class="va">${j}</span>.txt <span class="va">$PATH_TO_PATHO_GENOME</span>/GenomeLength.txt <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f2</span> <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'{ sum += $1; } END { print sum; }'</span><span class="va">)</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">-s</span> <span class="va">${j}</span>.output.sorted.bam <span class="bu">]</span><span class="kw">;</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="cf">then</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="va">NUMBER_OF_READS</span><span class="op">=</span><span class="va">$(</span><span class="ex">samtools</span> view <span class="va">${j}</span>.output.sorted.bam <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span><span class="va">)</span><span class="kw">;</span> <span class="va">NUMBER_OF_COVERED_POSITIONS</span><span class="op">=</span><span class="va">$(</span><span class="ex">samtools</span> depth <span class="va">${j}</span>.output.sorted.bam <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span><span class="va">)</span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"NA"</span> <span class="op">&gt;&gt;</span> DepthOfCoverage.<span class="va">${FASTQ_FILE}</span>.txt<span class="kw">;</span> <span class="bu">echo</span> <span class="st">"NA"</span> <span class="op">&gt;&gt;</span> BreadthOfCoverage.<span class="va">${FASTQ_FILE}</span>.txt<span class="kw">;</span> <span class="bu">echo</span> <span class="st">"NA"</span> <span class="op">&gt;&gt;</span> GenomeLength.<span class="va">${FASTQ_FILE}</span>.txt</span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="cf">continue</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$NUMBER_OF_READS</span> <span class="op">&gt;&gt;</span> DepthOfCoverage.<span class="va">${FASTQ_FILE}</span>.txt<span class="kw">;</span> <span class="bu">echo</span> <span class="va">$GENOME_LENGTH</span> <span class="op">&gt;&gt;</span> GenomeLength.<span class="va">${FASTQ_FILE}</span>.txt</span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"scale=10 ; (</span><span class="va">$NUMBER_OF_COVERED_POSITIONS</span><span class="st"> / </span><span class="va">$GENOME_LENGTH</span><span class="st">)*100"</span> <span class="kw">|</span> <span class="fu">bc</span> <span class="op">&gt;&gt;</span> BreadthOfCoverage.<span class="va">${FASTQ_FILE}</span>.txt</span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"NA"</span> <span class="op">&gt;&gt;</span> DepthOfCoverage.<span class="va">${FASTQ_FILE}</span>.txt<span class="kw">;</span> <span class="bu">echo</span> <span class="st">"NA"</span> <span class="op">&gt;&gt;</span> BreadthOfCoverage.<span class="va">${FASTQ_FILE}</span>.txt<span class="kw">;</span> <span class="bu">echo</span> <span class="st">"NA"</span> <span class="op">&gt;&gt;</span> GenomeLength.<span class="va">${FASTQ_FILE}</span>.txt</span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="cf">continue</span></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span><span class="kw">;</span> <span class="fu">rm</span> Genomes_<span class="pp">*</span>.txt<span class="kw">;</span> <span class="fu">paste</span> final_output.txt DepthOfCoverage.<span class="va">${FASTQ_FILE}</span>.txt GenomeLength.<span class="va">${FASTQ_FILE}</span>.txt BreadthOfCoverage.<span class="va">${FASTQ_FILE}</span>.txt <span class="op">&gt;</span> final_output_corrected.txt</span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-r</span> <span class="va">$OUTPUT</span> /proj/snic2018-8-150/uppstore2018095/private/NBIS_Demo<span class="kw">;</span> <span class="fu">cat</span> final_output_corrected.txt</span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">"\n"</span><span class="kw">;</span> <span class="bu">echo</span> <span class="st">"PIPELINE FINISHED SUCCESSFULLY"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">"\n"</span><span class="kw">;</span> <span class="bu">echo</span> <span class="st">"PERFORMING ALIGNMENT TO PATHO-GENOME"</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="bu">time</span> bowtie2 <span class="at">--large-index</span> <span class="at">-x</span> <span class="va">$PATHO_GENOME</span> <span class="at">--threads</span> 10 <span class="at">--end-to-end</span> <span class="at">--very-sensitive</span> <span class="at">-U</span> <span class="va">$SAMPLE</span> <span class="kw">|</span> <span class="ex">samtools</span> view <span class="at">-bS</span> <span class="at">-q</span> 1 <span class="at">-h</span> <span class="at">-@</span> 10 <span class="at">-</span> <span class="op">&gt;</span> <span class="va">$OUTPUT</span>/test_sample_AlignedToSpecies.bam</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> sort <span class="va">$OUTPUT</span>/test_sample_AlignedToSpecies.bam <span class="at">-@</span> 10 <span class="op">&gt;</span> <span class="va">$OUTPUT</span>/test_sample_AlignedToSpecies.sorted.bam<span class="kw">;</span> <span class="ex">samtools</span> index <span class="va">$OUTPUT</span>/test_sample_AlignedToSpecies.sorted.bam</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> markdup <span class="at">-r</span> <span class="va">$OUTPUT</span>/test_sample_AlignedToSpecies.sorted.bam <span class="va">$OUTPUT</span>/test_sample_AlignedToSpecies.sorted.dedup.bam<span class="kw">;</span> <span class="ex">samtools</span> index <span class="va">$OUTPUT</span>/test_sample_AlignedToSpecies.sorted.dedup.bam</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">"\n"</span><span class="kw">;</span> <span class="bu">echo</span> <span class="st">"EXTRACTING ALIGNMENTS FOR CANDIDATES"</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> <span class="va">$OUTPUT</span>/taxID.pathogens <span class="kw">|</span> <span class="ex">parallel</span> <span class="st">"grep -w {} </span><span class="va">${PATH_TO_PATHO_GENOME}</span><span class="st">/seqid2taxid.pathogen.map | cut -f1 &gt; </span><span class="va">${OUTPUT}</span><span class="st">/{}.seq.ids"</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="va">$(</span><span class="fu">cat</span> <span class="va">$OUTPUT</span>/taxID.pathogens<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span> <span class="ex">samtools</span> view <span class="at">-bh</span> <span class="va">$OUTPUT</span>/test_sample_AlignedToSpecies.sorted.dedup.bam <span class="at">-@</span> 10 <span class="va">$(</span><span class="fu">cat</span> <span class="va">$OUTPUT</span>/<span class="va">${i}</span>.seq.ids <span class="kw">|</span> <span class="fu">tr</span> <span class="st">"\n"</span> <span class="st">" "</span><span class="va">)</span> <span class="op">&gt;</span> <span class="va">$OUTPUT</span>/<span class="va">${i}</span>.output.bam<span class="kw">;</span> <span class="cf">done</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">"\n"</span><span class="kw">;</span> <span class="bu">echo</span> <span class="st">"RUNNING MAPDAMAGE ANCIENT STATUS ANALYSIS"</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">find</span> . <span class="at">-name</span> <span class="st">'*.output.bam'</span> <span class="kw">|</span> <span class="ex">parallel</span> <span class="st">"mapDamage -i {} -r </span><span class="va">${PATHO_GENOME}</span><span class="st"> --merge-reference-sequences -d </span><span class="va">${OUTPUT}</span><span class="st">/results_{}"</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">"\n"</span><span class="kw">;</span> <span class="bu">echo</span> <span class="st">"ASSIGN ANCIENT STATUS"</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> <span class="va">$PATH_TO_SCRIPTS</span>/ancient_status.R 0.05 0.9 <span class="va">$OUTPUT</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">"\n"</span><span class="kw">;</span> <span class="bu">echo</span> <span class="st">"COMPUTE DEPTH AND BREADTH OF COVERAGE FROM ALIGNMENTS"</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"NUMBER_OF_READS"</span> <span class="op">&gt;</span> DepthOfCoverage.<span class="va">${FASTQ_FILE}</span>.txt<span class="kw">;</span> <span class="bu">echo</span> <span class="st">"GENOME_LENGTH"</span> <span class="op">&gt;</span> GenomeLength.<span class="va">${FASTQ_FILE}</span>.txt<span class="kw">;</span> <span class="bu">echo</span> <span class="st">"BREADTH_OF_COVERAGE"</span> <span class="op">&gt;</span> BreadthOfCoverage.<span class="va">${FASTQ_FILE}</span>.txt</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="va">$(</span><span class="fu">cut</span> <span class="at">-f7</span> final_output.txt <span class="kw">|</span> <span class="fu">sed</span> <span class="st">'1d'</span><span class="va">)</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"Organism </span><span class="va">$j</span><span class="st">"</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">-s</span> <span class="va">${j}</span>.output.bam <span class="bu">]</span> <span class="kw">&amp;&amp;</span> <span class="bu">[</span> <span class="st">"</span><span class="va">$(</span><span class="ex">samtools</span> view <span class="va">${j}</span>.output.bam <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span><span class="va">)</span><span class="st">"</span> <span class="ot">-ne</span> <span class="st">"0"</span> <span class="bu">]</span><span class="kw">;</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="cf">then</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="ex">samtools</span> sort <span class="va">${j}</span>.output.bam <span class="op">&gt;</span> <span class="va">${j}</span>.output.sorted.bam<span class="kw">;</span> <span class="ex">samtools</span> depth <span class="va">${j}</span>.output.sorted.bam <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f1</span> <span class="kw">|</span> <span class="fu">uniq</span> <span class="op">&gt;</span> Genomes_<span class="va">${j}</span>.txt</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="va">GENOME_LENGTH</span><span class="op">=</span><span class="va">$(</span><span class="fu">grep</span> <span class="at">-wFf</span> Genomes_<span class="va">${j}</span>.txt <span class="va">$PATH_TO_PATHO_GENOME</span>/GenomeLength.txt <span class="kw">|</span> <span class="fu">cut</span> <span class="at">-f2</span> <span class="kw">|</span> <span class="fu">awk</span> <span class="st">'{ sum += $1; } END { print sum; }'</span><span class="va">)</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">[</span> <span class="ot">-s</span> <span class="va">${j}</span>.output.sorted.bam <span class="bu">]</span><span class="kw">;</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="cf">then</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="va">NUMBER_OF_READS</span><span class="op">=</span><span class="va">$(</span><span class="ex">samtools</span> view <span class="va">${j}</span>.output.sorted.bam <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span><span class="va">)</span><span class="kw">;</span> <span class="va">NUMBER_OF_COVERED_POSITIONS</span><span class="op">=</span><span class="va">$(</span><span class="ex">samtools</span> depth <span class="va">${j}</span>.output.sorted.bam <span class="kw">|</span> <span class="fu">wc</span> <span class="at">-l</span><span class="va">)</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"NA"</span> <span class="op">&gt;&gt;</span> DepthOfCoverage.<span class="va">${FASTQ_FILE}</span>.txt<span class="kw">;</span> <span class="bu">echo</span> <span class="st">"NA"</span> <span class="op">&gt;&gt;</span> BreadthOfCoverage.<span class="va">${FASTQ_FILE}</span>.txt<span class="kw">;</span> <span class="bu">echo</span> <span class="st">"NA"</span> <span class="op">&gt;&gt;</span> GenomeLength.<span class="va">${FASTQ_FILE}</span>.txt</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="cf">continue</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$NUMBER_OF_READS</span> <span class="op">&gt;&gt;</span> DepthOfCoverage.<span class="va">${FASTQ_FILE}</span>.txt<span class="kw">;</span> <span class="bu">echo</span> <span class="va">$GENOME_LENGTH</span> <span class="op">&gt;&gt;</span> GenomeLength.<span class="va">${FASTQ_FILE}</span>.txt</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"scale=10 ; (</span><span class="va">$NUMBER_OF_COVERED_POSITIONS</span><span class="st"> / </span><span class="va">$GENOME_LENGTH</span><span class="st">)*100"</span> <span class="kw">|</span> <span class="fu">bc</span> <span class="op">&gt;&gt;</span> BreadthOfCoverage.<span class="va">${FASTQ_FILE}</span>.txt</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="st">"NA"</span> <span class="op">&gt;&gt;</span> DepthOfCoverage.<span class="va">${FASTQ_FILE}</span>.txt<span class="kw">;</span> <span class="bu">echo</span> <span class="st">"NA"</span> <span class="op">&gt;&gt;</span> BreadthOfCoverage.<span class="va">${FASTQ_FILE}</span>.txt<span class="kw">;</span> <span class="bu">echo</span> <span class="st">"NA"</span> <span class="op">&gt;&gt;</span> GenomeLength.<span class="va">${FASTQ_FILE}</span>.txt</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="cf">continue</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="cf">fi</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span><span class="kw">;</span> <span class="fu">rm</span> Genomes_<span class="pp">*</span>.txt<span class="kw">;</span> <span class="fu">paste</span> final_output.txt DepthOfCoverage.<span class="va">${FASTQ_FILE}</span>.txt GenomeLength.<span class="va">${FASTQ_FILE}</span>.txt BreadthOfCoverage.<span class="va">${FASTQ_FILE}</span>.txt <span class="op">&gt;</span> final_output_corrected.txt</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="fu">cp</span> <span class="at">-r</span> <span class="va">$OUTPUT</span> /proj/snic2018-8-150/uppstore2018095/private/NBIS_Demo<span class="kw">;</span> <span class="fu">cat</span> final_output_corrected.txt</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="bu">printf</span> <span class="st">"\n"</span><span class="kw">;</span> <span class="bu">echo</span> <span class="st">"PIPELINE FINISHED SUCCESSFULLY"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
