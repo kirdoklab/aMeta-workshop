@@ -1,5 +1,5 @@
 ---
-title: "NEOMATRIX Workshop Organization"
+title: "NEOMATRIX Workshop"
 
 ---
 
