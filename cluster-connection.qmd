@@ -1,5 +1,5 @@
 ---
-title: "Cluster Details"
+title: "How to connect to servers?"
 
 --- 
 

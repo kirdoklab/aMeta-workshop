@@ -19,7 +19,9 @@ book:
         - href: about.qmd
           text: "About the team"
         - href: cluster-connection.qmd
-          text: "Computing details"
+          text: "How to connect to servers?"
+        - href: course-setup.qmd
+          text: "Course setup"
     - href: course-style.qmd
       text: "How to follow the course?"
     - href: rulegraph.md
