@@ -109,6 +109,12 @@ Here is how we will run it for one file:
 ```bash
 fastqc results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz --threads 2 --nogroup --outdir results/FASTQC_AFTER_TRIMMING
 ```
+Please run the `sbatch` command for this part like this:
+
+```bash
+sbatch Cutadapt_Adapter_Trimming.sh --account=egitim
+```
+
 
 ## Combine quality control outputs
 
