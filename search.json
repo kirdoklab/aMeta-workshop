@@ -91,6 +91,13 @@
     "text": "6.3 Configuration\nAll the tools are installed on these server systems. Before using the tools, we need to set the PATH variable and show the system where these tools are installed.\n\n6.3.1 Configuration of the TRUBA system\nTo use all the tools for aMeta, please set your PATH variable like this:\nexport PATH=${PATH}:/truba/home/egitim/miniconda3/envs/aMeta/bin/\n\n\n6.3.2 Configuration on the Ankara computers\nTo use all the tools for aMeta, please set your PATH variable like this:\nexport PATH=${PATH}:/usr/local/sw/anaconda3/envs/aMeta/"
   },
   {
+    "objectID": "course-setup.html#course-setup",
+    "href": "course-setup.html#course-setup",
+    "title": "7  Course setup",
+    "section": "7.1 Course setup",
+    "text": "7.1 Course setup\nOnce you have connected to the TRUBA server with your own username, you can begin to setup your folder for the course.\nCreate the necessary folders:\nmkdir -p workshop/data\nmkdir -p workshop/logs/slurm\nCreate links to the files you will use:\n# Create links for the FastQ files\nln -s /truba/home/egitim/workshop/data/* workshop/data\n# Create links for the scripts \nln -s /truba/home/egitim/workshop/*.sh workshop\nThen you can follow step after step the pipeline. Good luck !"
+  },
+  {
     "objectID": "qc.html#quality-control-before-trimming",
     "href": "qc.html#quality-control-before-trimming",
     "title": "8  Quality control and trimming",
