@@ -9,7 +9,7 @@ The aim is to give information on the every snakemake rule, and let you run it m
 
 The tutorial part of the course is designed on a specific system. So, if you want to follow this tutorial in your server system, you need to install the tools by yourself using conda or any other package manager.
 
-We will first show you the snakemake rule. For example this code in the quality control part:
+We will first show you the snakemake rule. For example, this code in the quality control part:
 
 ```
 
