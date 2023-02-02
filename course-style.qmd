@@ -37,11 +37,11 @@ rule FastQC_BeforeTrimming:
 
 There are specific snakemake commands in here. To improve the readability, we will delete some of the content in each rule.
 
-Here we would like to first explain the parameters in each rule:
+Here, we would like to first explain the parameters in each rule:
 
 ## Using conda package manager
 
-Each rule can conain a conda environment. So, if you will run snakemake with `--use-conda` flag, the specified environment will be installed given you have the conda package manager already installed:
+Each rule can contain a conda environment. So, if you will run snakemake with `--use-conda` flag, the specified environment will be installed given you have the conda package manager already installed:
 
 ```
     conda:
