@@ -74,3 +74,21 @@ ssh egitim@levrek1.ulakbim.gov.tr
 ## Configuration
 
 All the tools are installed on these server systems. Before using the tools, we need to set the `PATH` variable and show the system where these tools are installed.
+
+### Configuration on the TRUBA system
+
+To use all the tools for aMeta, please set your `PATH` variable like this:
+
+```bash
+PATH=${PATH}:/truba/home/egitim/miniconda3/envs/aMeta/bin/
+
+```
+
+### Configuration on the Ankara computers
+
+To use all the tools for aMeta, please set your `PATH` variable like this:
+
+```bash
+export PATH=${PATH}:/usr/local/sw/anaconda3/envs/aMeta/
+
+```
