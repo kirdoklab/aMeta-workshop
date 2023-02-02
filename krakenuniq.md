@@ -177,7 +177,9 @@ rule KrakenUniq_AbundanceMatrix:
         "Rscript {params.exe_plot} {output.out_dir} {output.out_dir} &> {log}"
 ```
 
+This rule combines krakenuniq abundance output files into one file `results/KRAKENUNIQ_ABUNDANCE_MATRIX/krakenuniq_abundance_matrix.txt`.
 
+Then, it creates a heatmap plot using the abundance data: `results/KRAKENUNIQ_ABUNDANCE_MATRIX/krakenuniq_absolute_abundance_heatmap.pdf`
 
 ```bash
 printf "\n"; echo "PERFORMING ALIGNMENT TO PATHO-GENOME"
