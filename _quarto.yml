@@ -12,6 +12,10 @@ book:
   chapters:
     - href: index.qmd
       text: Home
+    - href: course-style.qmd
+      text: "How to understand snakemake?"
+    - href: rulegraph.md
+      text: "aMeta workflow graph"
     - part: organization.md
       chapters:
         - href: info-mersin.md
@@ -22,10 +26,6 @@ book:
           text: "How to connect to servers?"
         - href: course-setup.qmd
           text: "Course setup"
-    - href: course-style.qmd
-      text: "How to understand snakemake?"
-    - href: rulegraph.md
-      text: "Rulegraph of aMeta workflow"
     - href : qc.qmd
       text: "Quality Control Step"
     - href: krakenuniq.md
