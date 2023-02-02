@@ -27,7 +27,7 @@ In this workshop, we have two different cluster systems at our disposal. The fir
 
 ### TRUBA Cluster system
 
-This cluster system accept connections from University networks. Therefore you should be in a University network in order to access TRUBA computers. We will provide a username and a password for your connection.
+This cluster system accepts connections from University networks. Therefore you should be in a University network in order to access TRUBA computers. We will provide a username and a password for your connection.
 
 Then, you can connect to this system like this:
 
