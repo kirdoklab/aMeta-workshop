@@ -7,8 +7,8 @@ Welcome to the **aMeta: an accurate and memory-efficient ancient Metagenomic pro
 
 In this web page, we aim to publish the tutorial material of aMeta ancient metagenomic profiling workflow.
 
-**aMeta** [@Pochon-Bergfeldt-2022] is designed to analyse the microbial content in ancient specimens from wide variety of source organisms (including humans).
+**aMeta** [@Pochon-Bergfeldt-2022] is designed to analyse the microbial content in ancient specimens from a wide variety of source organisms (including humans).
 
-Please find the whole pipline through this [github repo](https://github.com/NBISweden/aMeta)
+Please find the whole pipeline through this [github repo](https://github.com/NBISweden/aMeta)
 
 extending
