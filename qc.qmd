@@ -96,6 +96,12 @@ Please run the command for this part like this:
 sbatch Cutadapt_Adapter_Trimming.sh --account=egitim
 ```
 
+After your job has finished, please check the output files:
+
+```bash
+ls -ltrh results/CUTADAPT_ADAPTER_TRIMMING/
+```
+
 ## Quality control after trimming
 
 Then we will run the quality control after the trimming step:
