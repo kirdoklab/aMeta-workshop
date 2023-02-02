@@ -1,13 +1,19 @@
 ---
 title: "Quality control and trimming"
-
 ---
+
+## Introduction
+
+The pipeline starts with a quality controlling step. This step contains four main rules:
+
++ Quality controlling of raw `fastq` files using `fastqc` tool
++ Removing leftover adapters an low quality bases using `cutadapt`
++ Quality controlling of the trimmed `fastq` files using `fastqc` tool
++ Combining several `fastqc` outputs into one file using `MultiQC` tool
 
 ## Quality control before trimming
 
-The pipeline starts with a quality control step. We will first run `FastQC` tool to check the quality of the fastq files.
-
-This is the rule in the `workflow/rules/qc.smk` file. Input files are retrieved from the sample sheet that you provided. And you will have two output files `html` and `zip` files. The `html` file contains the final report.
+Input files are retrieved from the sample sheet that you provided. And you will have two output files `html` and `zip` files. The `html` file contains the final report. Here is the simplified snakemake rule:
 
 ```
 rule FastQC_BeforeTrimming:
@@ -33,6 +39,12 @@ fastqc FASTQ \
     --nogroup \
     --outdir results/FASTQC_BEFORE_TRIMMING/
 
+```
+
+To run this part using the `fastqc` tool, please copy and paste this command on your terminal. Remember to change your account name, with the username provided for you:
+
+```bash
+sbatch Cutadapt_Adapter_Trimming.sh --account=egitim
 ```
 
 ## Quality trimming step
