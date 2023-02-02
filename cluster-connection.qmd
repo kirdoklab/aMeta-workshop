@@ -80,7 +80,7 @@ All the tools are installed on these server systems. Before using the tools, we 
 To use all the tools for aMeta, please set your `PATH` variable like this:
 
 ```bash
-PATH=${PATH}:/truba/home/egitim/miniconda3/envs/aMeta/bin/
+export PATH=${PATH}:/truba/home/egitim/miniconda3/envs/aMeta/bin/
 
 ```
 
