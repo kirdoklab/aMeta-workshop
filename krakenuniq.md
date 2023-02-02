@@ -1,21 +1,20 @@
 
 ## KrakenUniq database
 
-A full NT database for KrakenUniq is [available for download](https://www.biorxiv.org/node/2777891.external-links.html) through SciLifeLab. Other databases are available online and for this workshop, we will be using [MinusB](https://benlangmead.github.io/aws-indexes/k2). The database is installed on the cluster.
-
 KrakenUniq is relatively fast and allows to screen aDNA samples against as large database as possible. The KrakenUniq paper suggests that KrakenUniq is not less accurate compared to alignment tools such as `BLAST` and `MEGAN`.
 
-To start we need to set up links to the database and the software:
-
-```bash
-DBNAME=/proj/mnt/NEOGENE4/share/KrakenUniqDatabase
-PATH_TO_KRAKENUNIQ=/usr/local/sw/anaconda3/envs/aMeta/KrakenUniq
-time $PATH_TO_KRAKENUNIQ/./krakenuniq --db $DBNAME --fastq-input sample_name.fastq.gz --threads 80 --output sample_name.fastq.gz_sequences.krakenuniq_Full_NT --report-file sample_name.fastq.gz_krakenuniq.output_Full_NT --gzip-compressed --only-classified-out
-
-```
+A full NT database for KrakenUniq is [available for download](https://www.biorxiv.org/node/2777891.external-links.html) through SciLifeLab. Other databases are available online and for this workshop, we use [Standard-8](https://benlangmead.github.io/aws-indexes/k2). The database is installed on the cluster.
 
 
-## Run KrakenUniq
+
+## KrakenUniq workflow
+
+
+### Run KrakenUniq
+
+**Please note that it will not be possible to run this first step during this workshop due to issues with storage space. The output files will be provided by the course leaders.**
+
+To start, we need to set up the path to the database– we call it `DBNAME`.
 
 This is the rule in the workflow/rules/krakenuniq.smk file. Input files are retrieved from the output of the Quality Control step.
 
@@ -27,7 +26,17 @@ rule KrakenUniq:
         seqs="results/KRAKENUNIQ/{sample}/sequences.krakenuniq",
     input:
         fastq="results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz",
+    params:
+        DB=config["krakenuniq_db"],
     threads: 10
+    log:
+        "logs/KRAKENUNIQ/{sample}.log",
+    conda:
+        "../envs/krakenuniq.yaml"
+    envmodules:
+        *config["envmodules"]["krakenuniq"],
+    benchmark:
+        "benchmarks/KRAKENUNIQ/{sample}.benchmark.txt"
     message:
         "KrakenUniq: PERFORMING TAXONOMIC CLASSIFICATION OF SAMPLE {input.fastq} WITH KRAKENUNIQ"
     shell:
@@ -37,13 +46,16 @@ rule KrakenUniq:
 Here is a simplified version of this code:
 
 ```bash
-krakenuniq --db $DBNAME --fastq-input $SAMPLE --threads 10 --output $SAMPLE.sequences.krakenuniq --report-file $SAMPLE.krakenuniq.output --gzip-compressed --only-classified-out
+DBNAME=db/
+PATH=${PATH}:/truba/home/egitim/miniconda3/envs/aMeta/bin/
+krakenuniq --preload --db $DBNAME --fastq-input ${sample_name} --threads 4 --output ${sample_name}.sequences.krakenuniq --report-file ${sample_name}.krakenuniq.output --gzip-compressed --only-classified-out &> logs/KRAKENUNIQ/${sample_name}.log
 
 ```
 
 
-After running KrakenUniq, the next step is to filter the output. The input is the `krakenuniq.output` generated in the previous step.
+### Filtering the output
 
+After running KrakenUniq, the next step is to filter the output. The input is the `krakenuniq.output` generated in the previous step.
 
 ```
 rule Filter_KrakenUniq_Output:
@@ -54,12 +66,32 @@ rule Filter_KrakenUniq_Output:
     input:
         krakenuniq="results/KRAKENUNIQ/{sample}/krakenuniq.output",
         pathogenomesFound=config["pathogenomesFound"],
+    log:
+        "logs/FILTER_KRAKENUNIQ_OUTPUT/{sample}.log",
+    params:
+        exe=WORKFLOW_DIR / "scripts/filter_krakenuniq.py",
+        n_unique_kmers=config["n_unique_kmers"],
+        n_tax_reads=config["n_tax_reads"],
+    conda:
+        "../envs/krakenuniq.yaml"
+    envmodules:
+        *config["envmodules"]["krakenuniq"],
+    benchmark:
+        "benchmarks/FILTER_KRAKENUNIQ_OUTPUT/{sample}.benchmark.txt"
     message:
         "Filter_KrakenUniq_Output: APPLYING DEPTH AND BREADTH OF COVERAGE FILTERS TO KRAKENUNIQ OUTPUT FOR SAMPLE {input}"
     shell:
         """{params.exe} {input.krakenuniq} {params.n_unique_kmers} {params.n_tax_reads} {input.pathogenomesFound} &> {log}; """
         """cut -f7 {output.pathogens} | tail -n +2 > {output.pathogen_tax_id}"""
-```
+        
+``
+
+
+Breadth and depth of coverage filters 
+default thresholds are very conservative, can be tuned by users
+n_unique_kmers: 1000
+n_tax_reads: 200
+
 
 ```bash
 cd $OUTPUT; Rscript $PATH_TO_SCRIPTS/pipeline.R
@@ -78,6 +110,8 @@ paste krakenuniq.output.pathogens mean.reads.length > krakenuniq.output.pathogen
 cat krakenuniq.output.pathogens_with_mean_read_length
 ```
 
+
+### KrakenUniq to Krona
 
 We then visualize our filtered output using Krona:
 
@@ -102,6 +136,8 @@ rule KrakenUniq2Krona:
         "ktImportTaxonomy {output.krona} -o {output.html} {params.DB} &>> {log}"
 
 ```
+
+### AbundanceMatrix
 
 Lastly, we create an Abundance matrix:
 
