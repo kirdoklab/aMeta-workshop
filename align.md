@@ -49,7 +49,7 @@ WARNING: No need to execute that line of code as we haven't downloaded the real 
 For real life projects, these are the Bowtie2 databases we have made available for download:
 
 + Pathogenome: Bowtie2 index and helping files for following up on microbial pathogens
-+ Bowtie2_Full_NT: Bowtie2 index for full NCBI NT (for quick followup of prokaryotes and eukaryotes; also contains helping files for building the Malt database)
++ Bowtie2_Full_NT: Bowtie2 index for full NCBI NT (for quick follow up of prokaryotes and eukaryotes; also contains helping files for building the Malt database)
 
 For more information and links to download the databases, please refer to the official GitHub of aMeta.
 
