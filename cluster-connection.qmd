@@ -7,7 +7,7 @@ title: "Cluster Details"
 
 In this workshop, we will use our computers, and we will connect to high performance computing systems. Therefore, you will need to bring your laptops with you. 
 
-You should have been comfortable with using the Unix/Linux command line to follow the course. We know that there will be several operating systems. So please check these reccomendations based on your operating system.
+You should have been comfortable using the Unix/Linux command line to follow the course. We know that there will be several operating systems. So please check these reccomendations based on your operating system.
 
 ### Linux systems
 
