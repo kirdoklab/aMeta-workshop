@@ -59,7 +59,7 @@ Afterwards, you can connect to `NEOGENE` like this:
 ssh username@144.122.38.50
 ```
 
-### Connecting to TRUBA system outside of universiy network
+### Connecting to TRUBA system outside of the universiy network
 
 We can connect to TRUBA system with a small trick. First we will connect to Baggins cluster, so we will be on the Middle East Technical Univerisy network. Then we can connect to TRUBA.
 
