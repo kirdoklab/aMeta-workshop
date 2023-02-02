@@ -35,7 +35,7 @@ rule FastQC_BeforeTrimming:
         "fastqc {input.fastq} --threads {threads} --nogroup --outdir results/FASTQC_BEFORE_TRIMMING &> {log}"
 ```
 
-There are specific snakemake commands in here. To improve the readablity, we will delete some of the content in each rule.
+There are specific snakemake commands in here. To improve the readability, we will delete some of the content in each rule.
 
 Here we would like to first explain the parameters in each rule:
 
