@@ -1,0 +1,25 @@
+---
+title: "Course setup"
+
+---
+
+## Course setup
+
+Once you have connected to the TRUBA server with your own username, you can begin to setup your folder for the course.
+
+Create the necessary folders:
+
+```bash
+mkdir -p workshop/data
+mkdir -p workshop/logs/slurm
+```
+Create links to the files you will use:
+
+```bash
+# Create links for the FastQ files
+ln -s /truba/home/egitim/workshop/data/* workshop/data
+# Create links for the scripts 
+ln -s /truba/home/egitim/workshop/*.sh workshop
+```
+
+Then you can follow step after step the pipeline. Good luck !
