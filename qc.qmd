@@ -44,7 +44,7 @@ fastqc FASTQ \
 To run this part using the `fastqc` tool, please copy and paste this command on your terminal. Remember to change your account name, with the username provided for you:
 
 ```bash
-sbatch Cutadapt_Adapter_Trimming.sh --account=egitim
+sbatch FastQC_BeforeTrimming.sh --account=egitim
 ```
 
 Please, remember to check the status of your job using this command:
@@ -55,7 +55,7 @@ squeue -u egitim
 
 ## Quality trimming step
 
-After we run quality controls. We will run `cutadapt` tool to remove the leftover adapters and low quality bases. Here is the overview of this rule. 
+After we run quality controls, the pipeline will run `cutadapt` tool to remove the leftover adapters and low quality bases. Here is the overview of this rule. 
 
 You can add or remove adapters using the `config/config.yaml` file. 
 
@@ -83,6 +83,8 @@ Here is how we will run it for one file:
 cutadapt -a ADAPTERS --minimum-length 30 -o results/CUTADAPT_ADAPTER_TRIMMING/sample  
 
 ```
+
+
 
 ## Quality control after trimming
 
