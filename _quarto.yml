@@ -23,7 +23,7 @@ book:
         - href: course-setup.qmd
           text: "Course setup"
     - href: course-style.qmd
-      text: "How to follow the course?"
+      text: "How to understand snakemake?"
     - href: rulegraph.md
       text: "Rulegraph of aMeta workflow"
     - href : qc.qmd
