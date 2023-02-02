@@ -180,3 +180,10 @@ rule KrakenUniq_AbundanceMatrix:
 This rule combines krakenuniq abundance output files into one file `results/KRAKENUNIQ_ABUNDANCE_MATRIX/krakenuniq_abundance_matrix.txt`.
 
 Then, it creates a heatmap plot using the abundance data: `results/KRAKENUNIQ_ABUNDANCE_MATRIX/krakenuniq_absolute_abundance_heatmap.pdf`
+
+Please run this script using this piece of code:
+
+```bash
+sbatch KrakenUniq_AbundanceMatrix.sh --account=egitim
+
+```
