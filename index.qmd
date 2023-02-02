@@ -11,4 +11,4 @@ In this web page, we aim to publish the tutorial material of aMeta ancient metag
 
 Please find the whole pipeline through this [github repo](https://github.com/NBISweden/aMeta)
 
-extending
+![](images/rulegrap_January_2023.png)
