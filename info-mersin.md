@@ -1,5 +1,5 @@
 ---
-title: "Workshop Organization"
+title: "Information about the place"
 
 ---
 

@@ -1,13 +1,19 @@
 ---
 title: "Quality control and trimming"
-
 ---
+
+## Introduction
+
+The pipeline starts with a quality controlling step. This step contains four main rules:
+
++ Quality controlling of raw `fastq` files using `fastqc` tool
++ Removing leftover adapters an low quality bases using `cutadapt`
++ Quality controlling of the trimmed `fastq` files using `fastqc` tool
++ Combining several `fastqc` outputs into one file using `MultiQC` tool
 
 ## Quality control before trimming
 
-The pipeline starts with a quality control step. We will first run `FastQC` tool to check the quality of the fastq files.
-
-This is the rule in the `workflow/rules/qc.smk` file. Input files are retrieved from the sample sheet that you provided. And you will have two output files `html` and `zip` files. The `html` file contains the final report.
+Input files are retrieved from the sample sheet that you provided. And you will have two output files `html` and `zip` files. The `html` file contains the final report. Here is the simplified snakemake rule:
 
 ```
 rule FastQC_BeforeTrimming:
@@ -35,9 +41,27 @@ fastqc FASTQ \
 
 ```
 
+To run this part using the `fastqc` tool, please copy and paste this command on your terminal. Remember to change your account name, with the username provided for you:
+
+```bash
+sbatch FastQC_BeforeTrimming.sh --account=egitim
+```
+
+Please, remember to check the status of your job using this command:
+
+```bash
+squeue -u egitim
+```
+
+Once your job has finished, please check the output files like this:
+
+```bash
+ls -ltrh results/FASTQC_BEFORE_TRIMMING/
+```
+
 ## Quality trimming step
 
-After we run quality controls. We will run `cutadapt` tool to remove the leftover adapters and low quality bases. Here is the overview of this rule. 
+After we run quality controls, the pipeline will run `cutadapt` tool to remove the leftover adapters and low quality bases. Here is the overview of this rule. 
 
 You can add or remove adapters using the `config/config.yaml` file. 
 
@@ -66,6 +90,18 @@ cutadapt -a ADAPTERS --minimum-length 30 -o results/CUTADAPT_ADAPTER_TRIMMING/sa
 
 ```
 
+Please run the command for this part like this:
+
+```bash
+sbatch Cutadapt_Adapter_Trimming.sh --account=egitim
+```
+
+After your job has finished, please check the output files:
+
+```bash
+ls -ltrh results/CUTADAPT_ADAPTER_TRIMMING/
+```
+
 ## Quality control after trimming
 
 Then we will run the quality control after the trimming step:
@@ -89,10 +125,21 @@ Here is how we will run it for one file:
 ```bash
 fastqc results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz --threads 2 --nogroup --outdir results/FASTQC_AFTER_TRIMMING
 ```
+Please run the `sbatch` command for this part like this:
+
+```bash
+sbatch FastQC_AfterTrimming.sh --account=egitim
+```
+
+Please check the outputs using this command:
+
+```bash
+ls -ltrh results/FASTQC_AFTER_TRIMMING/
+```
 
 ## Combine quality control outputs
 
-At last we will combine all the fastqc reports into one file using Multifastqc tool:
+At last we will combine all the fastqc reports into one file using Multifastqc tool. This part will not be executed in this tutorial. 
 
 ``` 
 rule MultiQC:
