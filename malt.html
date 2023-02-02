@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>aMeta Workshop - 7&nbsp; Quality control and trimming</title>
+<title>aMeta Workshop - 11&nbsp; MALT alignment and processing</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -93,8 +93,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./krakenuniq.html" rel="next">
-<link href="./rulegraph.html" rel="prev">
+<link href="./summary.html" rel="next">
+<link href="./damage.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -133,7 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Quality control and trimming</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">MALT alignment and processing</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -206,7 +206,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./qc.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Quality Control Step</span></a>
+  <a href="./qc.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Quality Control Step</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -226,7 +226,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./malt.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Malt step</span></a>
+  <a href="./malt.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Malt step</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -248,10 +248,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#quality-control-before-trimming" id="toc-quality-control-before-trimming" class="nav-link active" data-scroll-target="#quality-control-before-trimming"><span class="toc-section-number">7.1</span>  Quality control before trimming</a></li>
-  <li><a href="#quality-trimming-step" id="toc-quality-trimming-step" class="nav-link" data-scroll-target="#quality-trimming-step"><span class="toc-section-number">7.2</span>  Quality trimming step</a></li>
-  <li><a href="#quality-control-after-trimming" id="toc-quality-control-after-trimming" class="nav-link" data-scroll-target="#quality-control-after-trimming"><span class="toc-section-number">7.3</span>  Quality control after trimming</a></li>
-  <li><a href="#combine-quality-control-outputs" id="toc-combine-quality-control-outputs" class="nav-link" data-scroll-target="#combine-quality-control-outputs"><span class="toc-section-number">7.4</span>  Combine quality control outputs</a></li>
+  <li><a href="#build-a-custom-malt-database-based-on-the-previous-results-from-the-filtering-of-krakenuniq" id="toc-build-a-custom-malt-database-based-on-the-previous-results-from-the-filtering-of-krakenuniq" class="nav-link active" data-scroll-target="#build-a-custom-malt-database-based-on-the-previous-results-from-the-filtering-of-krakenuniq"><span class="toc-section-number">11.1</span>  Build a custom MALT database based on the previous results from the filtering of KrakenUniq</a></li>
+  <li><a href="#align-the-fastq-files-using-malt" id="toc-align-the-fastq-files-using-malt" class="nav-link" data-scroll-target="#align-the-fastq-files-using-malt"><span class="toc-section-number">11.2</span>  Align the FastQ files using MALT</a></li>
+  <li><a href="#quantify-the-microbial-abundance-using-the-sam-file-generated-by-the-malt-alignment" id="toc-quantify-the-microbial-abundance-using-the-sam-file-generated-by-the-malt-alignment" class="nav-link" data-scroll-target="#quantify-the-microbial-abundance-using-the-sam-file-generated-by-the-malt-alignment"><span class="toc-section-number">11.3</span>  Quantify the microbial abundance using the sam file generated by the MALT alignment</a></li>
+  <li><a href="#compute-the-malt-abundance-matrix-using-the-sam-files-generated-by-malt" id="toc-compute-the-malt-abundance-matrix-using-the-sam-files-generated-by-malt" class="nav-link" data-scroll-target="#compute-the-malt-abundance-matrix-using-the-sam-files-generated-by-malt"><span class="toc-section-number">11.4</span>  Compute the MALT abundance matrix using the SAM files generated by MALT</a></li>
+  <li><a href="#compute-the-malt-abundance-matrix-using-the-rma6-files-generated-by-malt" id="toc-compute-the-malt-abundance-matrix-using-the-rma6-files-generated-by-malt" class="nav-link" data-scroll-target="#compute-the-malt-abundance-matrix-using-the-rma6-files-generated-by-malt"><span class="toc-section-number">11.5</span>  Compute the MALT abundance matrix using the rma6 files generated by MALT</a></li>
   </ul>
 </nav>
     </div>
@@ -260,7 +261,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Quality control and trimming</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">MALT alignment and processing</span></h1>
 </div>
 
 
@@ -275,88 +276,157 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="quality-control-before-trimming" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="quality-control-before-trimming"><span class="header-section-number">7.1</span> Quality control before trimming</h2>
-<p>The pipeline starts with a quality control step. We will first run <code>FastQC</code> tool to check the quality of the fastq files.</p>
-<p>This is the rule in the <code>workflow/rules/qc.smk</code> file. Input files are retrieved from the sample sheet that you provided. And you will have two output files <code>html</code> and <code>zip</code> files. The <code>html</code> file contains the final report.</p>
-<pre><code>rule FastQC_BeforeTrimming:
-    """Run fastq before trimming"""
+<section id="build-a-custom-malt-database-based-on-the-previous-results-from-the-filtering-of-krakenuniq" class="level2" data-number="11.1">
+<h2 data-number="11.1" class="anchored" data-anchor-id="build-a-custom-malt-database-based-on-the-previous-results-from-the-filtering-of-krakenuniq"><span class="header-section-number">11.1</span> Build a custom MALT database based on the previous results from the filtering of KrakenUniq</h2>
+<p>First we need to build the custom database with the rule Build_Malt_DB. This is done with the use of a python script. Inside the script, python will use the input and output variables provided by snakemake.</p>
+<pre><code>rule Build_Malt_DB:
     output:
-        html="results/FASTQC_BEFORE_TRIMMING/{sample}_fastqc.html",
-        zip="results/FASTQC_BEFORE_TRIMMING/{sample}_fastqc.zip",
+        seqid2taxid_project="results/MALT_DB/seqid2taxid.project.map",
+        seqids_project="results/MALT_DB/seqids.project",
+        project_headers="results/MALT_DB/project.headers",
+        project_fasta="results/MALT_DB/library.project.fna",
+        db=directory("results/MALT_DB/maltDB.dat"),
     input:
-        fastq=lambda wildcards: samples.loc[wildcards.sample].fastq,
-    message:
-        "FastQC_BeforeTrimming: RUNNING QUALITY CONTROL WITH FASTQC FOR SAMPLE {input.fastq} BEFORE TRIMMING ADAPTERS"
-    threads: 2
-    shell:
-        "fastqc {input.fastq} --threads {threads} --nogroup --outdir results/FASTQC_BEFORE_TRIMMING &amp;&gt; {log}"
-</code></pre>
-<p>Here is a simplified version of this code:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> FASTQ <span class="dt">\</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> 2 <span class="dt">\</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--nogroup</span> <span class="dt">\</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--outdir</span> results/FASTQC_BEFORE_TRIMMING/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="quality-trimming-step" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="quality-trimming-step"><span class="header-section-number">7.2</span> Quality trimming step</h2>
-<p>After we run quality controls. We will run <code>cutadapt</code> tool to remove the leftover adapters and low quality bases. Here is the overview of this rule.</p>
-<p>You can add or remove adapters using the <code>config/config.yaml</code> file.</p>
-<p>In this file the inputs will be retrieved again from the samplesheet file. And the outputs will be placed to the <code>results/CUTADAPT_ADAPTER_TRIMMING/</code> folder.</p>
-<pre><code>rule Cutadapt_Adapter_Trimming:
-    output:
-        fastq="results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz",
-    input:
-        fastq=lambda wildcards: samples.loc[wildcards.sample].fastq,
+        unique_taxids=ancient("results/KRAKENUNIQ_ABUNDANCE_MATRIX/unique_species_taxid_list.txt"),
     params:
-        adapters=" ".join([f"-a {x}" for x in ADAPTERS]),
-    message:
-        "Cutadapt_Adapter_Trimming: TRIMMING ADAPTERS FOR SAMPLE {input.fastq} WITH CUTADAPT"
-    threads: 1
-    shell:
-        "cutadapt {params.adapters} --minimum-length 30 -o {output.fastq} {input.fastq} &amp;&gt; {log}"
-</code></pre>
-<p>Here is how we will run it for one file:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">cutadapt</span> <span class="at">-a</span> ADAPTERS <span class="at">--minimum-length</span> 30 <span class="at">-o</span> results/CUTADAPT_ADAPTER_TRIMMING/sample  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="quality-control-after-trimming" class="level2" data-number="7.3">
-<h2 data-number="7.3" class="anchored" data-anchor-id="quality-control-after-trimming"><span class="header-section-number">7.3</span> Quality control after trimming</h2>
-<p>Then we will run the quality control after the trimming step:</p>
-<pre><code>rule FastQC_AfterTrimming:
-    output:
-        html="results/FASTQC_AFTER_TRIMMING/{sample}.trimmed_fastqc.html",
-        zip="results/FASTQC_AFTER_TRIMMING/{sample}.trimmed_fastqc.zip",
-    input:
-        fastq="results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz",
-    threads: 2
-    message:
-        "FastQC_AfterTrimming: RUNNING QUALITY CONTROL WITH FASTQC FOR SAMPLE {input.fastq} AFTER TRIMMING ADAPTERS"
-    shell:
-        "fastqc {input.fastq} --threads {threads} --nogroup --outdir results/FASTQC_AFTER_TRIMMING &amp;&gt; {log}"</code></pre>
-<p>Here is how we will run it for one file:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">fastqc</span> results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz <span class="at">--threads</span> 2 <span class="at">--nogroup</span> <span class="at">--outdir</span> results/FASTQC_AFTER_TRIMMING</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="combine-quality-control-outputs" class="level2" data-number="7.4">
-<h2 data-number="7.4" class="anchored" data-anchor-id="combine-quality-control-outputs"><span class="header-section-number">7.4</span> Combine quality control outputs</h2>
-<p>At last we will combine all the fastqc reports into one file using Multifastqc tool:</p>
-<pre class="&nbsp;"><code>rule MultiQC:
-    """Run MultiQC"""
-    output:
-        html="results/MULTIQC/multiqc_report.html",
-    input:
-        unpack(multiqc_input),
-    params:
-        config=os.path.join(WORKFLOW_DIR, "envs", "multiqc_config.yaml"),
+        seqid2taxid=config["malt_seqid2taxid_db"],
+        nt_fasta=config["malt_nt_fasta"],
+        accession2taxid=config["malt_accession2taxid"],
+    threads: 20
+    log:
+        "logs/BUILD_MALT_DB/BUILD_MALT_DB.log",
+    conda:
+        "../envs/malt.yaml"
     envmodules:
-        *config["envmodules"]["multiqc"],
+        *config["envmodules"]["malt"],
     benchmark:
-        "benchmarks/MULTIQC/MULTIQC.benchmark.txt"
+        "benchmarks/BUILD_MALT_DB/BUILD_MALT_DB.benchmark.txt"
     message:
-        "MultiQC: COMBINING QUALITY CONTROL METRICS WITH MULTIQC"
+        "Build_Malt_DB: BUILDING MALT DATABASE USING SPECIES DETECTED BY KRAKENUNIQ"
+    script:
+        "../scripts/malt-build.py"</code></pre>
+<p>Here is a simplified version of this code:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> ../scripts/malt-build.py <span class="dt">\</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">--seqid2taxid</span> <span class="va">${seqid2taxid}</span> <span class="dt">\</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">--nt_fasta</span> <span class="va">${nt_fasta}</span> <span class="dt">\</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">--accession2taxid</span> <span class="va">${accession2taxid}</span> <span class="dt">\</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">--unique_taxids</span> results/KRAKENUNIQ_ABUNDANCE_MATRIX/unique_species_taxid_list.txt <span class="dt">\</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">--output_dir</span> results/MALT_DB/ <span class="dt">\</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> 20 <span class="op">&amp;&gt;</span> logs/BUILD_MALT_DB/BUILD_MALT_DB.log</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="align-the-fastq-files-using-malt" class="level2" data-number="11.2">
+<h2 data-number="11.2" class="anchored" data-anchor-id="align-the-fastq-files-using-malt"><span class="header-section-number">11.2</span> Align the FastQ files using MALT</h2>
+<pre><code>rule Malt:
+    output:
+        rma6="results/MALT/{sample}.trimmed.rma6",
+        sam="results/MALT/{sample}.trimmed.sam.gz",
+    input:
+        fastq=ancient("results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz"),
+        db=ancient("results/MALT_DB/maltDB.dat"),
+    params:
+        gunzipped_sam="results/MALT/{sample}.trimmed.sam",
+    threads: 20
+    log:
+        "logs/MALT/{sample}.log",
+    conda:
+        "../envs/malt.yaml"
+    envmodules:
+        *config["envmodules"]["malt"],
+    benchmark:
+        "benchmarks/MALT/{sample}.benchmark.txt"
+    message:
+        "Malt: RUNNING MALT ALIGNMENTS FOR SAMPLE {input.fastq}"
     shell:
-        'echo {input} | tr " " "\n" &gt; {output.html}.fof;'
-        "multiqc -c {params.config} -l {output.html}.fof --verbose --force --outdir results/MULTIQC &amp;&gt; {log}"
-</code></pre>
+        "unset DISPLAY; malt-run -at SemiGlobal -m BlastN -i {input.fastq} -o {output.rma6} -a {params.gunzipped_sam} -t {threads} -d {input.db} &amp;&gt; {log}"</code></pre>
+<p>Here is a simplified version of this code:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">unset</span> <span class="va">DISPLAY</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">malt-run</span> <span class="at">-at</span> SemiGlobal <span class="at">-m</span> BlastN <span class="at">-i</span> results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz <span class="dt">\</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">-o</span> results/MALT/{sample}.trimmed.rma6 <span class="dt">\</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">-a</span> results/MALT/{sample}.trimmed.sam <span class="dt">\</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">-t</span> 20 <span class="at">-d</span> results/MALT_DB/maltDB.dat <span class="dt">\</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">&amp;&gt;</span> logs/MALT/{sample}.log</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">gzip</span> results/MALT/{sample}.trimmed.sam</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="quantify-the-microbial-abundance-using-the-sam-file-generated-by-the-malt-alignment" class="level2" data-number="11.3">
+<h2 data-number="11.3" class="anchored" data-anchor-id="quantify-the-microbial-abundance-using-the-sam-file-generated-by-the-malt-alignment"><span class="header-section-number">11.3</span> Quantify the microbial abundance using the sam file generated by the MALT alignment</h2>
+<pre><code>rule Malt_QuantifyAbundance:
+    output:
+        out_dir=directory("results/MALT_QUANTIFY_ABUNDANCE/{sample}"),
+        counts="results/MALT_QUANTIFY_ABUNDANCE/{sample}/sam_counts.txt",
+    input:
+        sam=ancient("results/MALT/{sample}.trimmed.sam.gz"),
+    params:
+        unique_taxids="results/KRAKENUNIQ_ABUNDANCE_MATRIX/unique_species_taxid_list.txt",
+        exe=WORKFLOW_DIR / "scripts/malt_quantify_abundance.py",
+    log:
+        "logs/MALT_QUANTIFY_ABUNDANCE/{sample}.log",
+    benchmark:
+        "benchmarks/MALT_QUANTIFY_ABUNDANCE/{sample}.benchmark.txt"
+    message:
+        "Malt_QuantifyAbundance: QUANTIFYING MICROBIAL ABUNDANCE USING MALT SAM-ALIGNMENTS FOR SAMPLE {input.sam}"
+    shell:
+        "mkdir -p {output.out_dir}; "
+        "{params.exe} {input.sam} {params.unique_taxids} &gt; {output.counts} 2&gt; {log}"</code></pre>
+<p>Here is a simplified version of this code:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> results/MALT_QUANTIFY_ABUNDANCE/{sample}<span class="kw">;</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="ex">WORKFLOW_DIR/scripts/malt_quantify_abundance.py</span> results/MALT/{sample}.trimmed.sam.gz results/KRAKENUNIQ_ABUNDANCE_MATRIX/unique_species_taxid_list.txt <span class="op">&gt;</span> results/MALT_QUANTIFY_ABUNDANCE/{sample}/sam_counts.txt <span class="dv">2</span><span class="op">&gt;</span> logs/MALT_QUANTIFY_ABUNDANCE/{sample}.log</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="compute-the-malt-abundance-matrix-using-the-sam-files-generated-by-malt" class="level2" data-number="11.4">
+<h2 data-number="11.4" class="anchored" data-anchor-id="compute-the-malt-abundance-matrix-using-the-sam-files-generated-by-malt"><span class="header-section-number">11.4</span> Compute the MALT abundance matrix using the SAM files generated by MALT</h2>
+<pre><code>rule Malt_AbundanceMatrix_Sam:
+    output:
+        out_dir=directory("results/MALT_ABUNDANCE_MATRIX_SAM"),
+        abundance_matrix="results/MALT_ABUNDANCE_MATRIX_SAM/malt_abundance_matrix_sam.txt",
+    input:
+        sam_counts=expand(
+            "results/MALT_QUANTIFY_ABUNDANCE/{sample}/sam_counts.txt", sample=SAMPLES
+        ),
+    log:
+        "logs/MALT_ABUNDANCE_MATRIX_SAM/MALT_ABUNDANCE_MATRIX_SAM.log",
+    params:
+        exe=WORKFLOW_DIR / "scripts/malt_abundance_matrix.R",
+    conda:
+        "../envs/r.yaml"
+    envmodules:
+        *config["envmodules"]["r"],
+    benchmark:
+        "benchmarks/MALT_ABUNDANCE_MATRIX_SAM/MALT_ABUNDANCE_MATRIX_SAM.benchmark.txt"
+    message:
+        "Malt_AbundanceMatrix_Sam: COMPUTING MALT MICROBIAL ABUNDANCE MATRIX FROM SAM-FILES"
+    shell:
+        "Rscript {params.exe} results/MALT_QUANTIFY_ABUNDANCE {output.out_dir} &amp;&gt; {log}"</code></pre>
+<p>Here is a simplified version of this code:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> results/MALT_ABUNDANCE_MATRIX_SAM<span class="kw">;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> WORKFLOW_DIR/scripts/malt_abundance_matrix.R results/MALT_QUANTIFY_ABUNDANCE results/MALT_ABUNDANCE_MATRIX_SAM/ <span class="op">&gt;</span> logs/MALT_ABUNDANCE_MATRIX_SAM/MALT_ABUNDANCE_MATRIX_SAM.log <span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="compute-the-malt-abundance-matrix-using-the-rma6-files-generated-by-malt" class="level2" data-number="11.5">
+<h2 data-number="11.5" class="anchored" data-anchor-id="compute-the-malt-abundance-matrix-using-the-rma6-files-generated-by-malt"><span class="header-section-number">11.5</span> Compute the MALT abundance matrix using the rma6 files generated by MALT</h2>
+<pre><code>rule Malt_AbundanceMatrix_Rma6:
+    output:
+        out_dir=directory("results/MALT_ABUNDANCE_MATRIX_RMA6"),
+        abundance_matrix="results/MALT_ABUNDANCE_MATRIX_RMA6/malt_abundance_matrix_rma6.txt",
+    input:
+        rma6=expand("results/MALT/{sample}.trimmed.rma6", sample=SAMPLES),
+    params:
+        exe=WORKFLOW_DIR / "scripts/rma-tabuliser",
+    log:
+        "logs/MALT_ABUNDANCE_MATRIX_RMA6/MALT_ABUNDANCE_MATRIX_RMA6.log",
+    envmodules:
+        *config["envmodules"]["malt"],
+    conda:
+        "../envs/malt.yaml"
+    benchmark:
+        "benchmarks/MALT_ABUNDANCE_MATRIX_RMA6/MALT_ABUNDANCE_MATRIX_RMA6.benchmark.txt"
+    message:
+        "Malt_AbundanceMatrix_Rma6: COMPUTING MALT MICROBIAL ABUNDANCE MATRIX FROM RMA6-FILES"
+    shell:
+        "{params.exe} -d $(dirname {input.rma6}) -r 'S' &amp;&gt; {log}; "
+        "mv results/MALT/count_table.tsv {output.out_dir}; "
+        "mv {output.out_dir}/count_table.tsv {output.abundance_matrix}"</code></pre>
+<p>Here is a simplified version of this code:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rma-tabuliser</span> <span class="at">-d</span> results/MALT/{sample}.trimmed.rma6 <span class="at">-r</span> <span class="st">'S'</span> <span class="op">&amp;&gt;</span> logs/MALT_ABUNDANCE_MATRIX_RMA6/MALT_ABUNDANCE_MATRIX_RMA6.log<span class="kw">;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> results/MALT/count_table.tsv results/MALT_ABUNDANCE_MATRIX_RMA6/<span class="kw">;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mv</span> results/MALT_ABUNDANCE_MATRIX_RMA6/count_table.tsv results/MALT_ABUNDANCE_MATRIX_RMA6/malt_abundance_matrix_rma6.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 </section>
@@ -497,13 +567,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./rulegraph.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Rulegraph of aMeta workflow</span></span>
+      <a href="./damage.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">MapDamage step</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./krakenuniq.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">KrakenUniq Step</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./summary.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Summarizing the results</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

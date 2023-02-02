@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>aMeta Workshop - 8&nbsp; Fast alignment with Bowtie2</title>
+<title>aMeta Workshop - 9&nbsp; Fast alignment with Bowtie2</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -70,7 +70,7 @@ ul.task-list li input[type="checkbox"] {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Fast alignment with Bowtie2</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Fast alignment with Bowtie2</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -138,27 +138,37 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./qc.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Quality Control Step</span></a>
+  <a href="./rulegraph.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Rulegraph of aMeta workflow</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./krakenuniq.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">KrakenUniq Step</span></a>
+  <a href="./qc.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Quality Control Step</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./align.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Bowtie2 Step</span></a>
+  <a href="./krakenuniq.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">KrakenUniq Step</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./damage.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">MapDamage</span></a>
+  <a href="./align.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Bowtie2 Step</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Summarizing the results</span></a>
+  <a href="./damage.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">MapDamage step</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./malt.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Malt step</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Summarizing the results</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -175,12 +185,12 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#bowtie2" id="toc-bowtie2" class="nav-link active" data-scroll-target="#bowtie2"><span class="toc-section-number">8.1</span>  Bowtie2</a></li>
-  <li><a href="#bowtie2-build-l-to-build-the-index-files" id="toc-bowtie2-build-l-to-build-the-index-files" class="nav-link" data-scroll-target="#bowtie2-build-l-to-build-the-index-files"><span class="toc-section-number">8.2</span>  Bowtie2-build-l to build the index files</a>
+  <li><a href="#bowtie2" id="toc-bowtie2" class="nav-link active" data-scroll-target="#bowtie2"><span class="toc-section-number">9.1</span>  Bowtie2</a></li>
+  <li><a href="#bowtie2-build-l-to-build-the-index-files" id="toc-bowtie2-build-l-to-build-the-index-files" class="nav-link" data-scroll-target="#bowtie2-build-l-to-build-the-index-files"><span class="toc-section-number">9.2</span>  Bowtie2-build-l to build the index files</a>
   <ul class="collapse">
-  <li><a href="#regarding-real-life-projects-with-the-actual-databases" id="toc-regarding-real-life-projects-with-the-actual-databases" class="nav-link" data-scroll-target="#regarding-real-life-projects-with-the-actual-databases"><span class="toc-section-number">8.2.1</span>  Regarding real life projects with the actual databases</a></li>
+  <li><a href="#regarding-real-life-projects-with-the-actual-databases" id="toc-regarding-real-life-projects-with-the-actual-databases" class="nav-link" data-scroll-target="#regarding-real-life-projects-with-the-actual-databases"><span class="toc-section-number">9.2.1</span>  Regarding real life projects with the actual databases</a></li>
   </ul></li>
-  <li><a href="#bowtie2-alignment" id="toc-bowtie2-alignment" class="nav-link" data-scroll-target="#bowtie2-alignment"><span class="toc-section-number">8.3</span>  Bowtie2 alignment</a></li>
+  <li><a href="#bowtie2-alignment" id="toc-bowtie2-alignment" class="nav-link" data-scroll-target="#bowtie2-alignment"><span class="toc-section-number">9.3</span>  Bowtie2 alignment</a></li>
   </ul>
 </nav>
     </div>
@@ -189,7 +199,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Fast alignment with Bowtie2</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Fast alignment with Bowtie2</span></h1>
 </div>
 
 
@@ -204,12 +214,12 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="bowtie2" class="level2" data-number="8.1">
-<h2 data-number="8.1" class="anchored" data-anchor-id="bowtie2"><span class="header-section-number">8.1</span> Bowtie2</h2>
+<section id="bowtie2" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="bowtie2"><span class="header-section-number">9.1</span> Bowtie2</h2>
 <p>The pipeline has a side branch for rapid analysis of the results based on an alignment with Bowtie2 and a post-mortem damage estimation with MapDamage. For this project, we won’t be able to use the real Bowtie2 databases, because there were too heavy for the resources allocated for this workshop. So we are only going to look at the code but not run it and the output will be provided for you in the folder containing the expected results.</p>
 </section>
-<section id="bowtie2-build-l-to-build-the-index-files" class="level2" data-number="8.2">
-<h2 data-number="8.2" class="anchored" data-anchor-id="bowtie2-build-l-to-build-the-index-files"><span class="header-section-number">8.2</span> Bowtie2-build-l to build the index files</h2>
+<section id="bowtie2-build-l-to-build-the-index-files" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="bowtie2-build-l-to-build-the-index-files"><span class="header-section-number">9.2</span> Bowtie2-build-l to build the index files</h2>
 <p>In order to run a Bowtie2 alignment, one needs a complete Bowtie2 database, in other words a .fna (fasta) file that has been indexed using the command bowtie2-build-l. This is the first part of the pipeline for the alignment step. You can therefore provide your own merged fna file for Bowtie2 to index if you wish to. However, if you are using one of our own custom databases, this step will be automatically ignored because its output already exists.</p>
 <p>You can find the Bowtie2_build rule generating the index files below. It takes as input the path to the library.fna file that you have provided for the variable bowtie2_patho_db in your config.yaml file. For more information, refer to the main aMeta GitHub in the section about the config file. The rule then generates the index files of the Bowtie2 database <strong>if they don’t already exist</strong>.</p>
 <pre><code>rule Bowtie2_Index:
@@ -234,8 +244,8 @@ ul.task-list li input[type="checkbox"] {
 <p>Here is a simplified version of this code:</p>
 <pre><code>bowtie2-build-l --threads 1 resources/library.fna resources/library.fna &gt; logs/Bowtie2_Build.log 2&gt;&amp;1</code></pre>
 <p>WARNING: No need to execute that line of code as we haven’t downloaded the real databases to the server for this workshop and it would overwrite the index files! The trick for this rule is that the input file is declared as ancient with the “ancient” function of snakemake, making snakemake not rerun the rule if the output files already exists. But if you only run the bash command provided, you will overwrite the files.</p>
-<section id="regarding-real-life-projects-with-the-actual-databases" class="level3" data-number="8.2.1">
-<h3 data-number="8.2.1" class="anchored" data-anchor-id="regarding-real-life-projects-with-the-actual-databases"><span class="header-section-number">8.2.1</span> Regarding real life projects with the actual databases</h3>
+<section id="regarding-real-life-projects-with-the-actual-databases" class="level3" data-number="9.2.1">
+<h3 data-number="9.2.1" class="anchored" data-anchor-id="regarding-real-life-projects-with-the-actual-databases"><span class="header-section-number">9.2.1</span> Regarding real life projects with the actual databases</h3>
 <p>For real life projects, these are the Bowtie2 databases we have made available for download:</p>
 <ul>
 <li>Pathogenome: Bowtie2 index and helping files for following up on microbial pathogens</li>
@@ -245,8 +255,8 @@ ul.task-list li input[type="checkbox"] {
 <p>WARNING: if you are using the Bowtie2_Full_NT database, make sure that you have <strong>unzipped</strong> the files before running the pipeline, otherwise it will automatically overwrite the index files to regenerate them and will need a huge amount of memory and time to succeed, which you probably don’t want to happen ;-)</p>
 </section>
 </section>
-<section id="bowtie2-alignment" class="level2" data-number="8.3">
-<h2 data-number="8.3" class="anchored" data-anchor-id="bowtie2-alignment"><span class="header-section-number">8.3</span> Bowtie2 alignment</h2>
+<section id="bowtie2-alignment" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="bowtie2-alignment"><span class="header-section-number">9.3</span> Bowtie2 alignment</h2>
 <pre><code>rule Bowtie2_Pathogenome_Alignment:
     output:
         bam="results/BOWTIE2/{sample}/AlignedToPathogenome.bam",
@@ -406,12 +416,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./krakenuniq.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">KrakenUniq Step</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">KrakenUniq Step</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./damage.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">MapDamage</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">MapDamage step</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
