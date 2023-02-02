@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>aMeta Workshop - 4&nbsp; How to connect to servers?</title>
+<title>aMeta Workshop - 6&nbsp; How to connect to servers?</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -133,7 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">How to connect to servers?</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">How to connect to servers?</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -169,6 +169,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <a href="./index.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Home</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./course-style.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">How to understand snakemake?</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./rulegraph.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">aMeta workflow graph</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a href="./organization.html" class="sidebar-item-text sidebar-link">NEOMATRIX Workshop Organization</a>
@@ -179,36 +189,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./info-mersin.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Information about the place</span></a>
+  <a href="./info-mersin.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Information about the place</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./about.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">About the team</span></a>
+  <a href="./about.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">About the team</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./cluster-connection.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">How to connect to servers?</span></a>
+  <a href="./cluster-connection.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">How to connect to servers?</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./course-setup.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Course setup</span></a>
+  <a href="./course-setup.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Course setup</span></a>
   </div>
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./course-style.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">How to follow the course?</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./rulegraph.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Rulegraph of aMeta workflow</span></a>
-  </div>
-</li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./qc.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Quality Control Step</span></a>
@@ -253,22 +253,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#how-we-will-work" id="toc-how-we-will-work" class="nav-link active" data-scroll-target="#how-we-will-work"><span class="toc-section-number">4.1</span>  How we will work?</a>
+  <li><a href="#how-we-will-work" id="toc-how-we-will-work" class="nav-link active" data-scroll-target="#how-we-will-work"><span class="toc-section-number">6.1</span>  How we will work?</a>
   <ul class="collapse">
-  <li><a href="#linux-systems" id="toc-linux-systems" class="nav-link" data-scroll-target="#linux-systems"><span class="toc-section-number">4.1.1</span>  Linux systems</a></li>
-  <li><a href="#mac-systems" id="toc-mac-systems" class="nav-link" data-scroll-target="#mac-systems"><span class="toc-section-number">4.1.2</span>  Mac systems</a></li>
-  <li><a href="#windows-systems" id="toc-windows-systems" class="nav-link" data-scroll-target="#windows-systems"><span class="toc-section-number">4.1.3</span>  Windows systems</a></li>
+  <li><a href="#linux-systems" id="toc-linux-systems" class="nav-link" data-scroll-target="#linux-systems"><span class="toc-section-number">6.1.1</span>  Linux systems</a></li>
+  <li><a href="#mac-systems" id="toc-mac-systems" class="nav-link" data-scroll-target="#mac-systems"><span class="toc-section-number">6.1.2</span>  Mac systems</a></li>
+  <li><a href="#windows-systems" id="toc-windows-systems" class="nav-link" data-scroll-target="#windows-systems"><span class="toc-section-number">6.1.3</span>  Windows systems</a></li>
   </ul></li>
-  <li><a href="#cluster-systems" id="toc-cluster-systems" class="nav-link" data-scroll-target="#cluster-systems"><span class="toc-section-number">4.2</span>  Cluster systems</a>
+  <li><a href="#cluster-systems" id="toc-cluster-systems" class="nav-link" data-scroll-target="#cluster-systems"><span class="toc-section-number">6.2</span>  Cluster systems</a>
   <ul class="collapse">
-  <li><a href="#truba-cluster-system" id="toc-truba-cluster-system" class="nav-link" data-scroll-target="#truba-cluster-system"><span class="toc-section-number">4.2.1</span>  TRUBA Cluster system</a></li>
-  <li><a href="#middle-east-technical-university-computing-systems" id="toc-middle-east-technical-university-computing-systems" class="nav-link" data-scroll-target="#middle-east-technical-university-computing-systems"><span class="toc-section-number">4.2.2</span>  Middle East Technical University computing systems</a></li>
-  <li><a href="#connecting-to-truba-system-outside-of-the-universiy-network" id="toc-connecting-to-truba-system-outside-of-the-universiy-network" class="nav-link" data-scroll-target="#connecting-to-truba-system-outside-of-the-universiy-network"><span class="toc-section-number">4.2.3</span>  Connecting to TRUBA system outside of the universiy network</a></li>
+  <li><a href="#truba-cluster-system" id="toc-truba-cluster-system" class="nav-link" data-scroll-target="#truba-cluster-system"><span class="toc-section-number">6.2.1</span>  TRUBA Cluster system</a></li>
+  <li><a href="#middle-east-technical-university-computing-systems" id="toc-middle-east-technical-university-computing-systems" class="nav-link" data-scroll-target="#middle-east-technical-university-computing-systems"><span class="toc-section-number">6.2.2</span>  Middle East Technical University computing systems</a></li>
+  <li><a href="#connecting-to-truba-system-outside-of-the-universiy-network" id="toc-connecting-to-truba-system-outside-of-the-universiy-network" class="nav-link" data-scroll-target="#connecting-to-truba-system-outside-of-the-universiy-network"><span class="toc-section-number">6.2.3</span>  Connecting to TRUBA system outside of the universiy network</a></li>
   </ul></li>
-  <li><a href="#configuration" id="toc-configuration" class="nav-link" data-scroll-target="#configuration"><span class="toc-section-number">4.3</span>  Configuration</a>
+  <li><a href="#configuration" id="toc-configuration" class="nav-link" data-scroll-target="#configuration"><span class="toc-section-number">6.3</span>  Configuration</a>
   <ul class="collapse">
-  <li><a href="#configuration-of-the-truba-system" id="toc-configuration-of-the-truba-system" class="nav-link" data-scroll-target="#configuration-of-the-truba-system"><span class="toc-section-number">4.3.1</span>  Configuration of the TRUBA system</a></li>
-  <li><a href="#configuration-on-the-ankara-computers" id="toc-configuration-on-the-ankara-computers" class="nav-link" data-scroll-target="#configuration-on-the-ankara-computers"><span class="toc-section-number">4.3.2</span>  Configuration on the Ankara computers</a></li>
+  <li><a href="#configuration-of-the-truba-system" id="toc-configuration-of-the-truba-system" class="nav-link" data-scroll-target="#configuration-of-the-truba-system"><span class="toc-section-number">6.3.1</span>  Configuration of the TRUBA system</a></li>
+  <li><a href="#configuration-on-the-ankara-computers" id="toc-configuration-on-the-ankara-computers" class="nav-link" data-scroll-target="#configuration-on-the-ankara-computers"><span class="toc-section-number">6.3.2</span>  Configuration on the Ankara computers</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -278,7 +278,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">How to connect to servers?</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">How to connect to servers?</span></h1>
 </div>
 
 
@@ -293,35 +293,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="how-we-will-work" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="how-we-will-work"><span class="header-section-number">4.1</span> How we will work?</h2>
+<section id="how-we-will-work" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="how-we-will-work"><span class="header-section-number">6.1</span> How we will work?</h2>
 <p>In this workshop, we will use our computers, and we will connect to high performance computing systems. Therefore, you will need to bring your laptops with you.</p>
 <p>You should have been comfortable using the Unix/Linux command line to take the course. We know that there will be several operating systems. So please check these recomendations based on your operating system.</p>
-<section id="linux-systems" class="level3" data-number="4.1.1">
-<h3 data-number="4.1.1" class="anchored" data-anchor-id="linux-systems"><span class="header-section-number">4.1.1</span> Linux systems</h3>
+<section id="linux-systems" class="level3" data-number="6.1.1">
+<h3 data-number="6.1.1" class="anchored" data-anchor-id="linux-systems"><span class="header-section-number">6.1.1</span> Linux systems</h3>
 <p>If you have a Linux system (e.g.&nbsp;Ubuntu), you do not need to worry a lot. Most of the command line tools (like <code>ssh</code>) will be already installed on your system</p>
 </section>
-<section id="mac-systems" class="level3" data-number="4.1.2">
-<h3 data-number="4.1.2" class="anchored" data-anchor-id="mac-systems"><span class="header-section-number">4.1.2</span> Mac systems</h3>
+<section id="mac-systems" class="level3" data-number="6.1.2">
+<h3 data-number="6.1.2" class="anchored" data-anchor-id="mac-systems"><span class="header-section-number">6.1.2</span> Mac systems</h3>
 <p>Mac systems also have a default support on the command line. The <code>terminal</code> application on your Mac system would be enough. But we advise you to install <a href="https://iterm2.com/">iTerm2</a> as a <code>terminal</code> replacement for your Mac.</p>
 </section>
-<section id="windows-systems" class="level3" data-number="4.1.3">
-<h3 data-number="4.1.3" class="anchored" data-anchor-id="windows-systems"><span class="header-section-number">4.1.3</span> Windows systems</h3>
+<section id="windows-systems" class="level3" data-number="6.1.3">
+<h3 data-number="6.1.3" class="anchored" data-anchor-id="windows-systems"><span class="header-section-number">6.1.3</span> Windows systems</h3>
 <p>If you have a Windows system, the easiest choice to connect a remote server is <a href="https://mobaxterm.mobatek.net">Mobaxterm</a> tool.</p>
 </section>
 </section>
-<section id="cluster-systems" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="cluster-systems"><span class="header-section-number">4.2</span> Cluster systems</h2>
+<section id="cluster-systems" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="cluster-systems"><span class="header-section-number">6.2</span> Cluster systems</h2>
 <p>In this workshop, we have two different cluster systems at our disposal. The first system TRUBA (Turkish National Scientific Cluster) that is funded by the TUBİTAK (The Scientific and Technological Research Council of Türkiye). The second system is located at Middle East Technical University.</p>
-<section id="truba-cluster-system" class="level3" data-number="4.2.1">
-<h3 data-number="4.2.1" class="anchored" data-anchor-id="truba-cluster-system"><span class="header-section-number">4.2.1</span> TRUBA Cluster system</h3>
+<section id="truba-cluster-system" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="truba-cluster-system"><span class="header-section-number">6.2.1</span> TRUBA Cluster system</h3>
 <p>This cluster system accepts connections from University networks. Therefore, you should be in a University network in order to access TRUBA computers. We will provide a username and a password for your connection.</p>
 <p>Then, you can connect to this system like this:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> egitim@levrek1.ulakbim.gov.tr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>There is a trick to connect TRUBA system outside of the university network. We will describe it in the document.</p>
 </section>
-<section id="middle-east-technical-university-computing-systems" class="level3" data-number="4.2.2">
-<h3 data-number="4.2.2" class="anchored" data-anchor-id="middle-east-technical-university-computing-systems"><span class="header-section-number">4.2.2</span> Middle East Technical University computing systems</h3>
+<section id="middle-east-technical-university-computing-systems" class="level3" data-number="6.2.2">
+<h3 data-number="6.2.2" class="anchored" data-anchor-id="middle-east-technical-university-computing-systems"><span class="header-section-number">6.2.2</span> Middle East Technical University computing systems</h3>
 <p>This computer system is located at Middle East Technical University. It consists of two clusters: <code>baggins</code> and <code>NEOGENE</code>. We will work mostly on <code>baggings</code> to explain tools. At the end, we plan to send snakemake jobs on the NEOGENE system.</p>
 <p>However, NEOGENE system does not accept connections outside from university networks, but <code>baggins</code> can. So we will first connect to <code>baggins</code> via <code>ssh</code> first. Then we can connect to <code>NEOGENE</code> from this system.</p>
 <p>Your username and password will be provided on the first day of the workshop.</p>
@@ -330,8 +330,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Afterwards, you can connect to <code>NEOGENE</code> like this:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> username@144.122.38.50</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="connecting-to-truba-system-outside-of-the-universiy-network" class="level3" data-number="4.2.3">
-<h3 data-number="4.2.3" class="anchored" data-anchor-id="connecting-to-truba-system-outside-of-the-universiy-network"><span class="header-section-number">4.2.3</span> Connecting to TRUBA system outside of the universiy network</h3>
+<section id="connecting-to-truba-system-outside-of-the-universiy-network" class="level3" data-number="6.2.3">
+<h3 data-number="6.2.3" class="anchored" data-anchor-id="connecting-to-truba-system-outside-of-the-universiy-network"><span class="header-section-number">6.2.3</span> Connecting to TRUBA system outside of the universiy network</h3>
 <p>We can connect to TRUBA system with a small trick. First we will connect to Baggins cluster, so we will be on the Middle East Technical Univerisy network. Then we can connect to TRUBA.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-p</span> 2275 username@144.122.38.49</span>
@@ -339,16 +339,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> egitim@levrek1.ulakbim.gov.tr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
-<section id="configuration" class="level2" data-number="4.3">
-<h2 data-number="4.3" class="anchored" data-anchor-id="configuration"><span class="header-section-number">4.3</span> Configuration</h2>
+<section id="configuration" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="configuration"><span class="header-section-number">6.3</span> Configuration</h2>
 <p>All the tools are installed on these server systems. Before using the tools, we need to set the <code>PATH</code> variable and show the system where these tools are installed.</p>
-<section id="configuration-of-the-truba-system" class="level3" data-number="4.3.1">
-<h3 data-number="4.3.1" class="anchored" data-anchor-id="configuration-of-the-truba-system"><span class="header-section-number">4.3.1</span> Configuration of the TRUBA system</h3>
+<section id="configuration-of-the-truba-system" class="level3" data-number="6.3.1">
+<h3 data-number="6.3.1" class="anchored" data-anchor-id="configuration-of-the-truba-system"><span class="header-section-number">6.3.1</span> Configuration of the TRUBA system</h3>
 <p>To use all the tools for aMeta, please set your <code>PATH</code> variable like this:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH</span><span class="op">=</span><span class="va">${PATH}</span>:/truba/home/egitim/miniconda3/envs/aMeta/bin/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="configuration-on-the-ankara-computers" class="level3" data-number="4.3.2">
-<h3 data-number="4.3.2" class="anchored" data-anchor-id="configuration-on-the-ankara-computers"><span class="header-section-number">4.3.2</span> Configuration on the Ankara computers</h3>
+<section id="configuration-on-the-ankara-computers" class="level3" data-number="6.3.2">
+<h3 data-number="6.3.2" class="anchored" data-anchor-id="configuration-on-the-ankara-computers"><span class="header-section-number">6.3.2</span> Configuration on the Ankara computers</h3>
 <p>To use all the tools for aMeta, please set your <code>PATH</code> variable like this:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="bu">export</span> <span class="va">PATH</span><span class="op">=</span><span class="va">${PATH}</span>:/usr/local/sw/anaconda3/envs/aMeta/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
@@ -493,12 +493,12 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="./about.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">About the team</span></span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">About the team</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./course-setup.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Course setup</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Course setup</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>

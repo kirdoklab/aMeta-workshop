@@ -4,7 +4,42 @@
     "href": "index.html",
     "title": "aMeta Workshop",
     "section": "",
-    "text": "Welcome to the aMeta: an accurate and memory-efficient ancient Metagenomic profiling workflow course that will be held in Mersin University, Department of Biotechnology in the scope of the European Union funded NEOMATRIX collaboration project.\nIn this web page, we aim to publish the tutorial material of aMeta ancient metagenomic profiling workflow.\naMeta (Pochon et al. 2022) is designed to analyse the microbial content in ancient specimens from a wide variety of source organisms (including humans).\nPlease find the whole pipeline through this github repo\nextending\n\n\n\n\nPochon, Zoé, Nora Bergfeldt, Emrah Kırdök, Mário Vicente, Thijessen Naidoo, Tom van der Valk, N. Ezgi Altınışık, et al. 2022. “aMeta: An Accurate and Memory-Efficient Ancient Metagenomic Profiling Workflow.” bioRxiv. https://doi.org/10.1101/2022.10.03.510579."
+    "text": "Welcome to the aMeta: an accurate and memory-efficient ancient Metagenomic profiling workflow course that will be held in Mersin University, Department of Biotechnology in the scope of the European Union funded NEOMATRIX collaboration project.\nIn this web page, we aim to publish the tutorial material of aMeta ancient metagenomic profiling workflow.\naMeta (Pochon et al. 2022) is designed to analyse the microbial content in ancient specimens from a wide variety of source organisms (including humans).\nPlease find the whole pipeline through this github repo\n\n\n\n\n\nPochon, Zoé, Nora Bergfeldt, Emrah Kırdök, Mário Vicente, Thijessen Naidoo, Tom van der Valk, N. Ezgi Altınışık, et al. 2022. “aMeta: An Accurate and Memory-Efficient Ancient Metagenomic Profiling Workflow.” bioRxiv. https://doi.org/10.1101/2022.10.03.510579."
+  },
+  {
+    "objectID": "course-style.html#using-conda-package-manager",
+    "href": "course-style.html#using-conda-package-manager",
+    "title": "2  How to understand snakemake?",
+    "section": "2.1 Using conda package manager",
+    "text": "2.1 Using conda package manager\nEach rule can contain a conda environment. So, if you will run snakemake with --use-conda flag, the specified environment will be installed given you have the conda package manager already installed:\n    conda:\n        \"../envs/fastqc.yaml\""
+  },
+  {
+    "objectID": "course-style.html#using-environment-modules",
+    "href": "course-style.html#using-environment-modules",
+    "title": "2  How to understand snakemake?",
+    "section": "2.2 Using environment modules",
+    "text": "2.2 Using environment modules\nIf you want to use the environmental modules, then you need to use envmodules flag with the snakemake. In this case, you would like to modify the envirınmental module file.\n envmodules:\n        *config[\"envmodules\"][\"fastqc\"]"
+  },
+  {
+    "objectID": "course-style.html#benchmarks",
+    "href": "course-style.html#benchmarks",
+    "title": "2  How to understand snakemake?",
+    "section": "2.3 Benchmarks",
+    "text": "2.3 Benchmarks\nYou could find benchmarking stats with under the benchmarking folder.\n    benchmark:\n        \"benchmarks/FASTQC_BEFORE_TRIMMING/{sample}.benchmark.txt\""
+  },
+  {
+    "objectID": "course-style.html#logs",
+    "href": "course-style.html#logs",
+    "title": "2  How to understand snakemake?",
+    "section": "2.4 Logs",
+    "text": "2.4 Logs\nIf you have problems with your snakemake run, each rule will have a log file. So you can check the errors:\n    log:\n        \"logs/FASTQC_BEFORE_TRIMMING/{sample}.log\","
+  },
+  {
+    "objectID": "rulegraph.html#ameta-workflow-graph",
+    "href": "rulegraph.html#ameta-workflow-graph",
+    "title": "3  aMeta workflow graph",
+    "section": "3.1 aMeta workflow graph",
+    "text": "3.1 aMeta workflow graph\nHere is an overview of all the rules of the aMeta snakemake pipeline. Such an overview of a workflow in the form of a graph is called a dag or rulegraph. You can consider these rules as steps of the workflow going from up to down.\n\n\n\n\n\nRulegraph"
   },
   {
     "objectID": "organization.html",
@@ -16,79 +51,44 @@
   {
     "objectID": "info-mersin.html",
     "href": "info-mersin.html",
-    "title": "2  Workshop Organization",
+    "title": "4  Workshop Organization",
     "section": "",
     "text": "Please find the accomodation and flight information through this Google Document.\nPlease find the food selection information in this Google Document. Please specify your selection if you have not selected yet."
   },
   {
     "objectID": "about.html#about-this-site",
     "href": "about.html#about-this-site",
-    "title": "3  About",
-    "section": "3.1 About this site",
-    "text": "3.1 About this site\nThis site is built for the aMeta workshop in Mersin Feb 6 – 10 2023."
+    "title": "5  About",
+    "section": "5.1 About this site",
+    "text": "5.1 About this site\nThis site is built for the aMeta workshop in Mersin Feb 6 – 10 2023."
   },
   {
     "objectID": "about.html#the-team",
     "href": "about.html#the-team",
-    "title": "3  About",
-    "section": "3.2 The team",
-    "text": "3.2 The team\n\n3.2.1 Emrah Kırdök\nEmrah Kırdök is an assistant professor at Mersin University.\nEmrah’s research focuses on understanding human history through ancient DNA (aDNA). Generally, a little proportion of aDNA sequences could be mapped to its host reference genome. The remaining fragments come either from the microbiome of the ancient host or the environment that encapsulates the host.\nBy analyzing the remaining aDNA sequences with the state-of-the-art metagenomic methods it’s possible to (i) construct the microbiome composition of ancient humans, (ii) reconstruct the ancient pathogenic genomes, (iii) understand the evolutionary mechanisms of the ancient pathogens.\n\n\n3.2.2 Zoé Pochon\nZoé started her PhD in Archaeology at the Centre for Palaeogenetics in Stockholm in 2021. Zoé has training in biology and history and is interested in using archaeogenetics to bring new clues to debates on historical and biological questions. Her current work focuses on using bioinformatics tools to analyse the DNA and RNA of ancient viruses, as well as other microbes to get a better picture of the common pathogens at different time periods in history and to help understand past epidemics.\nSome of her research projects have included the DNA of combatants from a Bronze Age battlefield to infer their origin and estimate the selection coefficient of the lactase persistence, an allelic mutation already present in some of them.\n\n\n3.2.3 Nora Bergfeldt\nNora started her PhD in Zoology at the Centre for Palaeogenetics in 2019. She has a background in ecology, biodiversity and genomics. Her research focuses on using metagenomic tools to study bacteria and other microbes in ancient humans, with a particular interest in studying the evolution of pathogens."
+    "title": "5  About",
+    "section": "5.2 The team",
+    "text": "5.2 The team\n\n5.2.1 Emrah Kırdök\nEmrah Kırdök is an assistant professor at Mersin University.\nEmrah’s research focuses on understanding human history through ancient DNA (aDNA). Generally, a little proportion of aDNA sequences could be mapped to its host reference genome. The remaining fragments come either from the microbiome of the ancient host or the environment that encapsulates the host.\nBy analyzing the remaining aDNA sequences with the state-of-the-art metagenomic methods it’s possible to (i) construct the microbiome composition of ancient humans, (ii) reconstruct the ancient pathogenic genomes, (iii) understand the evolutionary mechanisms of the ancient pathogens.\n\n\n5.2.2 Zoé Pochon\nZoé started her PhD in Archaeology at the Centre for Palaeogenetics in Stockholm in 2021. Zoé has training in biology and history and is interested in using archaeogenetics to bring new clues to debates on historical and biological questions. Her current work focuses on using bioinformatics tools to analyse the DNA and RNA of ancient viruses, as well as other microbes to get a better picture of the common pathogens at different time periods in history and to help understand past epidemics.\nSome of her research projects have included the DNA of combatants from a Bronze Age battlefield to infer their origin and estimate the selection coefficient of the lactase persistence, an allelic mutation already present in some of them.\n\n\n5.2.3 Nora Bergfeldt\nNora started her PhD in Zoology at the Centre for Palaeogenetics in 2019. She has a background in ecology, biodiversity and genomics. Her research focuses on using metagenomic tools to study bacteria and other microbes in ancient humans, with a particular interest in studying the evolution of pathogens."
   },
   {
     "objectID": "cluster-connection.html#how-we-will-work",
     "href": "cluster-connection.html#how-we-will-work",
-    "title": "4  How to connect to servers?",
-    "section": "4.1 How we will work?",
-    "text": "4.1 How we will work?\nIn this workshop, we will use our computers, and we will connect to high performance computing systems. Therefore, you will need to bring your laptops with you.\nYou should have been comfortable using the Unix/Linux command line to take the course. We know that there will be several operating systems. So please check these recomendations based on your operating system.\n\n4.1.1 Linux systems\nIf you have a Linux system (e.g. Ubuntu), you do not need to worry a lot. Most of the command line tools (like ssh) will be already installed on your system\n\n\n4.1.2 Mac systems\nMac systems also have a default support on the command line. The terminal application on your Mac system would be enough. But we advise you to install iTerm2 as a terminal replacement for your Mac.\n\n\n4.1.3 Windows systems\nIf you have a Windows system, the easiest choice to connect a remote server is Mobaxterm tool."
+    "title": "6  How to connect to servers?",
+    "section": "6.1 How we will work?",
+    "text": "6.1 How we will work?\nIn this workshop, we will use our computers, and we will connect to high performance computing systems. Therefore, you will need to bring your laptops with you.\nYou should have been comfortable using the Unix/Linux command line to take the course. We know that there will be several operating systems. So please check these recomendations based on your operating system.\n\n6.1.1 Linux systems\nIf you have a Linux system (e.g. Ubuntu), you do not need to worry a lot. Most of the command line tools (like ssh) will be already installed on your system\n\n\n6.1.2 Mac systems\nMac systems also have a default support on the command line. The terminal application on your Mac system would be enough. But we advise you to install iTerm2 as a terminal replacement for your Mac.\n\n\n6.1.3 Windows systems\nIf you have a Windows system, the easiest choice to connect a remote server is Mobaxterm tool."
   },
   {
     "objectID": "cluster-connection.html#cluster-systems",
     "href": "cluster-connection.html#cluster-systems",
-    "title": "4  How to connect to servers?",
-    "section": "4.2 Cluster systems",
-    "text": "4.2 Cluster systems\nIn this workshop, we have two different cluster systems at our disposal. The first system TRUBA (Turkish National Scientific Cluster) that is funded by the TUBİTAK (The Scientific and Technological Research Council of Türkiye). The second system is located at Middle East Technical University.\n\n4.2.1 TRUBA Cluster system\nThis cluster system accepts connections from University networks. Therefore, you should be in a University network in order to access TRUBA computers. We will provide a username and a password for your connection.\nThen, you can connect to this system like this:\nssh egitim@levrek1.ulakbim.gov.tr\nThere is a trick to connect TRUBA system outside of the university network. We will describe it in the document.\n\n\n4.2.2 Middle East Technical University computing systems\nThis computer system is located at Middle East Technical University. It consists of two clusters: baggins and NEOGENE. We will work mostly on baggings to explain tools. At the end, we plan to send snakemake jobs on the NEOGENE system.\nHowever, NEOGENE system does not accept connections outside from university networks, but baggins can. So we will first connect to baggins via ssh first. Then we can connect to NEOGENE from this system.\nYour username and password will be provided on the first day of the workshop.\nConnect to baggins server with your username like this:\nssh -p 2275 username@144.122.38.49\nAfterwards, you can connect to NEOGENE like this:\nssh username@144.122.38.50\n\n\n4.2.3 Connecting to TRUBA system outside of the universiy network\nWe can connect to TRUBA system with a small trick. First we will connect to Baggins cluster, so we will be on the Middle East Technical Univerisy network. Then we can connect to TRUBA.\n\nssh -p 2275 username@144.122.38.49\n\nssh egitim@levrek1.ulakbim.gov.tr"
+    "title": "6  How to connect to servers?",
+    "section": "6.2 Cluster systems",
+    "text": "6.2 Cluster systems\nIn this workshop, we have two different cluster systems at our disposal. The first system TRUBA (Turkish National Scientific Cluster) that is funded by the TUBİTAK (The Scientific and Technological Research Council of Türkiye). The second system is located at Middle East Technical University.\n\n6.2.1 TRUBA Cluster system\nThis cluster system accepts connections from University networks. Therefore, you should be in a University network in order to access TRUBA computers. We will provide a username and a password for your connection.\nThen, you can connect to this system like this:\nssh egitim@levrek1.ulakbim.gov.tr\nThere is a trick to connect TRUBA system outside of the university network. We will describe it in the document.\n\n\n6.2.2 Middle East Technical University computing systems\nThis computer system is located at Middle East Technical University. It consists of two clusters: baggins and NEOGENE. We will work mostly on baggings to explain tools. At the end, we plan to send snakemake jobs on the NEOGENE system.\nHowever, NEOGENE system does not accept connections outside from university networks, but baggins can. So we will first connect to baggins via ssh first. Then we can connect to NEOGENE from this system.\nYour username and password will be provided on the first day of the workshop.\nConnect to baggins server with your username like this:\nssh -p 2275 username@144.122.38.49\nAfterwards, you can connect to NEOGENE like this:\nssh username@144.122.38.50\n\n\n6.2.3 Connecting to TRUBA system outside of the universiy network\nWe can connect to TRUBA system with a small trick. First we will connect to Baggins cluster, so we will be on the Middle East Technical Univerisy network. Then we can connect to TRUBA.\n\nssh -p 2275 username@144.122.38.49\n\nssh egitim@levrek1.ulakbim.gov.tr"
   },
   {
     "objectID": "cluster-connection.html#configuration",
     "href": "cluster-connection.html#configuration",
-    "title": "4  How to connect to servers?",
-    "section": "4.3 Configuration",
-    "text": "4.3 Configuration\nAll the tools are installed on these server systems. Before using the tools, we need to set the PATH variable and show the system where these tools are installed.\n\n4.3.1 Configuration of the TRUBA system\nTo use all the tools for aMeta, please set your PATH variable like this:\nexport PATH=${PATH}:/truba/home/egitim/miniconda3/envs/aMeta/bin/\n\n\n4.3.2 Configuration on the Ankara computers\nTo use all the tools for aMeta, please set your PATH variable like this:\nexport PATH=${PATH}:/usr/local/sw/anaconda3/envs/aMeta/"
-  },
-  {
-    "objectID": "course-style.html#using-conda-package-manager",
-    "href": "course-style.html#using-conda-package-manager",
-    "title": "6  How to follow the Course?",
-    "section": "6.1 Using conda package manager",
-    "text": "6.1 Using conda package manager\nEach rule can contain a conda environment. So, if you will run snakemake with --use-conda flag, the specified environment will be installed given you have the conda package manager already installed:\n    conda:\n        \"../envs/fastqc.yaml\""
-  },
-  {
-    "objectID": "course-style.html#using-environment-modules",
-    "href": "course-style.html#using-environment-modules",
-    "title": "6  How to follow the Course?",
-    "section": "6.2 Using environment modules",
-    "text": "6.2 Using environment modules\nIf you want to use the environmental modules, then you need to use envmodules flag with the snakemake. In this case, you would like to modify the envirınmental module file.\n envmodules:\n        *config[\"envmodules\"][\"fastqc\"]"
-  },
-  {
-    "objectID": "course-style.html#benchmarks",
-    "href": "course-style.html#benchmarks",
-    "title": "6  How to follow the Course?",
-    "section": "6.3 Benchmarks",
-    "text": "6.3 Benchmarks\nYou could find benchmarking stats with under the benchmarking folder.\n    benchmark:\n        \"benchmarks/FASTQC_BEFORE_TRIMMING/{sample}.benchmark.txt\""
-  },
-  {
-    "objectID": "course-style.html#logs",
-    "href": "course-style.html#logs",
-    "title": "6  How to follow the Course?",
-    "section": "6.4 Logs",
-    "text": "6.4 Logs\nIf you have problems with your snakemake run, each rule will have a log file. So you can check the errors:\n    log:\n        \"logs/FASTQC_BEFORE_TRIMMING/{sample}.log\","
-  },
-  {
-    "objectID": "rulegraph.html#ameta-workflow-graph",
-    "href": "rulegraph.html#ameta-workflow-graph",
-    "title": "7  aMeta workflow graph",
-    "section": "7.1 aMeta workflow graph",
-    "text": "7.1 aMeta workflow graph\nHere is an overview of all the rules of the aMeta snakemake pipeline. Such an overview of a workflow in the form of a graph is called a dag or rulegraph. You can consider these rules as steps of the workflow going from up to down.\n\n\n\n\n\nRulegraph"
+    "title": "6  How to connect to servers?",
+    "section": "6.3 Configuration",
+    "text": "6.3 Configuration\nAll the tools are installed on these server systems. Before using the tools, we need to set the PATH variable and show the system where these tools are installed.\n\n6.3.1 Configuration of the TRUBA system\nTo use all the tools for aMeta, please set your PATH variable like this:\nexport PATH=${PATH}:/truba/home/egitim/miniconda3/envs/aMeta/bin/\n\n\n6.3.2 Configuration on the Ankara computers\nTo use all the tools for aMeta, please set your PATH variable like this:\nexport PATH=${PATH}:/usr/local/sw/anaconda3/envs/aMeta/"
   },
   {
     "objectID": "qc.html#quality-control-before-trimming",
