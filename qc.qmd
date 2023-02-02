@@ -84,7 +84,11 @@ cutadapt -a ADAPTERS --minimum-length 30 -o results/CUTADAPT_ADAPTER_TRIMMING/sa
 
 ```
 
+Please run the command for this part like this:
 
+```bash
+sbatch Cutadapt_Adapter_Trimming.sh --account=egitim
+```
 
 ## Quality control after trimming
 
@@ -112,13 +116,12 @@ fastqc results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz --threads 2 -
 Please run the `sbatch` command for this part like this:
 
 ```bash
-sbatch Cutadapt_Adapter_Trimming.sh --account=egitim
+sbatch FastQC_AfterTrimming.sh --account=egitim
 ```
-
 
 ## Combine quality control outputs
 
-At last we will combine all the fastqc reports into one file using Multifastqc tool:
+At last we will combine all the fastqc reports into one file using Multifastqc tool. This part will not be executed in this tutorial. 
 
 ``` 
 rule MultiQC:
