@@ -22,6 +22,8 @@ book:
           text: "Computing details"
     - href: course-style.qmd
       text: "How to follow the course?"
+    - href: rulegraph.md
+      text: "Rulegraph of aMeta workflow"
     - href : qc.qmd
       text: "Quality Control Step"
     - href: krakenuniq.md
@@ -29,7 +31,9 @@ book:
     - href: align.md
       text: "Bowtie2 Step"
     - href: damage.md
-      text: "MapDamage"
+      text: "MapDamage step"
+    - href: malt.md
+      text: "Malt step"
     - href: summary.md
       text: "Summarizing the results"
     - href: references.qmd
