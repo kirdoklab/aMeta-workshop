@@ -84,16 +84,15 @@ rule Filter_KrakenUniq_Output:
         """{params.exe} {input.krakenuniq} {params.n_unique_kmers} {params.n_tax_reads} {input.pathogenomesFound} &> {log}; """
         """cut -f7 {output.pathogens} | tail -n +2 > {output.pathogen_tax_id}"""
         
-``
-
+```
 
 Breadth and depth of coverage filters 
 default thresholds are very conservative, can be tuned by users
+
+```bash
 n_unique_kmers: 1000
 n_tax_reads: 200
 
-
-```bash
 cd $OUTPUT; Rscript $PATH_TO_SCRIPTS/pipeline.R
 cut -f7 $OUTPUT/krakenuniq.output.pathogens | tail -n +2 > $OUTPUT/taxID.pathogens
 ```
@@ -125,16 +124,23 @@ rule KrakenUniq2Krona:
     input:
         report="results/KRAKENUNIQ/{sample}/krakenuniq.output.filtered",
         seqs="results/KRAKENUNIQ/{sample}/sequences.krakenuniq",
+    log:
+        "logs/KRAKENUNIQ2KRONA/{sample}.log",
+    conda:
+        "../envs/krona.yaml"
+    envmodules:
+        *config["envmodules"]["krona"],
     params:
         exe=WORKFLOW_DIR / "scripts/krakenuniq2krona.py",
         DB=f"--tax {config['krona_db']}" if "krona_db" in config else "",
+    benchmark:
+        "benchmarks/KRAKENUNIQ2KRONA/{sample}.benchmark.txt"
     message:
         "KrakenUniq2Krona: VISUALIZING KRAKENUNIQ RESULTS WITH KRONA FOR SAMPLE {input.report}"
     shell:
         "{params.exe} {input.report} {input.seqs} &> {log}; "
         "cat {output.seqs} | cut -f 2,3 > {output.krona}; "
         "ktImportTaxonomy {output.krona} -o {output.html} {params.DB} &>> {log}"
-
 ```
 
 ### AbundanceMatrix
@@ -151,19 +157,25 @@ rule KrakenUniq_AbundanceMatrix:
         abundance_plot="results/KRAKENUNIQ_ABUNDANCE_MATRIX/krakenuniq_absolute_abundance_heatmap.pdf",
     input:
         expand("results/KRAKENUNIQ/{sample}/krakenuniq.output.filtered", sample=SAMPLES),
+    log:
+        "logs/KRAKENUNIQ_ABUNDANCE_MATRIX/KRAKENUNIQ_ABUNDANCE_MATRIX.log",
     params:
         exe=WORKFLOW_DIR / "scripts/krakenuniq_abundance_matrix.R",
         exe_plot=WORKFLOW_DIR / "scripts/plot_krakenuniq_abundance_matrix.R",
         n_unique_kmers=config["n_unique_kmers"],
         n_tax_reads=config["n_tax_reads"],
+    conda:
+        "../envs/r.yaml"
+    envmodules:
+        *config["envmodules"]["r"],
+    benchmark:
+        "benchmarks/KRAKENUNIQ_ABUNDANCE_MATRIX/KRAKENUNIQ_ABUNDANCE_MATRIX.benchmark.txt"
     message:
         "KrakenUniq_AbundanceMatrix: COMPUTING KRAKENUNIQ MICROBIAL ABUNDANCE MATRIX"
     shell:
         "Rscript {params.exe} results/KRAKENUNIQ {output.out_dir} {params.n_unique_kmers} {params.n_tax_reads} &> {log};"
         "Rscript {params.exe_plot} {output.out_dir} {output.out_dir} &> {log}"
 ```
-
-
 
 
 
@@ -184,6 +196,7 @@ printf "\n"; echo "ASSIGN ANCIENT STATUS"
 Rscript $PATH_TO_SCRIPTS/ancient_status.R 0.05 0.9 $OUTPUT
 
 ```
+
 
 ```bash
 printf "\n"; echo "COMPUTE DEPTH AND BREADTH OF COVERAGE FROM ALIGNMENTS"
