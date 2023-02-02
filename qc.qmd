@@ -5,7 +5,7 @@ title: "Quality control and trimming"
 
 ## Quality control before trimming
 
-The pipeline starts with a quality control step. We will first run `FastQC` tool to check the qualitu of the fastq files.
+The pipeline starts with a quality control step. We will first run `FastQC` tool to check the quality of the fastq files.
 
 This is the rule in the `workflow/rules/qc.smk` file. Input files are retrieved from the samplesheet that you provided. And you will have two output files `html` and `zip` files. The `html` file contains the final report.
 
