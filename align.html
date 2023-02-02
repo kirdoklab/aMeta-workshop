@@ -239,7 +239,7 @@ ul.task-list li input[type="checkbox"] {
 <p>For real life projects, these are the Bowtie2 databases we have made available for download:</p>
 <ul>
 <li>Pathogenome: Bowtie2 index and helping files for following up on microbial pathogens</li>
-<li>Bowtie2_Full_NT: Bowtie2 index for full NCBI NT (for quick followup of prokaryotes and eukaryotes; also contains helping files for building the Malt database)</li>
+<li>Bowtie2_Full_NT: Bowtie2 index for full NCBI NT (for quick follow up of prokaryotes and eukaryotes; also contains helping files for building the Malt database)</li>
 </ul>
 <p>For more information and links to download the databases, please refer to the official GitHub of aMeta.</p>
 <p>WARNING: if you are using the Bowtie2_Full_NT database, make sure that you have <strong>unzipped</strong> the files before running the pipeline, otherwise it will automatically overwrite the index files to regenerate them and will need a huge amount of memory and time to succeed, which you probably don’t want to happen ;-)</p>
@@ -264,7 +264,7 @@ ul.task-list li input[type="checkbox"] {
 <p>Here is a simplified version of this code:</p>
 <pre><code>bowtie2 --large-index -x resources/library.fna --end-to-end --threads 10 --very-sensitive -U results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz 2&gt; logs/BOWTIE2/{sample}.log | samtools view -bS -q 1 -h -@ 10 - | samtools sort - -@ 10 -o results/BOWTIE2/{sample}/AlignedToPathogenome.bam &gt;&gt; logs/BOWTIE2/{sample}.log
 samtools index results/BOWTIE2/{sample}/AlignedToPathogenome.bam</code></pre>
-<p>Again, no need to run that line of code. You can find how the output is supposed to look like in the folder with expected results. Basically, this line asks Bowtie2 to align each fastq file to the Bowtie2 database. This will generate a sam file containing the information of alignment for each DNA sequence and the reference genome to which it aligns to. The sam file is then directly changed into a bam file using samtools, sorted and later indexed so that it is ready to be used. In order to run this line, you would still need to replace {sample} with the name of each sample that you have provided in the samples.tsv file and run this line for each of them.</p>
+<p>Again, no need to run that line of code. You can find how the output is supposed to look like in the folder with expected results. Basically, this line asks Bowtie2 to align each fastq file to the Bowtie2 database. This will generate a sam file containing the information of the alignment for each DNA sequence and the reference genome to which it aligns to. The sam file is then directly changed into a bam file using samtools, sorted and later indexed so that it is ready to be used. In order to run this line, you would still need to replace {sample} with the name of each sample that you have provided in the samples.tsv file and run this line for each of them.</p>
 
 
 </section>

@@ -204,8 +204,8 @@ ul.task-list li input[type="checkbox"] {
 
 <p>In this course, we would like to show you the mechanics of the aMeta workflow by creating a step-by-step tutorial.</p>
 <p>The aim is to give information on the every snakemake rule, and let you run it manually.</p>
-<p>The tutorial part of the course is designed on a specific system. So, if you want to follow this tutorial in your server system, you need to instal the tools by yourself using conda or any other package manager.</p>
-<p>We will first show you the snakemake rule. For example this code in the quality control part:</p>
+<p>The tutorial part of the course is designed on a specific system. So, if you want to follow this tutorial in your server system, you need to install the tools by yourself using conda or any other package manager.</p>
+<p>We will first show you the snakemake rule. For example, this code in the quality control part:</p>
 <pre><code>
 rule FastQC_BeforeTrimming:
     """Run fastq before trimming"""
@@ -227,11 +227,11 @@ rule FastQC_BeforeTrimming:
     threads: 2
     shell:
         "fastqc {input.fastq} --threads {threads} --nogroup --outdir results/FASTQC_BEFORE_TRIMMING &amp;&gt; {log}"</code></pre>
-<p>There are specific snakemake commands in here. To improve the readablity, we will delete some of the content in each rule.</p>
-<p>Here we would like to first explain the parameters in each rule:</p>
+<p>There are specific snakemake commands in here. To improve the readability, we will delete some of the content in each rule.</p>
+<p>Here, we would like to first explain the parameters in each rule:</p>
 <section id="using-conda-package-manager" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="using-conda-package-manager"><span class="header-section-number">5.1</span> Using conda package manager</h2>
-<p>Each rule can conain a conda environment. So, if you will run snakemake with <code>--use-conda</code> flag, the specified environment will be installed given you have the conda package manager already installed:</p>
+<p>Each rule can contain a conda environment. So, if you will run snakemake with <code>--use-conda</code> flag, the specified environment will be installed given you have the conda package manager already installed:</p>
 <pre><code>    conda:
         "../envs/fastqc.yaml"</code></pre>
 </section>

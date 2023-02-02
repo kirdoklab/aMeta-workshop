@@ -267,8 +267,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="quality-control-before-trimming" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="quality-control-before-trimming"><span class="header-section-number">6.1</span> Quality control before trimming</h2>
-<p>The pipeline starts with quality control step. We will first run <code>FastQC</code> tool to check the qualitu of the fastq files.</p>
-<p>This is the rule in the <code>workflow/rules/qc.smk</code> file. Input files are retrieved from the samplesheet that you provided. And you will have two output files <code>html</code> and <code>zip</code> files. The <code>html</code> file contains the final report.</p>
+<p>The pipeline starts with a quality control step. We will first run <code>FastQC</code> tool to check the quality of the fastq files.</p>
+<p>This is the rule in the <code>workflow/rules/qc.smk</code> file. Input files are retrieved from the sample sheet that you provided. And you will have two output files <code>html</code> and <code>zip</code> files. The <code>html</code> file contains the final report.</p>
 <pre><code>rule FastQC_BeforeTrimming:
     """Run fastq before trimming"""
     output:
