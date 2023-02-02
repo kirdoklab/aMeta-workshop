@@ -15,7 +15,7 @@ If you have a Linux system (e.g. Ubuntu), you do not need to worry a lot. Most o
 
 ### Mac systems
 
-Mac systems also have a default support on command line. The `terminal` application on your mac system would be enough. But we advise you to install [iTerm2](https://iterm2.com/) as a `terminal` replacement for your Mac.
+Mac systems also have a default support on the command line. The `terminal` application on your Mac system would be enough. But we advise you to install [iTerm2](https://iterm2.com/) as a `terminal` replacement for your Mac.
 
 ### Windows systems
 
