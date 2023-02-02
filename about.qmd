@@ -4,7 +4,7 @@ title: "About"
 
 ## About this site
 
-This site is built for the aMeta workshop in Mersin Feb 6-10 2023.
+This site is built for the aMeta workshop in Mersin Feb 6 – 10 2023.
 
 ## The team
 
@@ -19,10 +19,10 @@ By analyzing the remaining aDNA sequences with the state-of-the-art metagenomic 
 
 ### Zoé Pochon
 
-[Zoé](http://palaeogenetics.com/zp/) started her PhD in Archaeology at the Centre for Palaeogenetics in 2021. Zoé has training in biology and history and is interested in using archaeogenetics to bring new clues to debates on historical and biological questions. Her current work focuses on using bioinformatics tools to analyse the DNA and RNA of ancient viruses, as well as other microbes to get a better picture of the common pathogens at different time periods in history and to help understand past epidemics.
+[Zoé](http://palaeogenetics.com/zp/) started her PhD in Archaeology at the Centre for Palaeogenetics in Stockholm in 2021. Zoé has training in biology and history and is interested in using archaeogenetics to bring new clues to debates on historical and biological questions. Her current work focuses on using bioinformatics tools to analyse the DNA and RNA of ancient viruses, as well as other microbes to get a better picture of the common pathogens at different time periods in history and to help understand past epidemics.
 
 Some of her research projects have included the DNA of combatants from a Bronze Age battlefield to infer their origin and estimate the selection coefficient of the lactase persistence, an allelic mutation already present in some of them. 
 
 ### Nora Bergfeldt
 
-[Nora](http://palaeogenetics.com/nora-bergfeldt-2/) started her PhD in Zoology at the Centre for Palaeogenetics in 2019. She has a background in ecology, biodiversity and genomics. Her research focuses on microbiomes in ancient humans, with a particular interest in studying the evolution of pathogens.
+[Nora](http://palaeogenetics.com/nora-bergfeldt-2/) started her PhD in Zoology at the Centre for Palaeogenetics in 2019. She has a background in ecology, biodiversity and genomics. Her research focuses on using metagenomic tools to study bacteria and other microbes in ancient humans, with a particular interest in studying the evolution of pathogens.
