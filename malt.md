@@ -7,6 +7,7 @@ title: "MALT alignment and processing"
 
 First we need to build the custom database with the rule Build_Malt_DB. This is done with the use of a python script. Inside the script, python will use the input and output variables provided by snakemake. 
 
+WARNING: We won't be able to run this command during the workshop because the files seqid2taxid.map.orig, library.fna and nucl_gb.accession2taxid were too large for our workshop folder. 
 
 ```
 rule Build_Malt_DB:
@@ -41,13 +42,15 @@ Here is a simplified version of this code:
 
 ```bash
 python ../scripts/malt-build.py \
-    --seqid2taxid ${seqid2taxid} \
-    --nt_fasta ${nt_fasta} \
-    --accession2taxid ${accession2taxid} \
+    --seqid2taxid seqid2taxid.map.orig \
+    --nt_fasta library.fna \
+    --accession2taxid nucl_gb.accession2taxid \
     --unique_taxids results/KRAKENUNIQ_ABUNDANCE_MATRIX/unique_species_taxid_list.txt \
     --output_dir results/MALT_DB/ \
-    --threads 20 &> logs/BUILD_MALT_DB/BUILD_MALT_DB.log
+    --threads 16 &> logs/BUILD_MALT_DB/BUILD_MALT_DB.log
 ```
+
+In summary, this command will build a custom malt database containing all the species detected by KrakenUniq that have passed are threshold. You can find the full list of species in results/KRAKENUNIQ_ABUNDANCE_MATRIX/unique_species_taxid_list.txt.
 
 ## Align the FastQ files using MALT
 
