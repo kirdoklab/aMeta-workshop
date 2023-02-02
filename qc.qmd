@@ -53,6 +53,12 @@ Please, remember to check the status of your job using this command:
 squeue -u egitim
 ```
 
+Once your job has finished, please check the output files like this:
+
+```bash
+ls -ltrh results/FASTQC_BEFORE_TRIMMING/
+```
+
 ## Quality trimming step
 
 After we run quality controls, the pipeline will run `cutadapt` tool to remove the leftover adapters and low quality bases. Here is the overview of this rule. 
