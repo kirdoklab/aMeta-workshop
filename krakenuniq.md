@@ -5,10 +5,7 @@ KrakenUniq is relatively fast and allows to screen aDNA samples against as large
 
 A full NT database for KrakenUniq is [available for download](https://www.biorxiv.org/node/2777891.external-links.html) through SciLifeLab. Other databases are available online and for this workshop, we use [Standard-8](https://benlangmead.github.io/aws-indexes/k2). The database is installed on the cluster.
 
-
-
 ## KrakenUniq workflow
-
 
 ### Run KrakenUniq
 
@@ -52,17 +49,20 @@ krakenuniq --preload --db $DBNAME --fastq-input ${sample_name} --threads 4 --out
 
 ```
 
+### Filtering the krakenuniq output
 
-### Filtering the output
+After running KrakenUniq, the next step is to filter the output. The input is the `krakenuniq.output` generated in the previous step. The outputs will be a filtered kraken uniq abundance file `krakenuniq.output.filtered`, pathogens file `krakenuniq.output.pathogens`, and taxids of these pathogens `taxID.pathogens`.
 
-After running KrakenUniq, the next step is to filter the output. The input is the `krakenuniq.output` generated in the previous step.
+To filter the krakenuniq output, we will be using the breadth and depth of coverage filters. These filters are defined in the `config.yaml` file. Breadth and depth of coverage filters  default thresholds are very conservative, can be tuned by users. 
+
+The rule is this:
 
 ```
 rule Filter_KrakenUniq_Output:
     output:
         filtered="results/KRAKENUNIQ/{sample}/krakenuniq.output.filtered",
         pathogens="results/KRAKENUNIQ/{sample}/krakenuniq.output.pathogens",
-        pathogen_tax_id="results/KRAKENUNIQ/{sample}/taxID.pathogens",
+        pathogen_tax_id="results/KRAKENUNIQ/{sample}`taxID.pathogens",
     input:
         krakenuniq="results/KRAKENUNIQ/{sample}/krakenuniq.output",
         pathogenomesFound=config["pathogenomesFound"],
@@ -86,8 +86,7 @@ rule Filter_KrakenUniq_Output:
         
 ```
 
-Breadth and depth of coverage filters 
-default thresholds are very conservative, can be tuned by users
+Here is a simplified version of this code:
 
 ```bash
 n_unique_kmers: 1000
@@ -95,9 +94,6 @@ n_tax_reads: 200
 
 cd $OUTPUT; Rscript $PATH_TO_SCRIPTS/pipeline.R
 cut -f7 $OUTPUT/krakenuniq.output.pathogens | tail -n +2 > $OUTPUT/taxID.pathogens
-```
-
-```
 cat $OUTPUT/taxID.pathogens | parallel "${PATH_TO_KRAKENUNIQ}/./krakenuniq-extract-reads {} $OUTPUT/sequences.krakenuniq ${SAMPLE} > $OUTPUT/{}.temp.fq"
 echo "MeanReadLength" > $OUTPUT/mean.reads.length; cd $OUTPUT
 for i in $(cat taxID.pathogens); do awk '{if(NR%4==2) print length($1)}' ${i}.temp.fq | awk '{ sum += $0 } END { if (NR > 0) print sum / NR }' >> mean.reads.length; done; rm *.temp.fq
@@ -109,11 +105,27 @@ paste krakenuniq.output.pathogens mean.reads.length > krakenuniq.output.pathogen
 cat krakenuniq.output.pathogens_with_mean_read_length
 ```
 
+Please run this code and do not forget to change your account name:
 
+```bash
+sbatch KrakenUniq_Filter.sh --account=egitim
+```
 
-### AbundanceMatrix
+And let's check the output of one sample, `sample1`:
 
-Lastly, we create an Abundance matrix:
+```bash
+ls -ltrh results/KRAKENUNIQ/sample1
+```
+
+Let's check the output file:
+
+```bash
+less results/KRAKENUNIQ/sample1/krakenuniq.output.filtered
+```
+
+### Creating Abundance Matrix from Krakenuniq outputs
+
+At last, we will combine the filtered outputs and create an abundance matrix. In this part, the inputs are the filtered krakenuniq outputs of all the samples.
 
 ```
 rule KrakenUniq_AbundanceMatrix:
@@ -154,4 +166,10 @@ Please run this script using this piece of code:
 ```bash
 sbatch KrakenUniq_AbundanceMatrix.sh --account=egitim
 
+```
+
+Then let's check the output:
+
+```bash
+ls results/KRAKENUNIQ_ABUNDANCE_MATRIX/
 ```
