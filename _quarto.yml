@@ -16,7 +16,7 @@ book:
       text: "How to understand snakemake?"
     - href: rulegraph.md
       text: "aMeta workflow graph"
-    - part: organization.md
+    - part: "NEOMATRIX Workshop"
       chapters:
         - href: info-mersin.md
           text: "Information about the place"
