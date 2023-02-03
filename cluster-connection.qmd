@@ -92,3 +92,9 @@ To use all the tools for aMeta, please set your `PATH` variable like this:
 export PATH=${PATH}:/usr/local/sw/anaconda3/envs/aMeta/
 
 ```
+
+The workshop folder will be like this:
+
+```
+cd /mnt/NEOGENE4/projects/microbe_2023/
+```
