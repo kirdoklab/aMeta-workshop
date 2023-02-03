@@ -16,12 +16,10 @@ Emrah's research focuses on understanding human history through ancient DNA (aDN
 By analyzing the remaining aDNA sequences with the state-of-the-art metagenomic methods it's possible to (i) construct the microbiome composition of ancient humans, (ii) reconstruct the ancient pathogenic genomes, (iii) understand the evolutionary mechanisms of the ancient pathogens.
 
 
-
 ### Zoé Pochon
 
-[Zoé](http://palaeogenetics.com/zp/) started her PhD in Archaeology at the Centre for Palaeogenetics in Stockholm in 2021. Zoé has training in biology and history and is interested in using archaeogenetics to bring new clues to debates on historical and biological questions. Her current work focuses on using bioinformatics tools to analyse the DNA and RNA of ancient viruses, as well as other microbes to get a better picture of the common pathogens at different time periods in history and to help understand past epidemics.
+[Zoé](http://palaeogenetics.com/zp/) started her PhD in Archaeology at the Centre for Palaeogenetics in Stockholm in 2021. Zoé has training in biology and history and is interested in using archaeogenetics to bring new clues to debates on historical and biological questions. Her current work focuses on using bioinformatics tools to analyse the DNA and RNA of ancient viruses, as well as other microbes to get a better picture of the common pathogens at different time periods in history and to help understand past epidemics. Some of her research projects have included the DNA of combatants from a Bronze Age battlefield to infer their origin and estimate the selection coefficient of the lactase persistence, an allelic mutation already present in some of them. 
 
-Some of her research projects have included the DNA of combatants from a Bronze Age battlefield to infer their origin and estimate the selection coefficient of the lactase persistence, an allelic mutation already present in some of them. 
 
 ### Nora Bergfeldt
 
