@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>aMeta Workshop - 12&nbsp; MALT alignment and processing</title>
+<title>aMeta Workshop - 10&nbsp; MALT alignment and processing</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -94,7 +94,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./summary.html" rel="next">
-<link href="./damage.html" rel="prev">
+<link href="./krakenuniq.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -133,7 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">MALT alignment and processing</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">MALT alignment and processing</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -209,36 +209,56 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">The main pipeline</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./qc.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Quality Control Step</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./krakenuniq.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">KrakenUniq Step</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./align.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Bowtie2 Step</span></a>
+  <a href="./malt.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Malt step</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./damage.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">MapDamage step</span></a>
+  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Summarizing the results</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">The accessory pipeline</a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" aria-expanded="true">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./malt.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Malt step</span></a>
+  <a href="./align.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Bowtie2 Step</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
+          <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./summary.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Summarizing the results</span></a>
+  <a href="./damage.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">MapDamage step</span></a>
   </div>
 </li>
+      </ul>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
@@ -253,11 +273,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#build-a-custom-malt-database-based-on-the-previous-results-from-the-filtering-of-krakenuniq" id="toc-build-a-custom-malt-database-based-on-the-previous-results-from-the-filtering-of-krakenuniq" class="nav-link active" data-scroll-target="#build-a-custom-malt-database-based-on-the-previous-results-from-the-filtering-of-krakenuniq"><span class="toc-section-number">12.1</span>  Build a custom MALT database based on the previous results from the filtering of KrakenUniq</a></li>
-  <li><a href="#align-the-fastq-files-using-malt" id="toc-align-the-fastq-files-using-malt" class="nav-link" data-scroll-target="#align-the-fastq-files-using-malt"><span class="toc-section-number">12.2</span>  Align the FastQ files using MALT</a></li>
-  <li><a href="#quantify-the-microbial-abundance-using-the-sam-file-generated-by-the-malt-alignment" id="toc-quantify-the-microbial-abundance-using-the-sam-file-generated-by-the-malt-alignment" class="nav-link" data-scroll-target="#quantify-the-microbial-abundance-using-the-sam-file-generated-by-the-malt-alignment"><span class="toc-section-number">12.3</span>  Quantify the microbial abundance using the sam file generated by the MALT alignment</a></li>
-  <li><a href="#compute-the-malt-abundance-matrix-using-the-sam-files-generated-by-malt" id="toc-compute-the-malt-abundance-matrix-using-the-sam-files-generated-by-malt" class="nav-link" data-scroll-target="#compute-the-malt-abundance-matrix-using-the-sam-files-generated-by-malt"><span class="toc-section-number">12.4</span>  Compute the MALT abundance matrix using the SAM files generated by MALT</a></li>
-  <li><a href="#compute-the-malt-abundance-matrix-using-the-rma6-files-generated-by-malt" id="toc-compute-the-malt-abundance-matrix-using-the-rma6-files-generated-by-malt" class="nav-link" data-scroll-target="#compute-the-malt-abundance-matrix-using-the-rma6-files-generated-by-malt"><span class="toc-section-number">12.5</span>  Compute the MALT abundance matrix using the rma6 files generated by MALT</a></li>
+  <li><a href="#build-a-custom-malt-database-based-on-the-previous-results-from-the-filtering-of-krakenuniq" id="toc-build-a-custom-malt-database-based-on-the-previous-results-from-the-filtering-of-krakenuniq" class="nav-link active" data-scroll-target="#build-a-custom-malt-database-based-on-the-previous-results-from-the-filtering-of-krakenuniq"><span class="toc-section-number">10.1</span>  Build a custom MALT database based on the previous results from the filtering of KrakenUniq</a></li>
+  <li><a href="#align-the-fastq-files-using-malt" id="toc-align-the-fastq-files-using-malt" class="nav-link" data-scroll-target="#align-the-fastq-files-using-malt"><span class="toc-section-number">10.2</span>  Align the FastQ files using MALT</a></li>
+  <li><a href="#quantify-the-microbial-abundance-using-the-sam-file-generated-by-the-malt-alignment" id="toc-quantify-the-microbial-abundance-using-the-sam-file-generated-by-the-malt-alignment" class="nav-link" data-scroll-target="#quantify-the-microbial-abundance-using-the-sam-file-generated-by-the-malt-alignment"><span class="toc-section-number">10.3</span>  Quantify the microbial abundance using the sam file generated by the MALT alignment</a></li>
+  <li><a href="#compute-the-malt-abundance-matrix-using-the-sam-files-generated-by-malt" id="toc-compute-the-malt-abundance-matrix-using-the-sam-files-generated-by-malt" class="nav-link" data-scroll-target="#compute-the-malt-abundance-matrix-using-the-sam-files-generated-by-malt"><span class="toc-section-number">10.4</span>  Compute the MALT abundance matrix using the SAM files generated by MALT</a></li>
+  <li><a href="#compute-the-malt-abundance-matrix-using-the-rma6-files-generated-by-malt" id="toc-compute-the-malt-abundance-matrix-using-the-rma6-files-generated-by-malt" class="nav-link" data-scroll-target="#compute-the-malt-abundance-matrix-using-the-rma6-files-generated-by-malt"><span class="toc-section-number">10.5</span>  Compute the MALT abundance matrix using the rma6 files generated by MALT</a></li>
   </ul>
 </nav>
     </div>
@@ -266,7 +286,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">MALT alignment and processing</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">MALT alignment and processing</span></h1>
 </div>
 
 
@@ -281,8 +301,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="build-a-custom-malt-database-based-on-the-previous-results-from-the-filtering-of-krakenuniq" class="level2" data-number="12.1">
-<h2 data-number="12.1" class="anchored" data-anchor-id="build-a-custom-malt-database-based-on-the-previous-results-from-the-filtering-of-krakenuniq"><span class="header-section-number">12.1</span> Build a custom MALT database based on the previous results from the filtering of KrakenUniq</h2>
+<section id="build-a-custom-malt-database-based-on-the-previous-results-from-the-filtering-of-krakenuniq" class="level2" data-number="10.1">
+<h2 data-number="10.1" class="anchored" data-anchor-id="build-a-custom-malt-database-based-on-the-previous-results-from-the-filtering-of-krakenuniq"><span class="header-section-number">10.1</span> Build a custom MALT database based on the previous results from the filtering of KrakenUniq</h2>
 <p>First we need to build the custom database with the rule Build_Malt_DB. This is done with the use of a python script. Inside the script, python will use the input and output variables provided by snakemake.</p>
 <p>WARNING: We won’t be able to run this command during the workshop because the files seqid2taxid.map.orig, library.fna and nucl_gb.accession2taxid were too large for our workshop folder.</p>
 <pre><code>rule Build_Malt_DB:
@@ -321,8 +341,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">--threads</span> 16 <span class="op">&amp;&gt;</span> logs/BUILD_MALT_DB/BUILD_MALT_DB.log</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>In summary, this command will build a custom malt database containing all the species detected by KrakenUniq that have passed are threshold. You can find the full list of species in results/KRAKENUNIQ_ABUNDANCE_MATRIX/unique_species_taxid_list.txt.</p>
 </section>
-<section id="align-the-fastq-files-using-malt" class="level2" data-number="12.2">
-<h2 data-number="12.2" class="anchored" data-anchor-id="align-the-fastq-files-using-malt"><span class="header-section-number">12.2</span> Align the FastQ files using MALT</h2>
+<section id="align-the-fastq-files-using-malt" class="level2" data-number="10.2">
+<h2 data-number="10.2" class="anchored" data-anchor-id="align-the-fastq-files-using-malt"><span class="header-section-number">10.2</span> Align the FastQ files using MALT</h2>
 <pre><code>rule Malt:
     output:
         rma6="results/MALT/{sample}.trimmed.rma6",
@@ -357,8 +377,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>In summary, we loop through the FastQ files and run an alignment with MALT and gzip the generated sam file. The “unset DISPLAY” command makes it possible to run MALT without it trying to open a graphical interface which can generate an error.</p>
 </section>
-<section id="quantify-the-microbial-abundance-using-the-sam-file-generated-by-the-malt-alignment" class="level2" data-number="12.3">
-<h2 data-number="12.3" class="anchored" data-anchor-id="quantify-the-microbial-abundance-using-the-sam-file-generated-by-the-malt-alignment"><span class="header-section-number">12.3</span> Quantify the microbial abundance using the sam file generated by the MALT alignment</h2>
+<section id="quantify-the-microbial-abundance-using-the-sam-file-generated-by-the-malt-alignment" class="level2" data-number="10.3">
+<h2 data-number="10.3" class="anchored" data-anchor-id="quantify-the-microbial-abundance-using-the-sam-file-generated-by-the-malt-alignment"><span class="header-section-number">10.3</span> Quantify the microbial abundance using the sam file generated by the MALT alignment</h2>
 <pre><code>rule Malt_QuantifyAbundance:
     output:
         out_dir=directory("results/MALT_QUANTIFY_ABUNDANCE/{sample}"),
@@ -385,8 +405,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>In summary, this python script takes the results of the MALT alignment and counts the amount of reads per species.</p>
 </section>
-<section id="compute-the-malt-abundance-matrix-using-the-sam-files-generated-by-malt" class="level2" data-number="12.4">
-<h2 data-number="12.4" class="anchored" data-anchor-id="compute-the-malt-abundance-matrix-using-the-sam-files-generated-by-malt"><span class="header-section-number">12.4</span> Compute the MALT abundance matrix using the SAM files generated by MALT</h2>
+<section id="compute-the-malt-abundance-matrix-using-the-sam-files-generated-by-malt" class="level2" data-number="10.4">
+<h2 data-number="10.4" class="anchored" data-anchor-id="compute-the-malt-abundance-matrix-using-the-sam-files-generated-by-malt"><span class="header-section-number">10.4</span> Compute the MALT abundance matrix using the SAM files generated by MALT</h2>
 <pre><code>rule Malt_AbundanceMatrix_Sam:
     output:
         out_dir=directory("results/MALT_ABUNDANCE_MATRIX_SAM"),
@@ -417,8 +437,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>In summary, this R scripts takes the abundance of all samples and creates a matrix.</p>
 </section>
-<section id="compute-the-malt-abundance-matrix-using-the-rma6-files-generated-by-malt" class="level2" data-number="12.5">
-<h2 data-number="12.5" class="anchored" data-anchor-id="compute-the-malt-abundance-matrix-using-the-rma6-files-generated-by-malt"><span class="header-section-number">12.5</span> Compute the MALT abundance matrix using the rma6 files generated by MALT</h2>
+<section id="compute-the-malt-abundance-matrix-using-the-rma6-files-generated-by-malt" class="level2" data-number="10.5">
+<h2 data-number="10.5" class="anchored" data-anchor-id="compute-the-malt-abundance-matrix-using-the-rma6-files-generated-by-malt"><span class="header-section-number">10.5</span> Compute the MALT abundance matrix using the rma6 files generated by MALT</h2>
 <pre><code>rule Malt_AbundanceMatrix_Rma6:
     output:
         out_dir=directory("results/MALT_ABUNDANCE_MATRIX_RMA6"),
@@ -585,13 +605,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./damage.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">MapDamage step</span></span>
+      <a href="./krakenuniq.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">KrakenUniq Step</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="./summary.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Summarizing the results</span></span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Summarizing the results</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
