@@ -168,4 +168,8 @@ sbatch KrakenUniq_AbundanceMatrix.sh --account=egitim
 
 ```
 
-Then let's check the output
+Then let's check the output:
+
+```bash
+ls results/KRAKENUNIQ_ABUNDANCE_MATRIX/
+```
