@@ -26,18 +26,22 @@ book:
           text: "How to connect to servers?"
         - href: course-setup.qmd
           text: "Course setup"
-    - href : qc.qmd
-      text: "Quality Control Step"
-    - href: krakenuniq.md
-      text: "KrakenUniq Step"
-    - href: align.md
-      text: "Bowtie2 Step"
-    - href: damage.md
-      text: "MapDamage step"
-    - href: malt.md
-      text: "Malt step"
-    - href: summary.md
-      text: "Summarizing the results"
+    - part: "The main pipeline"
+      chapters:
+        - href : qc.qmd
+          text: "Quality Control Step"
+        - href: krakenuniq.md
+          text: "KrakenUniq Step"
+        - href: malt.md
+          text: "Malt step"
+        - href: summary.md
+          text: "Summarizing the results"
+    - part: "The accessory pipeline"
+      chapters:
+        - href: align.md
+          text: "Bowtie2 Step"
+        - href: damage.md
+          text: "MapDamage step"
     - href: references.qmd
       text: "References"
 
