@@ -181,7 +181,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
-            <a href="./organization.html" class="sidebar-item-text sidebar-link">NEOMATRIX Workshop</a>
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">NEOMATRIX Workshop</a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -277,8 +277,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <ul class="collapse">
   <li><a href="#run-krakenuniq" id="toc-run-krakenuniq" class="nav-link" data-scroll-target="#run-krakenuniq"><span class="toc-section-number">9.1.1</span>  Run KrakenUniq</a></li>
   <li><a href="#filtering-the-output" id="toc-filtering-the-output" class="nav-link" data-scroll-target="#filtering-the-output"><span class="toc-section-number">9.1.2</span>  Filtering the output</a></li>
-  <li><a href="#krakenuniq-to-krona" id="toc-krakenuniq-to-krona" class="nav-link" data-scroll-target="#krakenuniq-to-krona"><span class="toc-section-number">9.1.3</span>  KrakenUniq to Krona</a></li>
-  <li><a href="#abundancematrix" id="toc-abundancematrix" class="nav-link" data-scroll-target="#abundancematrix"><span class="toc-section-number">9.1.4</span>  AbundanceMatrix</a></li>
+  <li><a href="#abundancematrix" id="toc-abundancematrix" class="nav-link" data-scroll-target="#abundancematrix"><span class="toc-section-number">9.1.3</span>  AbundanceMatrix</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -381,38 +380,8 @@ for i in $(cat taxID.pathogens); do awk '{if(NR%4==2) print length($1)}' ${i}.te
 <div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">paste</span> krakenuniq.output.pathogens mean.reads.length <span class="op">&gt;</span> krakenuniq.output.pathogens_with_mean_read_length</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span> krakenuniq.output.pathogens_with_mean_read_length</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="krakenuniq-to-krona" class="level3" data-number="9.1.3">
-<h3 data-number="9.1.3" class="anchored" data-anchor-id="krakenuniq-to-krona"><span class="header-section-number">9.1.3</span> KrakenUniq to Krona</h3>
-<p>We then visualize our filtered output using Krona:</p>
-<pre><code>rule KrakenUniq2Krona:
-    output:
-        tax_ids="results/KRAKENUNIQ/{sample}/krakenuniq.output.filtered_taxIDs_kmers1000.txt",
-        seqs="results/KRAKENUNIQ/{sample}/sequences.krakenuniq_kmers1000.txt",
-        krona="results/KRAKENUNIQ/{sample}/sequences.krakenuniq_kmers1000.krona",
-        html="results/KRAKENUNIQ/{sample}/taxonomy.krona.html",
-    input:
-        report="results/KRAKENUNIQ/{sample}/krakenuniq.output.filtered",
-        seqs="results/KRAKENUNIQ/{sample}/sequences.krakenuniq",
-    log:
-        "logs/KRAKENUNIQ2KRONA/{sample}.log",
-    conda:
-        "../envs/krona.yaml"
-    envmodules:
-        *config["envmodules"]["krona"],
-    params:
-        exe=WORKFLOW_DIR / "scripts/krakenuniq2krona.py",
-        DB=f"--tax {config['krona_db']}" if "krona_db" in config else "",
-    benchmark:
-        "benchmarks/KRAKENUNIQ2KRONA/{sample}.benchmark.txt"
-    message:
-        "KrakenUniq2Krona: VISUALIZING KRAKENUNIQ RESULTS WITH KRONA FOR SAMPLE {input.report}"
-    shell:
-        "{params.exe} {input.report} {input.seqs} &amp;&gt; {log}; "
-        "cat {output.seqs} | cut -f 2,3 &gt; {output.krona}; "
-        "ktImportTaxonomy {output.krona} -o {output.html} {params.DB} &amp;&gt;&gt; {log}"</code></pre>
-</section>
-<section id="abundancematrix" class="level3" data-number="9.1.4">
-<h3 data-number="9.1.4" class="anchored" data-anchor-id="abundancematrix"><span class="header-section-number">9.1.4</span> AbundanceMatrix</h3>
+<section id="abundancematrix" class="level3" data-number="9.1.3">
+<h3 data-number="9.1.3" class="anchored" data-anchor-id="abundancematrix"><span class="header-section-number">9.1.3</span> AbundanceMatrix</h3>
 <p>Lastly, we create an Abundance matrix:</p>
 <pre><code>rule KrakenUniq_AbundanceMatrix:
     output:
@@ -444,7 +413,7 @@ for i in $(cat taxID.pathogens); do awk '{if(NR%4==2) print length($1)}' ${i}.te
 <p>This rule combines krakenuniq abundance output files into one file <code>results/KRAKENUNIQ_ABUNDANCE_MATRIX/krakenuniq_abundance_matrix.txt</code>.</p>
 <p>Then, it creates a heatmap plot using the abundance data: <code>results/KRAKENUNIQ_ABUNDANCE_MATRIX/krakenuniq_absolute_abundance_heatmap.pdf</code></p>
 <p>Please run this script using this piece of code:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> KrakenUniq_AbundanceMatrix.sh <span class="at">--account</span><span class="op">=</span>egitim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> KrakenUniq_AbundanceMatrix.sh <span class="at">--account</span><span class="op">=</span>egitim</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 </section>
