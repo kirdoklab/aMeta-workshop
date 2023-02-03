@@ -73,3 +73,49 @@ done
 ```
 
 In summary, this rule looks for each sample and each taxid into the KrakenUniq database to find the corresponding latin name for each taxID and write this lating name into the file node_list.txt.
+
+## MaltExtract
+
+Now we want to extract statistics and summary information from the output from Malt for each sample and taxID using [MaltExtract](https://github.com/rhuebler/MaltExtract).
+
+```
+checkpoint Malt_Extract:
+    """Convert rma6 output to misc usable formats.
+    Downstream rules requires MaltExtract having been run.
+    Therefore this rule is a checkpoint that will trigger reevaluation
+    of downstream rules. The aggregation is performed by
+    aggregate_maltextract.
+    """
+    input:
+        rma6="results/MALT/{sample}.trimmed.rma6",
+        node_list="results/AUTHENTICATION/{sample}/{taxid}/node_list.txt",
+    output:
+        maltextractlog="results/AUTHENTICATION/{sample}/{taxid}/MaltExtract_output/log.txt",
+        nodeentries="results/AUTHENTICATION/{sample}/{taxid}/MaltExtract_output/default/readDist/{sample}.trimmed.rma6_additionalNodeEntries.txt",
+    params:
+        ncbi_db=config["ncbi_db"],
+        extract=format_maltextract_output_directory,
+    threads: 4
+    log:
+        "logs/MALT_EXTRACT/{sample}_{taxid}.log",
+    conda:
+        "../envs/malt.yaml"
+    envmodules:
+        *config["envmodules"]["malt"],
+    message:
+        "Malt_Extract: RUNNING MALT EXTRACT FOR SAMPLE {input.rma6}"
+    shell:
+        "time MaltExtract -i {input.rma6} -f def_anc -o {params.extract} --reads --threads {threads} --matches --minPI 85.0 --maxReadLength 0 --minComp 0.0 --meganSummary -t {input.node_list} -v 2> {log}"
+```
+
+Here is a shell version of this code:
+
+```bash
+for fastq_file in results/CUTADAPT_ADAPTER_TRIMMING/*; do
+        sample=$(basename "${fastq_file}" .fastq.gz)
+        while read taxid; do
+                mkdir -p results/AUTHENTICATION/${sample}/${taxid}/MaltExtract_output/ logs/MALT_EXTRACT/
+                time MaltExtract -i results/MALT/${sample}.trimmed.rma6 -f def_anc -o results/AUTHENTICATION/${sample}/${taxid}/MaltExtract_output/ --reads --threads 4 --matches --minPI 85.0 --maxReadLength 0 --minComp 0.0 --meganSummary -t results/AUTHENTICATION/${sample}/${taxid}/node_list.txt -v 2> logs/MALT_EXTRACT/${sample}_${taxid}.log
+        done < results/KRAKENUNIQ/${sample}/taxID.pathogens
+done
+```
