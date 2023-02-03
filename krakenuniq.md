@@ -110,38 +110,6 @@ cat krakenuniq.output.pathogens_with_mean_read_length
 ```
 
 
-### KrakenUniq to Krona
-
-We then visualize our filtered output using Krona:
-
-```
-rule KrakenUniq2Krona:
-    output:
-        tax_ids="results/KRAKENUNIQ/{sample}/krakenuniq.output.filtered_taxIDs_kmers1000.txt",
-        seqs="results/KRAKENUNIQ/{sample}/sequences.krakenuniq_kmers1000.txt",
-        krona="results/KRAKENUNIQ/{sample}/sequences.krakenuniq_kmers1000.krona",
-        html="results/KRAKENUNIQ/{sample}/taxonomy.krona.html",
-    input:
-        report="results/KRAKENUNIQ/{sample}/krakenuniq.output.filtered",
-        seqs="results/KRAKENUNIQ/{sample}/sequences.krakenuniq",
-    log:
-        "logs/KRAKENUNIQ2KRONA/{sample}.log",
-    conda:
-        "../envs/krona.yaml"
-    envmodules:
-        *config["envmodules"]["krona"],
-    params:
-        exe=WORKFLOW_DIR / "scripts/krakenuniq2krona.py",
-        DB=f"--tax {config['krona_db']}" if "krona_db" in config else "",
-    benchmark:
-        "benchmarks/KRAKENUNIQ2KRONA/{sample}.benchmark.txt"
-    message:
-        "KrakenUniq2Krona: VISUALIZING KRAKENUNIQ RESULTS WITH KRONA FOR SAMPLE {input.report}"
-    shell:
-        "{params.exe} {input.report} {input.seqs} &> {log}; "
-        "cat {output.seqs} | cut -f 2,3 > {output.krona}; "
-        "ktImportTaxonomy {output.krona} -o {output.html} {params.DB} &>> {log}"
-```
 
 ### AbundanceMatrix
 

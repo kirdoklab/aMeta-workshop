@@ -139,7 +139,7 @@ ls -ltrh results/FASTQC_AFTER_TRIMMING/
 
 ## Combine quality control outputs
 
-At last we will combine all the fastqc reports into one file using Multifastqc tool. This part will not be executed in this tutorial. 
+At last we will combine all the fastqc reports into one file using Multifastqc tool. **This part will not be executed in this tutorial.** 
 
 ``` 
 rule MultiQC:
