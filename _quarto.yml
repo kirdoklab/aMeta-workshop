@@ -13,7 +13,7 @@ book:
     - href: index.qmd
       text: Home
     - href: course-style.qmd
-      text: "How to understand snakemake?"
+      text: "Understand snakemake"
     - href: rulegraph.md
       text: "aMeta workflow graph"
     - part: "NEOMATRIX Workshop"
