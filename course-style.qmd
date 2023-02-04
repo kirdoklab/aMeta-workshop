@@ -5,14 +5,11 @@ title: "How to understand snakemake?"
 
 In this course, we would like to show you the mechanics of the aMeta workflow by creating a step-by-step tutorial.
 
-The aim is to give information on the every snakemake rule, and let you run it manually.
+The purpose of this section is to give information about each snakemake type of rule, and to allow you to execute them manually.
 
-The tutorial part of the course is designed on a specific system. So, if you want to follow this tutorial in your server system, you need to install the tools by yourself using conda or any other package manager.
-
-We will first show you the snakemake rule. For example, this code in the quality control part:
+Here is a typical snakemake rule from the pipeline:
 
 ```
-
 rule FastQC_BeforeTrimming:
     """Run fastq before trimming"""
     output:
@@ -35,13 +32,13 @@ rule FastQC_BeforeTrimming:
         "fastqc {input.fastq} --threads {threads} --nogroup --outdir results/FASTQC_BEFORE_TRIMMING &> {log}"
 ```
 
-There are specific snakemake commands in here. To improve the readability, we will delete some of the content in each rule.
+There are specific snakemake describers in here. To improve the readability, we won't show the full rule in the tutorial.
 
-Here, we would like to first explain the parameters in each rule:
+However, in this section, we would like to explain the parameters in each rule:
 
 ## Using conda package manager
 
-Each rule can contain a conda environment. So, if you will run snakemake with `--use-conda` flag, the specified environment will be installed given you have the conda package manager already installed:
+Each rule can use a specific conda subenvironment from the main aMeta conda environment. So, if you run snakemake with the `--use-conda` flag, the specified environment will be installed and used. In this case, the rule is using the fastqc conda subenvironment. 
 
 ```
     conda:
@@ -50,7 +47,7 @@ Each rule can contain a conda environment. So, if you will run snakemake with `-
 
 ## Using environment modules
 
-If you want to use the environmental modules, then you need to use `envmodules` flag with the snakemake. In this case, you would like to modify the envirınmental module file.
+If you want to use environmental modules from your server instead of conda, you need to use the `envmodules` flag when running snakemake. In this case, you will have to create an envmodule file containing the information on how to load the environmental modules. This parameters looks for the specific information on how to load the right environment modules for the fastqc rule.
 
 ```
  envmodules:
@@ -60,20 +57,20 @@ If you want to use the environmental modules, then you need to use `envmodules` 
 
 ## Benchmarks
 
-You could find benchmarking stats with under the `benchmarking` folder.
+You can find benchmarking statistics in the `benchmarks` folder.
 
 ```
     benchmark:
         "benchmarks/FASTQC_BEFORE_TRIMMING/{sample}.benchmark.txt"
-
 ```
 
 ## Logs
 
-If you have problems with your snakemake run, each rule will have a log file. So you can check the errors:
+If you have problems with your snakemake run, each rule will generate a log file. So you can check this file for any error message. 
 
 ```
     log:
         "logs/FASTQC_BEFORE_TRIMMING/{sample}.log",
 ```
 
+So much for the information about the specific parameters of snakemake in our rules. 
