@@ -14,7 +14,7 @@ But to do so, you should not rush into it but think about different criteria for
 
 There are several decisions to be made:
 
-+ Where will the necessary databases be copied to?
++ Which databases do I need and where will I store them?
 + Where do I install the packages for the conda environment?
 + How do I configure snakemake to use the system on my high-performance computer?
 
@@ -30,9 +30,11 @@ If your project is interested in all organisms, you will need to download the Kr
 
 Links to the databases and a process for downloading them are available on the README of the [official aMeta GitHub](https://github.com/NBISweden/aMeta). 
 
+If several people in your cluster intend to use the same databases, it is better to store them in a folder accessible to all. It is also important to note that these databases are very large and will require a lot of storage space. 
+
 ### Conda packages location
 
-It may be worth thinking about the location of packages and environments installed by conda in several situations. For example, when several users will be using these packages or when the number of files or the memory of your home folder is limited. 
+It may be worth thinking about the location of packages and environments installed by conda in several situations: for example, when several users will be using these packages or when the number of files or the memory of your home folder is limited. 
 
 In these cases, you may want to specify the desired location of the conda environment when creating it with the option --prefix.
 
@@ -51,12 +53,15 @@ envs_dirs:
 
 ### Make snakemake use the queue system of your high-performance computer (HPC, example here with slurm)
 
-Once you have followed the installation steps described in the README file of the [official aMeta GitHub](https://github.com/NBISweden/aMeta), you will need to make your snakemake setup compatible with the queuing system of your high-performance computer (HPC system). Do this step before running the first snakemake command for a project involving real data. If you don't, and run the snakemake pipeline for real data (not the dummy data from the .test folder) you risk to recieve complaints from the server maintenance team for overusing the logging node. 
+Once you have followed the installation steps described in the README file of the [official aMeta GitHub](https://github.com/NBISweden/aMeta), you will need to make your snakemake setup compatible with the queuing system of your high-performance computer (HPC system). Do this step before running the first snakemake command for a project involving real data. If you don't, and run the snakemake pipeline for real data (not the dummy data from the .test folder) you risk to receive complaints from the server maintenance team for overusing the logging node. 
 
 There is a small sentence in the README of the [official aMeta GitHub](https://github.com/NBISweden/aMeta) about advanced profiles for HPC systems:
-"For more advanced profiles for different hpc systems, see [Snakemake-Profiles github page](https://github.com/snakemake-profiles)". Click on this link. This will bring you to another GitHub with snakemake profiles available for different cluster environments. Here I will explain how to setup a slurm snakemake profile because it is the most common cluster queuing system I have encounter so far. If your server uses sbatch, squeue and such, it means that it is using a slurm system too. 
+"For more advanced profiles for different hpc systems, see [Snakemake-Profiles github page](https://github.com/snakemake-profiles)". Click on this link. This will bring you to another GitHub with snakemake profiles available for different cluster environments. 
+
+Here, I will explain how to setup a slurm snakemake profile because it is the most common cluster queuing system I have encountered so far. If your server uses sbatch, squeue and such, it means that it is using a slurm system too. 
+
 In that GitHub page click on the ["slurm" repository](https://github.com/Snakemake-Profiles/slurm). To install that cluster repository, you will need to use cookiecutter from Python. Load the python module of your server and follow the instruction from the Snakemake-Profiles/slurm webpage for a quickstart. 
 
-WARNING: This will prompt a lot of questions about your computing system so be ready with the user-account name, the partition name used as default in your server, etc. Also think through where you want to install this Snakemake-Profile. Your home directory as suggested in the quickstart ? A private folder ? A shared folder ? It will be useful to fine-tune the config.yaml file for each rule in a different way over time and to share it with colleagues so that they don't have to redo the fine-tuning. But keep in mind that if they modify the config.yaml file you are using while you are running an analysis, it may crash. 
+WARNING: This will prompt a lot of questions about your computing system, so be ready with the user account name, the partition name used as default in your server, etc. Also, think through where you want to install this snakemake profile. Your home directory as suggested in the quickstart ? A private folder ? A shared folder ? It will be useful to fine-tune the config.yaml file for each rule in a different way over time (runtime, memory, partition) and to share it with colleagues so that they don't have to redo the fine-tuning again. But keep in mind that if they modify the config.yaml file you are using while you are running an analysis, it may crash. 
 
 So, we leave you with these thoughts and decisions to make and we think you are good to go! If you need more information, or if something is not clear, don't hesitate to contact us. We aim to improve this website over time. Good luck!
