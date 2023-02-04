@@ -42,6 +42,8 @@ book:
           text: "Bowtie2 Step"
         - href: damage.md
           text: "MapDamage step"
+    - href: aMeta-pipeline-setup.md
+      text: "aMeta snakemake setup"
     - href: references.qmd
       text: "References"
 
