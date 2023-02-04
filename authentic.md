@@ -1,33 +1,30 @@
+---
+title: "Authentication of the pathogens"
 
+---
 
-For a sample, create taxid for each entry in krakenuniq output taxID.pathogens. Downstream rules use the taxid directories as input, but it is not known beforehand which these are; they are determined by the finds in krakenuniq.
+In this part, we will start authenticating the pathogens found by the `krakenuniq` tool. For this example part, we will focus on the pathogens particular for `sample1`.
 
+The main logic in this section, is to extract DNA reads aligned to one specific pathogen, and run authentication commands.
 
-```
-rule Authentication:
-    """Run Authentication"""
-    output:
-        done="results/AUTHENTICATION/{sample}/.extract_taxids_done",
-    input:
-        pathogens="results/KRAKENUNIQ/{sample}/taxID.pathogens",
-    shell:
-        "mkdir -p {params.dir}; "
-        "while read taxid; do mkdir -p {params.dir}/$taxid; touch {params.dir}/$taxid/.done; done<{input.pathogens};"
-        "touch {output.done}"
-```
+In the `krakenuniq` part, we created a file called `taxID.pathogens`.
 
-Here is a simplified version of this code:
+Let's check this file:
 
 ```bash
-"mkdir -p {params.dir}; "
-        "while read taxid; do mkdir -p {params.dir}/$taxid; touch {params.dir}/$taxid/.done; done<{input.pathogens};"
-        "touch {output.done}"
+results/KRAKENUNIQ/sample1/taxID.pathogens
 ```
-        
-        
- ```
-for BASE in ${SAMPLES}
-do
-	sbatch --time=12:00:00 --job-name=auth_${BASE} --ntasks-per-node=${THREADS} -A ${PROJECT} --mail-user=${MAIL} --mail-type=${NOTIFICATION} ${MALTOUTPUT}/to_run_authenticate.sh ${BASE} ${MALTOUTPUT}/${BASE} ${FILE}
-done
 
+```
+mkdir -p results/AUTHENTICATION/sample1/13373/
+```
+
+Afterwards, we will extract the node name from the `krakenuniq` database. Let's check the output:
+
+```bash
+
+less results/AUTHENTICATION/sample1/13373/node_list.txt
+
+```
+
+THis pathogen name is Burkholderia mallei
