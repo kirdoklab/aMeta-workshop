@@ -11,4 +11,6 @@ In this web page, we aim to publish the tutorial material of the aMeta ancient m
 
 Please find the GitHub repository of the pipeline [here](https://github.com/NBISweden/aMeta).
 
+The tutorial part of the course is designed for a specific system. So, if you want to follow this tutorial on your own, you have to install the tools by yourself either as environmental modules or by creating a conda environment as described in the [official aMeta GitHub](https://github.com/NBISweden/aMeta), and activate this environment before performing the different commands.
+
 ![](images/rulegrap_January_2023.png)
