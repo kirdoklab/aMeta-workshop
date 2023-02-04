@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>aMeta Workshop - 7&nbsp; Course setup</title>
+<title>aMeta Workshop - 14&nbsp; aMeta pipeline setup</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -93,8 +93,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./qc.html" rel="next">
-<link href="./cluster-connection.html" rel="prev">
+<link href="./references.html" rel="next">
+<link href="./damage.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -133,7 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Course setup</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">aMeta pipeline setup</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -204,7 +204,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./course-setup.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Course setup</span></a>
+  <a href="./course-setup.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Course setup</span></a>
   </div>
 </li>
       </ul>
@@ -261,7 +261,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./aMeta-pipeline-setup.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">aMeta snakemake setup</span></a>
+  <a href="./aMeta-pipeline-setup.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">aMeta snakemake setup</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -278,7 +278,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#course-setup" id="toc-course-setup" class="nav-link active" data-scroll-target="#course-setup"><span class="toc-section-number">7.1</span>  Course setup</a></li>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="toc-section-number">14.1</span>  Introduction</a></li>
+  <li><a href="#decisions" id="toc-decisions" class="nav-link" data-scroll-target="#decisions"><span class="toc-section-number">14.2</span>  Decisions</a>
+  <ul class="collapse">
+  <li><a href="#the-necessary-databases" id="toc-the-necessary-databases" class="nav-link" data-scroll-target="#the-necessary-databases"><span class="toc-section-number">14.2.1</span>  The necessary databases</a></li>
+  <li><a href="#conda-packages-location" id="toc-conda-packages-location" class="nav-link" data-scroll-target="#conda-packages-location"><span class="toc-section-number">14.2.2</span>  Conda packages location</a></li>
+  <li><a href="#make-snakemake-use-the-queue-system-of-your-high-performance-computer-hpc-example-here-with-slurm" id="toc-make-snakemake-use-the-queue-system-of-your-high-performance-computer-hpc-example-here-with-slurm" class="nav-link" data-scroll-target="#make-snakemake-use-the-queue-system-of-your-high-performance-computer-hpc-example-here-with-slurm"><span class="toc-section-number">14.2.3</span>  Make snakemake use the queue system of your high-performance computer (HPC, example here with slurm)</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -287,7 +293,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Course setup</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">aMeta pipeline setup</span></h1>
 </div>
 
 
@@ -302,22 +308,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<section id="course-setup" class="level2" data-number="7.1">
-<h2 data-number="7.1" class="anchored" data-anchor-id="course-setup"><span class="header-section-number">7.1</span> Course setup</h2>
-<p>Once you have connected to the TRUBA server with your own username, you can begin to setup your folder for the course.</p>
-<p>Create the necessary folders:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> workshop/data</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> workshop/logs/slurm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Create links to the files you will use:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create links for the FastQ files</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> /truba/home/egitim/workshop/data/<span class="pp">*</span> workshop/data</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create links for the scripts </span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ln</span> <span class="at">-s</span> /truba/home/egitim/workshop/<span class="pp">*</span>.sh workshop</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Right now, you have created your workshop folder. From now on, you will be working on this folder. Please change your directory now:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> workshop</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Then you can follow step after step the pipeline. Good luck !</p>
+<section id="introduction" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="introduction"><span class="header-section-number">14.1</span> Introduction</h2>
+<p>Okay, that’s all well and good, but when are we really going to learn how to use the snakemake aMeta pipeline?</p>
+<p>Now that you know exactly what the different rules of aMeta do, this pipeline is no longer a black box for you and you can start using the official snakemake version.</p>
+<p>But to do so, you should not rush into it but think about different criteria for its installation.</p>
+</section>
+<section id="decisions" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="decisions"><span class="header-section-number">14.2</span> Decisions</h2>
+<p>There are several decisions to be made:</p>
+<ul>
+<li>Where will the necessary databases be copied to?</li>
+<li>Where do I install the packages for the conda environment?</li>
+<li>How do I configure snakemake to use the system on my high-performance computer?</li>
+</ul>
+<p>These are some of the questions we will try to answer here.</p>
+<section id="the-necessary-databases" class="level3" data-number="14.2.1">
+<h3 data-number="14.2.1" class="anchored" data-anchor-id="the-necessary-databases"><span class="header-section-number">14.2.1</span> The necessary databases</h3>
+<p>Depending on the type of project you want to do, there are different databases to download that we have made available to you.</p>
+<p>If your project is only focused on prokaryotes, the KrakenUniq and Bowtie2 microbial databases will be sufficient, but you will still need to download the Bowtie2_FULL_NT to get the files needed to help build the MALT database.</p>
+<p>If your project is interested in all organisms, you will need to download the KrakenUniq_FULL_NT and the Bowtie2_FULL_NT.</p>
+<p>Links to the databases and a process for downloading them are available on the README of the <a href="https://github.com/NBISweden/aMeta">official aMeta GitHub</a>.</p>
+</section>
+<section id="conda-packages-location" class="level3" data-number="14.2.2">
+<h3 data-number="14.2.2" class="anchored" data-anchor-id="conda-packages-location"><span class="header-section-number">14.2.2</span> Conda packages location</h3>
+<p>It may be worth thinking about the location of packages and environments installed by conda in several situations. For example, when several users will be using these packages or when the number of files or the memory of your home folder is limited.</p>
+<p>In these cases, you may want to specify the desired location of the conda environment when creating it with the option –prefix.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env create <span class="at">--prefix</span> /path/to/your/conda-dirs workflow/envs/environment.yaml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>If you do use the option –prefix to choose a location for your conda packages and environments, don’t forget to create a hidden “.condarc” file in your home directory containing information about the path like this:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pkgs_dirs:</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="ex">-</span> /path/to/your/conda-dirs/pkgs</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">envs_dirs:</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">-</span> /path/to/your/conda-dirs/envs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="make-snakemake-use-the-queue-system-of-your-high-performance-computer-hpc-example-here-with-slurm" class="level3" data-number="14.2.3">
+<h3 data-number="14.2.3" class="anchored" data-anchor-id="make-snakemake-use-the-queue-system-of-your-high-performance-computer-hpc-example-here-with-slurm"><span class="header-section-number">14.2.3</span> Make snakemake use the queue system of your high-performance computer (HPC, example here with slurm)</h3>
+<p>Once you have followed the installation steps described in the README file of the <a href="https://github.com/NBISweden/aMeta">official aMeta GitHub</a>, you will need to make your snakemake setup compatible with the queuing system of your high-performance computer (HPC system). Do this step before running the first snakemake command for a project involving real data. If you don’t, and run the snakemake pipeline for real data (not the dummy data from the .test folder) you risk to recieve complaints from the server maintenance team for overusing the logging node.</p>
+<p>There is a small sentence in the README of the <a href="https://github.com/NBISweden/aMeta">official aMeta GitHub</a> about advanced profiles for HPC systems: “For more advanced profiles for different hpc systems, see <a href="https://github.com/snakemake-profiles">Snakemake-Profiles github page</a>”. Click on this link. This will bring you to another GitHub with snakemake profiles available for different cluster environments. Here I will explain how to setup a slurm snakemake profile because it is the most common cluster queuing system I have encounter so far. If your server uses sbatch, squeue and such, it means that it is using a slurm system too. In that GitHub page click on the <a href="https://github.com/Snakemake-Profiles/slurm">“slurm” repository</a>. To install that cluster repository, you will need to use cookiecutter from Python. Load the python module of your server and follow the instruction from the Snakemake-Profiles/slurm webpage for a quickstart.</p>
+<p>WARNING: This will prompt a lot of questions about your computing system so be ready with the user-account name, the partition name used as default in your server, etc. Also think through where you want to install this Snakemake-Profile. Your home directory as suggested in the quickstart ? A private folder ? A shared folder ? It will be useful to fine-tune the config.yaml file for each rule in a different way over time and to share it with colleagues so that they don’t have to redo the fine-tuning. But keep in mind that if they modify the config.yaml file you are using while you are running an analysis, it may crash.</p>
+<p>So, we leave you with these thoughts and decisions to make and we think you are good to go! If you need more information, or if something is not clear, don’t hesitate to contact us. We aim to improve this website over time. Good luck!</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -456,13 +488,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./cluster-connection.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">How to connect to servers?</span></span>
+      <a href="./damage.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">MapDamage step</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./qc.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Quality Control Step</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./references.html" class="pagination-link">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
