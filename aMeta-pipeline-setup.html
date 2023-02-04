@@ -171,7 +171,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./course-style.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">How to understand snakemake?</span></a>
+  <a href="./course-style.html" class="sidebar-item-text sidebar-link"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Understand snakemake</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -318,7 +318,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2 data-number="14.2" class="anchored" data-anchor-id="decisions"><span class="header-section-number">14.2</span> Decisions</h2>
 <p>There are several decisions to be made:</p>
 <ul>
-<li>Where will the necessary databases be copied to?</li>
+<li>Which databases do I need and where will I store them?</li>
 <li>Where do I install the packages for the conda environment?</li>
 <li>How do I configure snakemake to use the system on my high-performance computer?</li>
 </ul>
@@ -329,10 +329,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>If your project is only focused on prokaryotes, the KrakenUniq and Bowtie2 microbial databases will be sufficient, but you will still need to download the Bowtie2_FULL_NT to get the files needed to help build the MALT database.</p>
 <p>If your project is interested in all organisms, you will need to download the KrakenUniq_FULL_NT and the Bowtie2_FULL_NT.</p>
 <p>Links to the databases and a process for downloading them are available on the README of the <a href="https://github.com/NBISweden/aMeta">official aMeta GitHub</a>.</p>
+<p>If several people in your cluster intend to use the same databases, it is better to store them in a folder accessible to all. It is also important to note that these databases are very large and will require a lot of storage space.</p>
 </section>
 <section id="conda-packages-location" class="level3" data-number="14.2.2">
 <h3 data-number="14.2.2" class="anchored" data-anchor-id="conda-packages-location"><span class="header-section-number">14.2.2</span> Conda packages location</h3>
-<p>It may be worth thinking about the location of packages and environments installed by conda in several situations. For example, when several users will be using these packages or when the number of files or the memory of your home folder is limited.</p>
+<p>It may be worth thinking about the location of packages and environments installed by conda in several situations: for example, when several users will be using these packages or when the number of files or the memory of your home folder is limited.</p>
 <p>In these cases, you may want to specify the desired location of the conda environment when creating it with the option –prefix.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">conda</span> env create <span class="at">--prefix</span> /path/to/your/conda-dirs workflow/envs/environment.yaml</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>If you do use the option –prefix to choose a location for your conda packages and environments, don’t forget to create a hidden “.condarc” file in your home directory containing information about the path like this:</p>
@@ -343,9 +344,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="make-snakemake-use-the-queue-system-of-your-high-performance-computer-hpc-example-here-with-slurm" class="level3" data-number="14.2.3">
 <h3 data-number="14.2.3" class="anchored" data-anchor-id="make-snakemake-use-the-queue-system-of-your-high-performance-computer-hpc-example-here-with-slurm"><span class="header-section-number">14.2.3</span> Make snakemake use the queue system of your high-performance computer (HPC, example here with slurm)</h3>
-<p>Once you have followed the installation steps described in the README file of the <a href="https://github.com/NBISweden/aMeta">official aMeta GitHub</a>, you will need to make your snakemake setup compatible with the queuing system of your high-performance computer (HPC system). Do this step before running the first snakemake command for a project involving real data. If you don’t, and run the snakemake pipeline for real data (not the dummy data from the .test folder) you risk to recieve complaints from the server maintenance team for overusing the logging node.</p>
-<p>There is a small sentence in the README of the <a href="https://github.com/NBISweden/aMeta">official aMeta GitHub</a> about advanced profiles for HPC systems: “For more advanced profiles for different hpc systems, see <a href="https://github.com/snakemake-profiles">Snakemake-Profiles github page</a>”. Click on this link. This will bring you to another GitHub with snakemake profiles available for different cluster environments. Here I will explain how to setup a slurm snakemake profile because it is the most common cluster queuing system I have encounter so far. If your server uses sbatch, squeue and such, it means that it is using a slurm system too. In that GitHub page click on the <a href="https://github.com/Snakemake-Profiles/slurm">“slurm” repository</a>. To install that cluster repository, you will need to use cookiecutter from Python. Load the python module of your server and follow the instruction from the Snakemake-Profiles/slurm webpage for a quickstart.</p>
-<p>WARNING: This will prompt a lot of questions about your computing system so be ready with the user-account name, the partition name used as default in your server, etc. Also think through where you want to install this Snakemake-Profile. Your home directory as suggested in the quickstart ? A private folder ? A shared folder ? It will be useful to fine-tune the config.yaml file for each rule in a different way over time and to share it with colleagues so that they don’t have to redo the fine-tuning. But keep in mind that if they modify the config.yaml file you are using while you are running an analysis, it may crash.</p>
+<p>Once you have followed the installation steps described in the README file of the <a href="https://github.com/NBISweden/aMeta">official aMeta GitHub</a>, you will need to make your snakemake setup compatible with the queuing system of your high-performance computer (HPC system). Do this step before running the first snakemake command for a project involving real data. If you don’t, and run the snakemake pipeline for real data (not the dummy data from the .test folder) you risk to receive complaints from the server maintenance team for overusing the logging node.</p>
+<p>There is a small sentence in the README of the <a href="https://github.com/NBISweden/aMeta">official aMeta GitHub</a> about advanced profiles for HPC systems: “For more advanced profiles for different hpc systems, see <a href="https://github.com/snakemake-profiles">Snakemake-Profiles github page</a>”. Click on this link. This will bring you to another GitHub with snakemake profiles available for different cluster environments.</p>
+<p>Here, I will explain how to setup a slurm snakemake profile because it is the most common cluster queuing system I have encountered so far. If your server uses sbatch, squeue and such, it means that it is using a slurm system too.</p>
+<p>In that GitHub page click on the <a href="https://github.com/Snakemake-Profiles/slurm">“slurm” repository</a>. To install that cluster repository, you will need to use cookiecutter from Python. Load the python module of your server and follow the instruction from the Snakemake-Profiles/slurm webpage for a quickstart.</p>
+<p>WARNING: This will prompt a lot of questions about your computing system, so be ready with the user account name, the partition name used as default in your server, etc. Also, think through where you want to install this snakemake profile. Your home directory as suggested in the quickstart ? A private folder ? A shared folder ? It will be useful to fine-tune the config.yaml file for each rule in a different way over time (runtime, memory, partition) and to share it with colleagues so that they don’t have to redo the fine-tuning again. But keep in mind that if they modify the config.yaml file you are using while you are running an analysis, it may crash.</p>
 <p>So, we leave you with these thoughts and decisions to make and we think you are good to go! If you need more information, or if something is not clear, don’t hesitate to contact us. We aim to improve this website over time. Good luck!</p>
 
 

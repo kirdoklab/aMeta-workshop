@@ -108,7 +108,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./course-style.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">How to understand snakemake?</span></a>
+  <a href="./course-style.html" class="sidebar-item-text sidebar-link active"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Understand snakemake</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -243,11 +243,9 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <p>In this course, we would like to show you the mechanics of the aMeta workflow by creating a step-by-step tutorial.</p>
-<p>The aim is to give information on the every snakemake rule, and let you run it manually.</p>
-<p>The tutorial part of the course is designed on a specific system. So, if you want to follow this tutorial in your server system, you need to install the tools by yourself using conda or any other package manager.</p>
-<p>We will first show you the snakemake rule. For example, this code in the quality control part:</p>
-<pre><code>
-rule FastQC_BeforeTrimming:
+<p>The purpose of this section is to give information about each snakemake type of rule, and to allow you to execute them manually.</p>
+<p>Here is a typical snakemake rule from the pipeline:</p>
+<pre><code>rule FastQC_BeforeTrimming:
     """Run fastq before trimming"""
     output:
         html="results/FASTQC_BEFORE_TRIMMING/{sample}_fastqc.html",
@@ -267,33 +265,33 @@ rule FastQC_BeforeTrimming:
     threads: 2
     shell:
         "fastqc {input.fastq} --threads {threads} --nogroup --outdir results/FASTQC_BEFORE_TRIMMING &amp;&gt; {log}"</code></pre>
-<p>There are specific snakemake commands in here. To improve the readability, we will delete some of the content in each rule.</p>
-<p>Here, we would like to first explain the parameters in each rule:</p>
+<p>There are specific snakemake describers in here. To improve the readability, we won’t show the full rule in the tutorial.</p>
+<p>However, in this section, we would like to explain the parameters in each rule:</p>
 <section id="using-conda-package-manager" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="using-conda-package-manager"><span class="header-section-number">2.1</span> Using conda package manager</h2>
-<p>Each rule can contain a conda environment. So, if you will run snakemake with <code>--use-conda</code> flag, the specified environment will be installed given you have the conda package manager already installed:</p>
+<p>Each rule can use a specific conda subenvironment from the main aMeta conda environment. So, if you run snakemake with the <code>--use-conda</code> flag, the specified environment will be installed and used. In this case, the rule is using the fastqc conda subenvironment.</p>
 <pre><code>    conda:
         "../envs/fastqc.yaml"</code></pre>
 </section>
 <section id="using-environment-modules" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="using-environment-modules"><span class="header-section-number">2.2</span> Using environment modules</h2>
-<p>If you want to use the environmental modules, then you need to use <code>envmodules</code> flag with the snakemake. In this case, you would like to modify the envirınmental module file.</p>
+<p>If you want to use environmental modules from your server instead of conda, you need to use the <code>envmodules</code> flag when running snakemake. In this case, you will have to create an envmodule file containing the information on how to load the environmental modules. This parameters looks for the specific information on how to load the right environment modules for the fastqc rule.</p>
 <pre><code> envmodules:
         *config["envmodules"]["fastqc"]
 </code></pre>
 </section>
 <section id="benchmarks" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="benchmarks"><span class="header-section-number">2.3</span> Benchmarks</h2>
-<p>You could find benchmarking stats with under the <code>benchmarking</code> folder.</p>
+<p>You can find benchmarking statistics in the <code>benchmarks</code> folder.</p>
 <pre><code>    benchmark:
-        "benchmarks/FASTQC_BEFORE_TRIMMING/{sample}.benchmark.txt"
-</code></pre>
+        "benchmarks/FASTQC_BEFORE_TRIMMING/{sample}.benchmark.txt"</code></pre>
 </section>
 <section id="logs" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="logs"><span class="header-section-number">2.4</span> Logs</h2>
-<p>If you have problems with your snakemake run, each rule will have a log file. So you can check the errors:</p>
+<p>If you have problems with your snakemake run, each rule will generate a log file. So you can check this file for any error message.</p>
 <pre><code>    log:
         "logs/FASTQC_BEFORE_TRIMMING/{sample}.log",</code></pre>
+<p>So much for the information about the specific parameters of snakemake in our rules.</p>
 
 
 </section>
