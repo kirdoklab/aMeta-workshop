@@ -124,6 +124,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 }</script>
 
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -274,21 +275,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<p>To plot the authentication score and summarise the output of the workflow, we use the following code:</p>
-<pre><code>rule Plot_Authentication_Score:
-"""Plot authentication score"""
+<p>For a sample, create taxid for each entry in krakenuniq output taxID.pathogens. Downstream rules use the taxid directories as input, but it is not known beforehand which these are; they are determined by the finds in krakenuniq.</p>
+<pre><code>rule Authentication:
+    """Run Authentication"""
     output:
-        heatmap="results/overview_heatmap_scores.pdf",    
+        done="results/AUTHENTICATION/{sample}/.extract_taxids_done",
     input:
-        scores=expand("results/AUTHENTICATION/.{sample}_done",sample=SAMPLES)
-    message:
-        "Plot_Authentication_Score: PLOTTING HEATMAP OF AUTHENTICATION SCORES"
-    params:
-        exe=WORKFLOW_DIR / "scripts/plot_score.R",
+        pathogens="results/KRAKENUNIQ/{sample}/taxID.pathogens",
     shell:
-        "Rscript {params.exe} results/AUTHENTICATION $(dirname {output.heatmap}) &amp;&gt; {log}"</code></pre>
+        "mkdir -p {params.dir}; "
+        "while read taxid; do mkdir -p {params.dir}/$taxid; touch {params.dir}/$taxid/.done; done&lt;{input.pathogens};"
+        "touch {output.done}"</code></pre>
 <p>Here is a simplified version of this code:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="st">"Rscript {params.exe} results/AUTHENTICATION </span><span class="va">$(</span><span class="fu">dirname</span> {output.heatmap}<span class="va">)</span><span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="st">"mkdir -p {params.dir}; "</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>        <span class="st">"while read taxid; do mkdir -p {params.dir}/</span><span class="va">$taxid</span><span class="st">; touch {params.dir}/</span><span class="va">$taxid</span><span class="st">/.done; done&lt;{input.pathogens};"</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"touch {output.done}"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>``` for BASE in <span class="math inline">\({SAMPLES} do  sbatch --time=12:00:00 --job-name=auth_\)</span>{BASE} –ntasks-per-node=${THREADS} -A <span class="math inline">\({PROJECT} --mail-user=\)</span>{MAIL} –mail-type=${NOTIFICATION} ${MALTOUTPUT}/to_run_authenticate.sh ${BASE} <span class="math inline">\({MALTOUTPUT}/\)</span>{BASE} ${FILE} done</p>
 
 
 
