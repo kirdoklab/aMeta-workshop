@@ -4,16 +4,16 @@ title: "Quality control and trimming"
 
 ## Introduction
 
-The pipeline starts with a quality controlling step. This step contains four main rules:
+The pipeline starts with a quality control step. This step contains four main rules:
 
-+ Quality controlling of raw `fastq` files using `fastqc` tool
-+ Removing leftover adapters an low quality bases using `cutadapt`
-+ Quality controlling of the trimmed `fastq` files using `fastqc` tool
-+ Combining several `fastqc` outputs into one file using `MultiQC` tool
++ Quality control of the raw `FastQ` files using the tool `FastQC`
++ Removing potential remaining adapters using `Cutadapt`
++ Quality control of the newly trimmed `FastQ` files using `FastQC` again
++ Combining several `FastQC` outputs into one file using `MultiQC`
 
 ## Quality control before trimming
 
-Input files are retrieved from the sample sheet that you provided. And you will have two output files `html` and `zip` files. The `html` file contains the final report. Here is the simplified snakemake rule:
+Information on the FastQ files and their location is retrieved from the samples.tsv file. Then this rule creates two output files `html` and `zip` files. The `html` file contains the final report. Here is the simplified snakemake rule:
 
 ```
 rule FastQC_BeforeTrimming:
@@ -41,16 +41,18 @@ fastqc FASTQ \
 
 ```
 
-To run this part using the `fastqc` tool, please copy and paste this command on your terminal. Remember to change your account name, with the username provided for you:
+To run the different rules on TRUBA, we have prepared bash scripts. Verify that you have done the steps from the course setup section and that you are located in your own newly created workshop folder. If this is the case, type this command:
 
 ```bash
-sbatch FastQC_BeforeTrimming.sh --account=egitim
+sbatch FastQC_BeforeTrimming.sh --account=your_user_name
 ```
+
+It is important to specify your account name anytime you run a bash script. You will get a better priority in the queue than if every user uses the same user name, and you will be able to check the progress status of your job using `squeue`.
 
 Please, remember to check the status of your job using this command:
 
 ```bash
-squeue -u egitim
+squeue -u your_user_name
 ```
 
 Once your job has finished, please check the output files like this:
@@ -61,11 +63,11 @@ ls -ltrh results/FASTQC_BEFORE_TRIMMING/
 
 ## Quality trimming step
 
-After we run quality controls, the pipeline will run `cutadapt` tool to remove the leftover adapters and low quality bases. Here is the overview of this rule. 
+After we run a first quality control, the pipeline will run `Cutadapt` to remove the remaining adapters and low quality bases. Here is the overview of this rule. 
 
-You can add or remove adapters using the `config/config.yaml` file. 
+You can specify which adapters were used in the `config/config.yaml` file. If no adapter is specified, the default is Illumina adapters.
 
-In this file the inputs will be retrieved again from the samplesheet file. And the outputs will be placed to the `results/CUTADAPT_ADAPTER_TRIMMING/` folder. 
+For this rule, the inputs will be retrieved again from the samplesheet file. And the outputs will be placed in the `results/CUTADAPT_ADAPTER_TRIMMING/` folder. 
 
 ```
 rule Cutadapt_Adapter_Trimming:
@@ -83,17 +85,17 @@ rule Cutadapt_Adapter_Trimming:
 
 ```
 
-Here is how we will run it for one file:
+Here is how we can run it for one file:
 
 ```bash
 cutadapt -a ADAPTERS --minimum-length 30 -o results/CUTADAPT_ADAPTER_TRIMMING/sample  
 
 ```
 
-Please run the command for this part like this:
+Please run the script provided for this part like this:
 
 ```bash
-sbatch Cutadapt_Adapter_Trimming.sh --account=egitim
+sbatch Cutadapt_Adapter_Trimming.sh --account=your_user_account
 ```
 
 After your job has finished, please check the output files:
@@ -104,7 +106,7 @@ ls -ltrh results/CUTADAPT_ADAPTER_TRIMMING/
 
 ## Quality control after trimming
 
-Then we will run the quality control after the trimming step:
+Now that we have removed potentially remaining adapters, we will run a new quality control analysis. Normally, there should be no more adapters visible:
 
 ```
 rule FastQC_AfterTrimming:
@@ -120,7 +122,7 @@ rule FastQC_AfterTrimming:
         "fastqc {input.fastq} --threads {threads} --nogroup --outdir results/FASTQC_AFTER_TRIMMING &> {log}"
 ```
 
-Here is how we will run it for one file:
+Here is how we can run it for one file:
 
 ```bash
 fastqc results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz --threads 2 --nogroup --outdir results/FASTQC_AFTER_TRIMMING
@@ -128,7 +130,7 @@ fastqc results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz --threads 2 -
 Please run the `sbatch` command for this part like this:
 
 ```bash
-sbatch FastQC_AfterTrimming.sh --account=egitim
+sbatch FastQC_AfterTrimming.sh --account=your_user_account
 ```
 
 Please check the outputs using this command:
@@ -139,7 +141,7 @@ ls -ltrh results/FASTQC_AFTER_TRIMMING/
 
 ## Combine quality control outputs
 
-At last we will combine all the fastqc reports into one file using Multifastqc tool. **This part will not be executed in this tutorial.** 
+At last the pipeline combines all the fastqc reports into one file using the tool MultiQC. **This part will not be executed in this tutorial.** 
 
 ``` 
 rule MultiQC:
