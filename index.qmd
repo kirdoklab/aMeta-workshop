@@ -1,14 +1,14 @@
 ---
-title: "aMeta Workshop at Mersin"
-date: "31 January 2023"
+title: "aMeta Workshop in Mersin"
+date: "6th to 10th February 2023"
 ---
 
-Welcome to the **aMeta: an accurate and memory-efficient ancient Metagenomic profiling workflow** course that will be held in Mersin University, Department of Biotechnology in the scope of the European Union funded [NEOMATRIX](https://neomatrix.metu.edu.tr/) collaboration project.
+Welcome to the workshop on **aMeta: an accurate and memory-efficient ancient Metagenomic profiling workflow** that will be held at Mersin University, Department of Biotechnology within the scope of the European Union funded [NEOMATRIX](https://neomatrix.metu.edu.tr/) collaboration project.
 
-In this web page, we aim to publish the tutorial material of aMeta ancient metagenomic profiling workflow.
+In this web page, we aim to publish the tutorial material of the aMeta ancient metagenomic profiling workflow.
 
-**aMeta** [Pochon, Bergfeldt et al., 2022](https://www.biorxiv.org/content/10.1101/2022.10.03.510579v1.abstract) is designed to analyse the microbial content in ancient specimens from a wide variety of source organisms (including humans).
+**aMeta** [Pochon & Bergfeldt et al., 2022](https://www.biorxiv.org/content/10.1101/2022.10.03.510579v1.abstract) is designed to analyse the metagenomic content of ancient samples from a wide variety of host organisms (including humans) or from environmental samples.
 
-Please find the whole pipeline through this [github repo](https://github.com/NBISweden/aMeta)
+Please find the GitHub repository of the pipeline [here](https://github.com/NBISweden/aMeta).
 
 ![](images/rulegrap_January_2023.png)
