@@ -1,23 +1,23 @@
+---
+title: "Prescreening with KrakenUniq"
+---
+
+## KrakenUniq prescreening step
+
+The first part of the pipeline includes a prescreening step with KrakenUniq. It is not an aligner but a k-mer based classifier. It means that it has a database with information about unique regions of the DNA of each organism and classifies the reads by comparing them to this database. It can assign the reads to different taxonomic clade depending on their uniqueness. If a read is specific to a species, it will be assigned to that species, if it is specific to a genus, it will be assigned to that genus and so on. 
+
+KrakenUniq is fast and makes it possible to screen aDNA samples against a **database as large as possible**. With an aligner, this is rarely possible because it would take too much compute power and time to align to a very large database. The KrakenUniq paper suggests that KrakenUniq is not less accurate compared to alignment tools such as `BLAST` and `MEGAN`. However, we still want to have a secondary verification with an aligner later on in the pipeline, since we need to align the reads in order to verify the quality of the alignment and generate statistics. 
 
 ## KrakenUniq database
 
-KrakenUniq is relatively fast and allows to screen aDNA samples against a database as large as possible. The KrakenUniq paper suggests that KrakenUniq is not less accurate compared to alignment tools such as `BLAST` and `MEGAN`.
+We have made two KrakenUniq databases available through the SciLifeLab repository. Description of the databases and information on how to download them can be found on the [official aMeta GitHub](https://github.com/NBISweden/aMeta).
 
-A full NT database for KrakenUniq is [available for download](https://www.biorxiv.org/node/2777891.external-links.html) through SciLifeLab.
+## Classification with KrakenUniq
 
-## KrakenUniq workflow
-
-### Run KrakenUniq
-
-**Please note that it will not be possible to run this first step during this workshop due to issues with storage space. The output files will be provided by the course leaders.**
-
-To start, we need to set up the path to the database– we call it `DBNAME`.
-
-This is the rule in the workflow/rules/krakenuniq.smk file. Input files are retrieved from the output of the Quality Control step.
+**Please note that it will not be possible to run this first step during this workshop due to issues with storage space.** If you followed the course setup correctly, you should have the expected output files of this rule in your `results` folder. 
 
 ```
 rule KrakenUniq:
-    """Run KrakenUniq on trimmed fastq data"""
     output:
         report="results/KRAKENUNIQ/{sample}/krakenuniq.output",
         seqs="results/KRAKENUNIQ/{sample}/sequences.krakenuniq",
@@ -25,25 +25,25 @@ rule KrakenUniq:
         fastq="results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz",
     params:
         DB=config["krakenuniq_db"],
-    threads: 10
     log:
         "logs/KRAKENUNIQ/{sample}.log",
     shell:
         "krakenuniq --preload --db {params.DB} --fastq-input {input.fastq} --threads {threads} --output {output.seqs} --report-file {output.report} --gzip-compressed --only-classified-out &> {log}"
 ```
 
-Here is a simplified version of this code:
+Here is a shell version of this code:
 
 ```bash
-DBNAME=db/
-PATH=${PATH}:/truba/home/egitim/miniconda3/envs/aMeta/bin/
-krakenuniq --preload --db $DBNAME --fastq-input ${sample_name} --threads 4 --output ${sample_name}.sequences.krakenuniq --report-file ${sample_name}.krakenuniq.output --gzip-compressed --only-classified-out &> logs/KRAKENUNIQ/${sample_name}.log
-
+for sample in $(ls results/CUTADAPT_ADAPTER_TRIMMING/*.fastq.gz); do
+       sample_name=$(basename $sample .fastq.gz)
+       krakenuniq --preload --db $DBNAME --fastq-input ${sample_name} --threads 4 --output ${sample_name}.sequences.krakenuniq --report-file ${sample_name}.krakenuniq.output --gzip-compressed --only-classified-out &> logs/KRAKENUNIQ/${sample_name}.log
+done
 ```
+In summary, this command loops through the sample files created by Cutadapt and classifies the reads using KrakenUniq.
 
-### Filtering the KrakenUniq output
+## Filtering the KrakenUniq output
 
-After running KrakenUniq, the next step is to filter the output. The input is the `krakenuniq.output` generated in the previous step. The outputs will be a filtered KrakenUniq abundance file called `krakenuniq.output.filtered`, a pathogens file `krakenuniq.output.pathogens`, and taxids of these pathogens `taxID.pathogens`.
+After running KrakenUniq, we need to filter its output to remove as many false positives as possible. In order to do so, we select the species taxonomic level for each organism and we filter the results according to the amount of kmers and the amount of taxReads specific to that species. A suggested value for this parameters is 1000 unique kmers to make sure that at least 1000 unique regions of the organim are covered and that 200 taxReads in order to have enough reads to verify if the organism is ancient after alignment. 
 
 ```
 rule Filter_KrakenUniq_Output:

@@ -13,61 +13,63 @@ The pipeline starts with a quality control step. This step contains four main ru
 
 ## Quality control before trimming
 
-Information on the FastQ files and their location is retrieved from the samples.tsv file. Then this rule creates two output files `html` and `zip` files. The `html` file contains the final report. Here is the simplified snakemake rule:
+In the snakemake pipeline, the name of the FastQ files and their location is retrieved from a file called samples.tsv and that the user prepares before running the pipeline on real data. For more information on the samples.tsv and the config.yaml files that need to be created before running the pipeline on any real data, check the [official aMeta GitHub](https://github.com/NBISweden/aMeta).
+
+In our case we are going to run bash scripts that we will submit directly to the slurm system and we have implemented a for loop going through the fastq files available in the data folder, so no need to create a samples.tsv file for this workshop. 
+
+Here is the simplified snakemake rule (without the parameters explained in the "Understand snakemake" section):
 
 ```
 rule FastQC_BeforeTrimming:
-    """Run fastq before trimming"""
     output:
         html="results/FASTQC_BEFORE_TRIMMING/{sample}_fastqc.html",
         zip="results/FASTQC_BEFORE_TRIMMING/{sample}_fastqc.zip",
     input:
         fastq=lambda wildcards: samples.loc[wildcards.sample].fastq,
-    message:
-        "FastQC_BeforeTrimming: RUNNING QUALITY CONTROL WITH FASTQC FOR SAMPLE {input.fastq} BEFORE TRIMMING ADAPTERS"
-    threads: 2
     shell:
         "fastqc {input.fastq} --threads {threads} --nogroup --outdir results/FASTQC_BEFORE_TRIMMING &> {log}"
-
 ```
 
 Here is a simplified version of this code:
 
 ```bash
-fastqc FASTQ \
-    --threads 2 \
-    --nogroup \
-    --outdir results/FASTQC_BEFORE_TRIMMING/
-
+for sample in $(ls data/*.fastq.gz); do
+	sample_name=$(basename $sample .fastq.gz
+	fastqc $sample --threads 4 --nogroup --outdir results/FASTQC_BEFORE_TRIMMING &> logs/FASTQC_BEFORE_TRIMMING/$sample_name.log;
+done
 ```
 
-To run the different rules on TRUBA, we have prepared bash scripts. Verify that you have done the steps from the course setup section and that you are located in your own newly created workshop folder. If this is the case, type this command:
+In summary, this rule loops through the sample files and generate statistics using FastQC for each of them in the form of an `html` and `zip` file. The `html` file contains the final report and you can open it to see information about the quality of sequencing and the presence of adapters. Alternatively, you can navigate the [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) website to see how an html output file looks like and how to interpret it.
+
+WARNING: If you would be running the shell command above directly on the terminal, you would need to export the PATH to the necessary modules first and to create the necessary output and log folders. You can see how the full command would look like by opening the bash script file FastQC_BeforeTrimming.sh using less `less FastQC_BeforeTrimming.sh`.  
+
+To run the different rules on TRUBA, we have prepared bash scripts. Before running it, verify that you have done the steps from the `course setup` section of this website and that you are located in your own newly created `workshop` folder. If this is the case, type this command:
 
 ```bash
-sbatch FastQC_BeforeTrimming.sh --account=your_user_name
+sbatch FastQC_BeforeTrimming.sh --account=your_username
 ```
 
 It is important to specify your account name anytime you run a bash script. You will get a better priority in the queue than if every user uses the same user name, and you will be able to check the progress status of your job using `squeue`.
 
-Please, remember to check the status of your job using this command:
+Please, remember to check the status of your job using this command. Once your job disappears from this command output, it means that it has terminated.
 
 ```bash
-squeue -u your_user_name
+squeue -u your_username
 ```
 
-Once your job has finished, please check the output files like this:
+Once your job has finished, please check that the output files were created like this:
 
 ```bash
 ls -ltrh results/FASTQC_BEFORE_TRIMMING/
 ```
 
-## Quality trimming step
+## Adapter trimming step
 
-After we run a first quality control, the pipeline will run `Cutadapt` to remove the remaining adapters and low quality bases. Here is the overview of this rule. 
+After we run a first quality control, the pipeline will run `Cutadapt` to remove the adapters and filter out the processed reads that have become too small. This step, was added because if users don't remove correctly and completely the adapters before running the pipeline, it will increase the amount of false positives. If you have already removed the adapters, no need to worry about this step, because it won't change much your FastQ file. 
 
-You can specify which adapters were used in the `config/config.yaml` file. If no adapter is specified, the default is Illumina adapters.
+You can specify which adapters were used in the `config/config.yaml` file. If no adapter is specified, the default used are Illumina adapters.
 
-For this rule, the inputs will be retrieved again from the samplesheet file. And the outputs will be placed in the `results/CUTADAPT_ADAPTER_TRIMMING/` folder. 
+Here is the snakemake rule:
 
 ```
 rule Cutadapt_Adapter_Trimming:
@@ -77,25 +79,25 @@ rule Cutadapt_Adapter_Trimming:
         fastq=lambda wildcards: samples.loc[wildcards.sample].fastq,
     params:
         adapters=" ".join([f"-a {x}" for x in ADAPTERS]),
-    message:
-        "Cutadapt_Adapter_Trimming: TRIMMING ADAPTERS FOR SAMPLE {input.fastq} WITH CUTADAPT"
-    threads: 1
     shell:
         "cutadapt {params.adapters} --minimum-length 30 -o {output.fastq} {input.fastq} &> {log}"
-
 ```
 
-Here is how we can run it for one file:
+Here is a shell command for this rule:
 
 ```bash
-cutadapt -a ADAPTERS --minimum-length 30 -o results/CUTADAPT_ADAPTER_TRIMMING/sample  
-
+for sample in $(ls data/*.fastq.gz); do
+        sample_name=$(basename $sample .fastq.gz)
+        cutadapt -a AGATCGGAAGAG --minimum-length 30 -o results/CUTADAPT_ADAPTER_TRIMMING/${sample_name}.trimmed.fastq.gz ${sample} &> logs/CUTADAPT_ADAPTER_TRIMMING/${sample_name}.log
+done
 ```
+
+# In summary, it loops through the samples and uses Cutadapt to remove the adapters. From now on, we will work using the trimmed FastQ files that it has created.
 
 Please run the script provided for this part like this:
 
 ```bash
-sbatch Cutadapt_Adapter_Trimming.sh --account=your_user_account
+sbatch Cutadapt_Adapter_Trimming.sh --account=your_username
 ```
 
 After your job has finished, please check the output files:
@@ -106,7 +108,7 @@ ls -ltrh results/CUTADAPT_ADAPTER_TRIMMING/
 
 ## Quality control after trimming
 
-Now that we have removed potentially remaining adapters, we will run a new quality control analysis. Normally, there should be no more adapters visible:
+Now that we have removed potentially remaining adapters, we will run a new quality control analysis. Normally, there should be no more adapters visible in the resulting html file:
 
 ```
 rule FastQC_AfterTrimming:
@@ -115,22 +117,23 @@ rule FastQC_AfterTrimming:
         zip="results/FASTQC_AFTER_TRIMMING/{sample}.trimmed_fastqc.zip",
     input:
         fastq="results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz",
-    threads: 2
-    message:
-        "FastQC_AfterTrimming: RUNNING QUALITY CONTROL WITH FASTQC FOR SAMPLE {input.fastq} AFTER TRIMMING ADAPTERS"
     shell:
         "fastqc {input.fastq} --threads {threads} --nogroup --outdir results/FASTQC_AFTER_TRIMMING &> {log}"
 ```
 
-Here is how we can run it for one file:
+Here is a shell command for this rule:
 
 ```bash
-fastqc results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz --threads 2 --nogroup --outdir results/FASTQC_AFTER_TRIMMING
+for sample in $(ls results/CUTADAPT_ADAPTER_TRIMMING/*.fastq.gz); do
+        sample_name=$(basename ${sample} .fastq.gz)
+        fastqc ${sample} --threads 4 --nogroup --outdir results/FASTQC_AFTER_TRIMMING &> logs/FASTQC_AFTER_TRIMMING/${sample_name}.log;
+done
 ```
+
 Please run the `sbatch` command for this part like this:
 
 ```bash
-sbatch FastQC_AfterTrimming.sh --account=your_user_account
+sbatch FastQC_AfterTrimming.sh --account=your_username
 ```
 
 Please check the outputs using this command:
@@ -141,26 +144,17 @@ ls -ltrh results/FASTQC_AFTER_TRIMMING/
 
 ## Combine quality control outputs
 
-At last the pipeline combines all the fastqc reports into one file using the tool MultiQC. **This part will not be executed in this tutorial.** 
+At last, the pipeline combines all the FastQC reports into one file using the tool MultiQC. **This part will not be executed in this tutorial.** 
 
 ``` 
 rule MultiQC:
-    """Run MultiQC"""
     output:
         html="results/MULTIQC/multiqc_report.html",
     input:
         unpack(multiqc_input),
     params:
         config=os.path.join(WORKFLOW_DIR, "envs", "multiqc_config.yaml"),
-    envmodules:
-        *config["envmodules"]["multiqc"],
-    benchmark:
-        "benchmarks/MULTIQC/MULTIQC.benchmark.txt"
-    message:
-        "MultiQC: COMBINING QUALITY CONTROL METRICS WITH MULTIQC"
     shell:
         'echo {input} | tr " " "\n" > {output.html}.fof;'
         "multiqc -c {params.config} -l {output.html}.fof --verbose --force --outdir results/MULTIQC &> {log}"
-
 ```
-
