@@ -56,8 +56,46 @@ Then we will extract the sequence name of the reference sequence of the bacteria
 /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/13373/name_list.txt
 ```
 
-Then we extract alignment entries from the malt `sam` file using this sequence ID. Let's check the output file:
+Then we extract alignment entries from the malt `sam` file using this sequence ID, Let's check the output file:
+
+```bash
+samtools view /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/${TAXID}/sorted.bam | less
+```
+
+Then we extract breadth of coverage information:
+
+```bash
+less /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/13373/breadth_of_coverage
+```
+
+Then we extract DNA sequence of the reference file:
 
 ```bash
 
+less /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/13373/CP009643.1.fasta
 ```
+
+We calculate read length distribution:
+
+```bash
+less /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/13373/read_length.txt
+
+```
+
+We calculate PMD scores:
+
+```bash
+less /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/13373/PMDscores.txt
+
+```
+
+Using the `authentic.R` script, we create the last authentication plot:
+
+```bash
+ls /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/13373/authentic_Sample_sample1.trimmed rma6_TaxID_13373.pdf
+```
+
+Lets check the authentication plot:
+
+![Authentication plot for the bacteria](images/authentic_Sample_sample1.trimmed rma6_TaxID_13373.png)
+
