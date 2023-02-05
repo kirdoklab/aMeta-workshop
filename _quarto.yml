@@ -34,6 +34,8 @@ book:
           text: "KrakenUniq Step"
         - href: malt.md
           text: "Malt step"
+        - href: authentic.md
+          text: "Authentication step"
         - href: summary.md
           text: "Summarizing the results"
     - part: "The accessory pipeline"

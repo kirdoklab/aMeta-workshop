@@ -1,121 +1,134 @@
 ---
-title: "Authentication steps"
+title: "Authentication of the pathogens"
+
 ---
 
-## Create a directory per TaxID per sample
+## Introduction
 
-This rule is actually a snakemake checkpoint and you can learn more about it in the section "How to understand snakemake?". Basically, it creates a directory per TaxID found after filtering per sample.
+In this part, we will start authenticating the pathogens found by the `krakenuniq` tool. This part is complex and needs database dependencies to work. So we will focus only one microbe (*taxid* 2047) from the sample `sample1`.
 
-```
-checkpoint Create_Sample_TaxID_Directories:
-    """Create taxid directory
-    For a sample, create taxid for each entry in krakenuniq output
-    taxID.pathogens. Downstream rules use the taxid directories as
-    input, but it is not known beforehand which these are; they are
-    determined by the finds in krakenuniq.
-    """
-    input:
-        pathogens="results/KRAKENUNIQ/{sample}/taxID.pathogens",
-    output:
-        done="results/AUTHENTICATION/{sample}/.extract_taxids_done",
-    log:
-        "logs/CREATE_SAMPLE_TAXID_DIRECTORIES/{sample}.log",
-    params:
-        dir=lambda wildcards: f"results/AUTHENTICATION/{wildcards.sample}",
-    shell:
-        "mkdir -p {params.dir}; "
-        "while read taxid; do mkdir -p {params.dir}/$taxid; touch {params.dir}/$taxid/.done; done<{input.pathogens};"
-        "touch {output.done}"
-```
+We will run an `sbatch` script, and we will check the outputs. Before working on this part, lets export the `PATH` variable to check the output files:
 
 ```bash
-for fastq_file in results/CUTADAPT_ADAPTER_TRIMMING/*; do
-  sample=$(basename "${fastq_file}" .fastq.gz)
-  mkdir -p results/AUTHENTICATION/${sample} logs/AUTHENTICATION;
-  while read taxid; do mkdir -p results/AUTHENTICATION/${sample}/${taxid}; touch results/AUTHENTICATION/${sample}/${taxid}/.done; done<results/KRAKENUNIQ/${sample}/taxID.pathogens;
-  touch results/AUTHENTICATION/${sample}/.extract_taxids_done
-done
+export PATH=${PATH}:/truba/home/egitim/miniconda3/envs/aMeta/bin/
 ```
 
-In summary, this command loops through all the samples and creates an authentication folder for each of them. Then it reads the taxID.pathogens file containing the list of pathogens that were found and creates a folder for each taxID per sample.
+The main logic in this section, is to:
 
-## Make_Node_list 
++ Get information of the scientific name and sequence id information of the particular microbe
++ Extract DNA reads assigned to one specific microbe
++ Calculate several authentication parameters from the `sample1.trimmed.rma6` file
++ Create a `bam` file from the `sample1.trimmed.sam.gz` using the sequence id of the microbe
++ Extract read length, breadth of coverage, and post-mortem decay parameters from the `sam` file
++ Combine these information into nice looking pdf file
++ Calculate the authenticatio score for the particular microbe
 
-This rule creates a file called node_list.txt containing the name of the species for that taxID.
-
-WARNING: We won't be able to run this rule for the course because we don't have access to the KrakenUniq database for this workshop.
-
-```
-rule Make_Node_List:
-    """Generate a list of species names for a taxonomic identifier"""
-    input:
-        dirdone="results/AUTHENTICATION/{sample}/{taxid}/.done",
-    output:
-        node_list="results/AUTHENTICATION/{sample}/{taxid}/node_list.txt",
-    params:
-        tax_db=config["krakenuniq_db"],
-    log:
-        "logs/MAKE_NODE_LIST/{sample}_{taxid}.log",
-    shell:
-        "awk -v var={wildcards.taxid} '{{ if($1==var) print $0 }}' {params.tax_db}/taxDB | cut -f3 > {output.node_list}"
-```
-
-Here is a shell version of this rule:
+First, let's run the `sbatch` script, and then we will start checking the main output files while it is running:
 
 ```bash
-tax_db=resources/DBDIR_KrakenUniq_MicrobialNT
-for fastq_file in results/CUTADAPT_ADAPTER_TRIMMING/*; do
-  sample=$(basename "${fastq_file}" .fastq.gz)
-  while read taxid; do
-    awk -v var=$taxid '{{ if($1==var) print $0 }}' $tax_db/taxDB | cut -f3 > results/AUTHENTICATION/$sample/$taxid/node_list.txt
-  done < results/KRAKENUNIQ/$sample/taxID.pathogens
-done
+sbatch Authentic.sh --account=egitim  
 ```
 
-In summary, this rule looks for each sample and each taxid into the KrakenUniq database to find the corresponding latin name for each taxID and write this lating name into the file node_list.txt.
+## Scientific name and sequence ID extraction
 
-## MaltExtract
+Let's go step by step.
 
-Now we want to extract statistics and summary information from the output from Malt for each sample and taxID using [MaltExtract](https://github.com/rhuebler/MaltExtract).
+In the `krakenuniq` part, we created a file called `taxID.pathogens`.
 
-```
-checkpoint Malt_Extract:
-    """Convert rma6 output to misc usable formats.
-    Downstream rules requires MaltExtract having been run.
-    Therefore this rule is a checkpoint that will trigger reevaluation
-    of downstream rules. The aggregation is performed by
-    aggregate_maltextract.
-    """
-    input:
-        rma6="results/MALT/{sample}.trimmed.rma6",
-        node_list="results/AUTHENTICATION/{sample}/{taxid}/node_list.txt",
-    output:
-        maltextractlog="results/AUTHENTICATION/{sample}/{taxid}/MaltExtract_output/log.txt",
-        nodeentries="results/AUTHENTICATION/{sample}/{taxid}/MaltExtract_output/default/readDist/{sample}.trimmed.rma6_additionalNodeEntries.txt",
-    params:
-        ncbi_db=config["ncbi_db"],
-        extract=format_maltextract_output_directory,
-    threads: 4
-    log:
-        "logs/MALT_EXTRACT/{sample}_{taxid}.log",
-    conda:
-        "../envs/malt.yaml"
-    envmodules:
-        *config["envmodules"]["malt"],
-    message:
-        "Malt_Extract: RUNNING MALT EXTRACT FOR SAMPLE {input.rma6}"
-    shell:
-        "time MaltExtract -i {input.rma6} -f def_anc -o {params.extract} --reads --threads {threads} --matches --minPI 85.0 --maxReadLength 0 --minComp 0.0 --meganSummary -t {input.node_list} -v 2> {log}"
-```
-
-Here is a shell version of this code:
+Let's check this file:
 
 ```bash
-for fastq_file in results/CUTADAPT_ADAPTER_TRIMMING/*; do
-        sample=$(basename "${fastq_file}" .fastq.gz)
-        while read taxid; do
-                mkdir -p results/AUTHENTICATION/${sample}/${taxid}/MaltExtract_output/ logs/MALT_EXTRACT/
-                time MaltExtract -i results/MALT/${sample}.trimmed.rma6 -f def_anc -o results/AUTHENTICATION/${sample}/${taxid}/MaltExtract_output/ --reads --threads 4 --matches --minPI 85.0 --maxReadLength 0 --minComp 0.0 --meganSummary -t results/AUTHENTICATION/${sample}/${taxid}/node_list.txt -v 2> logs/MALT_EXTRACT/${sample}_${taxid}.log
-        done < results/KRAKENUNIQ/${sample}/taxID.pathogens
-done
+less /truba/home/egitim/aMeta/results/KRAKENUNIQ/sample1/taxID.pathogens
+```
+
+Afterwards, we will extract the node name from the `krakenuniq` database. We can not show the output, because it needs the big krakenuniq database.
+
+Let's check the output:
+
+```bash
+
+less /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/2047/node_list.txt
+
+```
+
+THis pathogen name is *Rothia dentocariosa*. Over the next steps, we will extract DNA reads assigned to this pathogen, and we will create authenticity metrics.
+
+Then we will extract the sequence name of the reference sequence of the bacteria from the database:
+
+```bash
+/truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/2047/name_list.txt
+```
+
+## DNA read extraction and postprocessing
+
+Then we will use `MaltExtract` and `postprocessing.AMPS.r` tools to extract DNA reads assigned to this pathogen, from the rma6 file of the sample1.
+
+Let's check this folder:
+
+```bash
+
+ls /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/2047/MaltExtract_output/
+```
+
+The `ancient` folder contains statistics only for ancient DNA reads, and `default` folder contains statistics for all DNA reads.
+
+If we check the `default` folder, we can see that several parameters are organized into sub folders:
+
+```bash
+s /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/2047/MaltExtract_output/modern/
+```
+
+## Creating a `sam` file for the microbe of interest
+
+In this step, we extract alignment entries from the malt `sam` file using this sequence ID that we previously extracted, 
+
+Let's check the output file:
+
+```bash
+samtools view /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/2047/sorted.bam | less
+```
+
+From this file, we will extract breadth of coverage and read length distribution information:
+
+```bash
+less /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/2047/breadth_of_coverage
+less /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/2047/read_length.txt
+```
+
+Then we extract DNA sequence of the reference file to use with IGV tool:
+
+```bash
+less /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/2047/CP009643.1.fasta
+```
+
+We calculate PMD scores:
+
+```bash
+less /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/2047/PMDscores.txt
+
+```
+
+## Combine authentication parameters and score
+
+Using the `authentic.R` script, we create the last authentication plot:
+
+```bash
+ls /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/2047/authentic_Sample_sample1.trimmed rma6_TaxID_2047.pdf
+```
+
+Lets check the authentication plot:
+
+![Authentication plot for the bacteria](images/authentic_Sample_sample1.trimmed.rma6_TaxID_2047.png)
+
+And at last, authentication scores:
+
+```bash
+
+less /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/2047/authentication_scores.txt
+```
+The script should have finished by now. Let's check the output folder:
+
+
+```bash
+ls results/AUTHENTICATION/sample1/2047
 ```
