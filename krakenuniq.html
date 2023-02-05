@@ -281,7 +281,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#krakenuniq-prescreening-step" id="toc-krakenuniq-prescreening-step" class="nav-link active" data-scroll-target="#krakenuniq-prescreening-step"><span class="toc-section-number">9.1</span>  KrakenUniq prescreening step</a></li>
   <li><a href="#krakenuniq-database" id="toc-krakenuniq-database" class="nav-link" data-scroll-target="#krakenuniq-database"><span class="toc-section-number">9.2</span>  KrakenUniq database</a></li>
   <li><a href="#classification-with-krakenuniq" id="toc-classification-with-krakenuniq" class="nav-link" data-scroll-target="#classification-with-krakenuniq"><span class="toc-section-number">9.3</span>  Classification with KrakenUniq</a></li>
-  <li><a href="#filtering-the-krakenuniq-output" id="toc-filtering-the-krakenuniq-output" class="nav-link" data-scroll-target="#filtering-the-krakenuniq-output"><span class="toc-section-number">9.4</span>  Filtering the KrakenUniq output</a>
+  <li><a href="#filter-the-krakenuniq-output" id="toc-filter-the-krakenuniq-output" class="nav-link" data-scroll-target="#filter-the-krakenuniq-output"><span class="toc-section-number">9.4</span>  Filter the KrakenUniq output</a>
   <ul class="collapse">
   <li><a href="#creating-an-abundance-matrix-from-the-krakenuniq-outputs" id="toc-creating-an-abundance-matrix-from-the-krakenuniq-outputs" class="nav-link" data-scroll-target="#creating-an-abundance-matrix-from-the-krakenuniq-outputs"><span class="toc-section-number">9.4.1</span>  Creating an abundance matrix from the KrakenUniq outputs</a></li>
   </ul></li>
@@ -339,9 +339,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>In summary, this command loops through the sample files created by Cutadapt and classifies the reads using KrakenUniq.</p>
 </section>
-<section id="filtering-the-krakenuniq-output" class="level2" data-number="9.4">
-<h2 data-number="9.4" class="anchored" data-anchor-id="filtering-the-krakenuniq-output"><span class="header-section-number">9.4</span> Filtering the KrakenUniq output</h2>
-<p>After running KrakenUniq, we need to filter its output to remove as many false positives as possible. In order to do so, we select the species taxonomic level for each organism and we filter the results according to the amount of kmers and the amount of taxReads specific to that species. A suggested value for this parameters is 1000 unique kmers to make sure that at least 1000 unique regions of the organim are covered and that 200 taxReads in order to have enough reads to verify if the organism is ancient after alignment.</p>
+<section id="filter-the-krakenuniq-output" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="filter-the-krakenuniq-output"><span class="header-section-number">9.4</span> Filter the KrakenUniq output</h2>
+<p>After running KrakenUniq, we need to filter its output to remove as many false positives as possible. In order to do so, we select the species taxonomic level for each organism and we filter the results according to the amount of kmers and the amount of taxReads (reads specific to a species). A suggested value for this parameters is 1000 unique kmers to make sure that at least 1000 unique regions of the organim are covered and 200 taxReads in order to have enough reads to verify if the organism is ancient after alignment.</p>
 <pre><code>rule Filter_KrakenUniq_Output:
     output:
         filtered="results/KRAKENUNIQ/{sample}/krakenuniq.output.filtered",
