@@ -92,7 +92,7 @@ for sample in $(ls data/*.fastq.gz); do
 done
 ```
 
-# In summary, it loops through the samples and uses Cutadapt to remove the adapters. From now on, we will work using the trimmed FastQ files that it has created.
+ In summary, it loops through the samples and uses Cutadapt to remove the adapters. From now on, we will work using the trimmed FastQ files that it has created.
 
 Please run the script provided for this part like this:
 
