@@ -41,9 +41,9 @@ done
 ```
 In summary, this command loops through the sample files created by Cutadapt and classifies the reads using KrakenUniq.
 
-## Filtering the KrakenUniq output
+## Filter the KrakenUniq output
 
-After running KrakenUniq, we need to filter its output to remove as many false positives as possible. In order to do so, we select the species taxonomic level for each organism and we filter the results according to the amount of kmers and the amount of taxReads specific to that species. A suggested value for this parameters is 1000 unique kmers to make sure that at least 1000 unique regions of the organim are covered and that 200 taxReads in order to have enough reads to verify if the organism is ancient after alignment. 
+After running KrakenUniq, we need to filter its output to remove as many false positives as possible. In order to do so, we select the species taxonomic level for each organism and we filter the results according to the amount of kmers and the amount of taxReads (reads specific to a species). A suggested value for this parameters is 1000 unique kmers to make sure that at least 1000 unique regions of the organim are covered and 200 taxReads in order to have enough reads to verify if the organism is ancient after alignment. 
 
 ```
 rule Filter_KrakenUniq_Output:
