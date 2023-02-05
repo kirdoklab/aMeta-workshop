@@ -266,7 +266,7 @@ ul.task-list li input[type="checkbox"] {
     shell:
         "fastqc {input.fastq} --threads {threads} --nogroup --outdir results/FASTQC_BEFORE_TRIMMING &amp;&gt; {log}"</code></pre>
 <p>There are specific snakemake describers in here. To improve the readability, we won’t show the full rule in the tutorial.</p>
-<p>However, in this section, we would like to explain the parameters in each rule:</p>
+<p>However, in this section, we explain briefly the parameters that will be ignored in the tutorial.</p>
 <section id="using-conda-package-manager" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="using-conda-package-manager"><span class="header-section-number">2.1</span> Using conda package manager</h2>
 <p>Each rule can use a specific conda subenvironment from the main aMeta conda environment. So, if you run snakemake with the <code>--use-conda</code> flag, the specified environment will be installed and used. In this case, the rule is using the fastqc conda subenvironment.</p>
@@ -275,14 +275,15 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="using-environment-modules" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="using-environment-modules"><span class="header-section-number">2.2</span> Using environment modules</h2>
-<p>If you want to use environmental modules from your server instead of conda, you need to use the <code>envmodules</code> flag when running snakemake. In this case, you will have to create an envmodule file containing the information on how to load the environmental modules. This parameters looks for the specific information on how to load the right environment modules for the fastqc rule.</p>
+<p>If you want to use environmental modules from your server instead of conda, you need to use the <code>envmodules</code> flag when running snakemake. In this case, you will have to create an envmodule file containing the information on how to load the environmental modules, as explained in the <a href="https://github.com/NBISweden/aMeta">official aMeta GitHub</a>.</p>
+<p>This snakemake parameter looks for the specific information on how to load the right environment modules for the fastqc rule.</p>
 <pre><code> envmodules:
         *config["envmodules"]["fastqc"]
 </code></pre>
 </section>
 <section id="benchmarks" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="benchmarks"><span class="header-section-number">2.3</span> Benchmarks</h2>
-<p>You can find benchmarking statistics in the <code>benchmarks</code> folder.</p>
+<p>Some snakemake rules can generate benchmarking statistics and they store it in the <code>benchmarks</code> folder.</p>
 <pre><code>    benchmark:
         "benchmarks/FASTQC_BEFORE_TRIMMING/{sample}.benchmark.txt"</code></pre>
 </section>
@@ -291,7 +292,7 @@ ul.task-list li input[type="checkbox"] {
 <p>If you have problems with your snakemake run, each rule will generate a log file. So you can check this file for any error message.</p>
 <pre><code>    log:
         "logs/FASTQC_BEFORE_TRIMMING/{sample}.log",</code></pre>
-<p>So much for the information about the specific parameters of snakemake in our rules.</p>
+<p>So much for the information about the specific parameters of snakemake in our rules!</p>
 
 
 </section>

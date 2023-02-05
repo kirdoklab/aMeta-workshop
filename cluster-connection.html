@@ -320,19 +320,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="how-will-we-work" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="how-will-we-work"><span class="header-section-number">6.1</span> How will we work?</h2>
-<p>In this workshop, we will use our computers, and we will connect to high performance computing systems. Therefore, you will need to bring your laptops with you.</p>
-<p>You should be comfortable using the Unix/Linux command line to take this course. We know that there will be several operating systems. So please check these recomendations based on your operating system.</p>
+<p>In this workshop, we will use our computers, and we will connect to high performance computing (HPC) systems. Therefore, you will need to bring your laptops with you.</p>
+<p>You should be comfortable using the Unix/Linux command line to take this course. In this page, you will find recommendations on how to connect to high performance computers depending on your laptop’s operating system.</p>
+<p>N.B. During this course, we will use the terms server, cluster and high performance computers interchangeably.</p>
 <section id="linux-systems" class="level3" data-number="6.1.1">
 <h3 data-number="6.1.1" class="anchored" data-anchor-id="linux-systems"><span class="header-section-number">6.1.1</span> Linux systems</h3>
-<p>If you have a Linux system (e.g.&nbsp;Ubuntu), you do not need to worry a lot. Most of the command line tools (like <code>ssh</code>) will be already installed on your system.</p>
+<p>If you have a Linux system (e.g.&nbsp;Ubuntu), you’re all set! Most of the command line tools (like the necessary <code>ssh</code>) will be already installed on your system.</p>
 </section>
 <section id="mac-systems" class="level3" data-number="6.1.2">
 <h3 data-number="6.1.2" class="anchored" data-anchor-id="mac-systems"><span class="header-section-number">6.1.2</span> Mac systems</h3>
-<p>Mac systems also have a default support on the command line. The <code>terminal</code> application on your Mac system is enough. But you can also install <a href="https://iterm2.com/">iTerm2</a> as a <code>terminal</code> replacement for your Mac.</p>
+<p>Mac systems also have a default support on the command line. The <code>terminal</code> application on your Mac system is enough. But you can also install <a href="https://iterm2.com/">iTerm2</a> as a <code>terminal</code> replacement for your Mac, if you’d like something fancier.</p>
 </section>
 <section id="windows-systems" class="level3" data-number="6.1.3">
 <h3 data-number="6.1.3" class="anchored" data-anchor-id="windows-systems"><span class="header-section-number">6.1.3</span> Windows systems</h3>
-<p>If you have a Windows system, the easiest choice to connect a remote server is <a href="https://mobaxterm.mobatek.net">Mobaxterm</a> tool.</p>
+<p>If you have a Windows system, the easiest choice to connect to a remote server is <a href="https://mobaxterm.mobatek.net">Mobaxterm</a>.</p>
 </section>
 </section>
 <section id="high-performance-computers" class="level2" data-number="6.2">
@@ -340,33 +341,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In this workshop, we have two different cluster systems at our disposal. The first system TRUBA (Turkish National Scientific Cluster) is funded by the TUBİTAK (The Scientific and Technological Research Council of Türkiye). The second system is located at Middle East Technical University.</p>
 <section id="truba-cluster-system" class="level3" data-number="6.2.1">
 <h3 data-number="6.2.1" class="anchored" data-anchor-id="truba-cluster-system"><span class="header-section-number">6.2.1</span> TRUBA Cluster system</h3>
-<p>This cluster system accepts connections from University networks only. Therefore, you should be in a University network in order to access TRUBA computers. We will provide a username and a password for your connection.</p>
+<p>This cluster system accepts connections from a Turkish university network only. Therefore, you should be in a university network in order to access TRUBA computers. We will provide a username and a password for your connection.</p>
 <p>You can connect to TRUBA by writing this command in your terminal:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> egitim@levrek1.ulakbim.gov.tr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>There is a trick to connect TRUBA system outside of the university network described at the end of this document.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> your_username@levrek1.ulakbim.gov.tr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>N.B. There is a trick to connect to the TRUBA system outside of the university network described at the end of this document.</p>
 </section>
 <section id="middle-east-technical-university-computing-systems" class="level3" data-number="6.2.2">
 <h3 data-number="6.2.2" class="anchored" data-anchor-id="middle-east-technical-university-computing-systems"><span class="header-section-number">6.2.2</span> Middle East Technical University computing systems</h3>
-<p>This computer system is located at Middle East Technical University. It consists of two clusters: <code>baggins</code> and <code>NEOGENE</code>.</p>
+<p>This computer system is located at Middle East Technical University. It consists of two subclusters: <code>baggins</code> and <code>NEOGENE</code>.</p>
 <p>Since the NEOGENE cluster does not accept connections from outside the university networks, we will first connect to <code>baggins</code> via <code>ssh</code>. Then we can connect to <code>NEOGENE</code> from within this system.</p>
 <p>Your username and password will be provided on the first day of the workshop.</p>
 <p>Connect to the <code>baggins</code> server with your <code>username</code> like this:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-p</span> 2275 username@144.122.38.49</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-p</span> 2275 your_username@144.122.38.49</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Afterwards, you can connect to <code>NEOGENE</code> from withing <code>baggins</code> this way:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> username@144.122.38.50</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> your_username@144.122.38.50</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="connecting-to-the-truba-system-from-outside-the-university-network" class="level3" data-number="6.2.3">
 <h3 data-number="6.2.3" class="anchored" data-anchor-id="connecting-to-the-truba-system-from-outside-the-university-network"><span class="header-section-number">6.2.3</span> Connecting to the TRUBA system from outside the university network</h3>
-<p>We can connect to the TRUBA system from outside the university network with a small trick. First, we will connect to the <code>baggins</code> cluster as described above, so we will be on the Middle East Technical University network. Then we can connect to TRUBA from that terminal.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-p</span> 2275 username@144.122.38.49</span>
+<p>We can connect to the TRUBA system from outside the university network with a small trick. First, we connect to the <code>baggins</code> cluster as described above, so to be using the Middle East Technical University network. Then we can connect to TRUBA from within that terminal.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> <span class="at">-p</span> 2275 your_username@144.122.38.49</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Enter your password when prompted</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> egitim@levrek1.ulakbim.gov.tr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ssh</span> your_username@levrek1.ulakbim.gov.tr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
 <section id="configuration" class="level2" data-number="6.3">
 <h2 data-number="6.3" class="anchored" data-anchor-id="configuration"><span class="header-section-number">6.3</span> Configuration</h2>
-<p>All the tools are installed on these server systems. Before using the tools, we need to set the <code>PATH</code> variable and show the system where these tools are installed.</p>
+<p>All the tools are installed on these server systems. Before using the tools, we need to set the <code>PATH</code> variable and show the system where these tools are installed, in case we want to run commands from the terminal. The <code>PATH</code> variable will already be set for you in the bash scripts in <code>TRUBA</code>.</p>
 <section id="configuration-of-the-truba-system" class="level3" data-number="6.3.1">
 <h3 data-number="6.3.1" class="anchored" data-anchor-id="configuration-of-the-truba-system"><span class="header-section-number">6.3.1</span> Configuration of the TRUBA system</h3>
 <p>To use all the tools for aMeta, please set your <code>PATH</code> variable like this:</p>
