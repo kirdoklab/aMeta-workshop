@@ -1,25 +1,26 @@
 ---
 title: "How to connect to servers?"
-
 --- 
 
 ## How will we work?
 
-In this workshop, we will use our computers, and we will connect to high performance computing systems. Therefore, you will need to bring your laptops with you. 
+In this workshop, we will use our computers, and we will connect to high performance computing (HPC) systems. Therefore, you will need to bring your laptops with you. 
 
-You should be comfortable using the Unix/Linux command line to take this course. We know that there will be several operating systems. So please check these recomendations based on your operating system.
+You should be comfortable using the Unix/Linux command line to take this course. In this page, you will find recommendations on how to connect to high performance computers depending on your laptop's operating system.
+
+N.B. During this course, we will use the terms server, cluster and high performance computers interchangeably.
 
 ### Linux systems
 
-If you have a Linux system (e.g. Ubuntu), you do not need to worry a lot. Most of the command line tools (like `ssh`) will be already installed on your system.
+If you have a Linux system (e.g. Ubuntu), you're all set! Most of the command line tools (like the necessary `ssh`) will be already installed on your system.
 
 ### Mac systems
 
-Mac systems also have a default support on the command line. The `terminal` application on your Mac system is enough. But you can also install [iTerm2](https://iterm2.com/) as a `terminal` replacement for your Mac.
+Mac systems also have a default support on the command line. The `terminal` application on your Mac system is enough. But you can also install [iTerm2](https://iterm2.com/) as a `terminal` replacement for your Mac, if you'd like something fancier.
 
 ### Windows systems
 
-If you have a Windows system, the easiest choice to connect a remote server is [Mobaxterm](https://mobaxterm.mobatek.net) tool.
+If you have a Windows system, the easiest choice to connect to a remote server is [Mobaxterm](https://mobaxterm.mobatek.net).
 
 ## High performance computers
 
@@ -27,20 +28,19 @@ In this workshop, we have two different cluster systems at our disposal. The fir
 
 ### TRUBA Cluster system
 
-This cluster system accepts connections from University networks only. Therefore, you should be in a University network in order to access TRUBA computers. We will provide a username and a password for your connection.
+This cluster system accepts connections from a Turkish university network only. Therefore, you should be in a university network in order to access TRUBA computers. We will provide a username and a password for your connection.
 
 You can connect to TRUBA by writing this command in your terminal:
 
 ```bash
-ssh egitim@levrek1.ulakbim.gov.tr
-
+ssh your_username@levrek1.ulakbim.gov.tr
 ```
 
-There is a trick to connect TRUBA system outside of the university network described at the end of this document.
+N.B. There is a trick to connect to the TRUBA system outside of the university network described at the end of this document.
 
 ### Middle East Technical University computing systems
 
-This computer system is located at Middle East Technical University. It consists of two clusters: `baggins` and `NEOGENE`.
+This computer system is located at Middle East Technical University. It consists of two subclusters: `baggins` and `NEOGENE`.
 
 Since the NEOGENE cluster does not accept connections from outside the university networks, we will first connect to `baggins` via `ssh`. Then we can connect to `NEOGENE` from within this system.
 
@@ -49,31 +49,30 @@ Your username and password will be provided on the first day of the workshop.
 Connect to the `baggins` server with your `username` like this:
 
 ```bash
-ssh -p 2275 username@144.122.38.49
+ssh -p 2275 your_username@144.122.38.49
 
 ```
 
 Afterwards, you can connect to `NEOGENE` from withing `baggins` this way:
 
 ```bash
-ssh username@144.122.38.50
+ssh your_username@144.122.38.50
 ```
 
 ### Connecting to the TRUBA system from outside the university network
 
-We can connect to the TRUBA system from outside the university network with a small trick. First, we will connect to the `baggins` cluster as described above, so we will be on the Middle East Technical University network. Then we can connect to TRUBA from that terminal.
+We can connect to the TRUBA system from outside the university network with a small trick. First, we connect to the `baggins` cluster as described above, so to be using the Middle East Technical University network. Then we can connect to TRUBA from within that terminal.
 
 ```bash
+ssh -p 2275 your_username@144.122.38.49
+# Enter your password when prompted
 
-ssh -p 2275 username@144.122.38.49
-
-ssh egitim@levrek1.ulakbim.gov.tr
-
+ssh your_username@levrek1.ulakbim.gov.tr
 ```
 
 ## Configuration
 
-All the tools are installed on these server systems. Before using the tools, we need to set the `PATH` variable and show the system where these tools are installed.
+All the tools are installed on these server systems. Before using the tools, we need to set the `PATH` variable and show the system where these tools are installed, in case we want to run commands from the terminal. The `PATH` variable will already be set for you in the bash scripts in `TRUBA`.
 
 ### Configuration of the TRUBA system
 
@@ -81,7 +80,6 @@ To use all the tools for aMeta, please set your `PATH` variable like this:
 
 ```bash
 export PATH=${PATH}:/truba/home/egitim/miniconda3/envs/aMeta/bin/
-
 ```
 
 ### Configuration on the Ankara computers
