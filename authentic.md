@@ -118,7 +118,7 @@ ls /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/13373/authentic_Sampl
 
 Lets check the authentication plot:
 
-![Authentication plot for the bacteria](images/authentic_Sample_sample1.trimmed rma6_TaxID_13373.png)
+![Authentication plot for the bacteria](images/authentic_Sample_sample1.trimmed.rma6_TaxID_2047.png)
 
 And at last, authentication scores:
 
@@ -130,5 +130,5 @@ The script should have finished by now. Let's check the output folder:
 
 
 ```bash
-ls results/AUTHENTICATION/sample1/13373/
+ls results/AUTHENTICATION/sample1/13373
 ```
