@@ -34,7 +34,7 @@ rule FastQC_BeforeTrimming:
 
 There are specific snakemake describers in here. To improve the readability, we won't show the full rule in the tutorial.
 
-However, in this section, we would like to explain the parameters in each rule:
+However, in this section, we explain briefly the parameters that will be ignored in the tutorial.
 
 ## Using conda package manager
 
@@ -47,7 +47,9 @@ Each rule can use a specific conda subenvironment from the main aMeta conda envi
 
 ## Using environment modules
 
-If you want to use environmental modules from your server instead of conda, you need to use the `envmodules` flag when running snakemake. In this case, you will have to create an envmodule file containing the information on how to load the environmental modules. This parameters looks for the specific information on how to load the right environment modules for the fastqc rule.
+If you want to use environmental modules from your server instead of conda, you need to use the `envmodules` flag when running snakemake. In this case, you will have to create an envmodule file containing the information on how to load the environmental modules, as explained in the [official aMeta GitHub](https://github.com/NBISweden/aMeta). 
+
+This snakemake parameter looks for the specific information on how to load the right environment modules for the fastqc rule.
 
 ```
  envmodules:
@@ -57,7 +59,7 @@ If you want to use environmental modules from your server instead of conda, you 
 
 ## Benchmarks
 
-You can find benchmarking statistics in the `benchmarks` folder.
+Some snakemake rules can generate benchmarking statistics and they store it in the `benchmarks` folder.
 
 ```
     benchmark:
@@ -73,4 +75,4 @@ If you have problems with your snakemake run, each rule will generate a log file
         "logs/FASTQC_BEFORE_TRIMMING/{sample}.log",
 ```
 
-So much for the information about the specific parameters of snakemake in our rules. 
+So much for the information about the specific parameters of snakemake in our rules!
