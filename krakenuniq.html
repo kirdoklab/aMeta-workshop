@@ -341,7 +341,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="filter-the-krakenuniq-output" class="level2" data-number="9.4">
 <h2 data-number="9.4" class="anchored" data-anchor-id="filter-the-krakenuniq-output"><span class="header-section-number">9.4</span> Filter the KrakenUniq output</h2>
-<p>After running KrakenUniq, we need to filter its output to remove as many false positives as possible. In order to do so, we select the species taxonomic level for each organism and we filter the results according to the amount of kmers and the amount of taxReads (reads specific to a species). A suggested value for this parameters is 1000 unique kmers to make sure that at least 1000 unique regions of the organim are covered and 200 taxReads in order to have enough reads to verify if the organism is ancient after alignment.</p>
+<p>After running KrakenUniq, we need to filter its output to remove as many false positives as possible. In order to do so, we select the species taxonomic level for each organism and we filter the results according to the amount of kmers and the amount of taxReads (reads specific to a species). Suggested values for this parameters are: + 1000 unique kmers to make sure that at least 1000 unique regions of the organim are covered + 200 taxReads in order to have enough reads to verify if the organism is ancient after alignment</p>
 <pre><code>rule Filter_KrakenUniq_Output:
     output:
         filtered="results/KRAKENUNIQ/{sample}/krakenuniq.output.filtered",
@@ -365,19 +365,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="va">n_unique_kmers</span><span class="op">=</span>1000</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="va">n_tax_reads</span><span class="op">=</span>200</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the log folder</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mkdir</span> <span class="at">-p</span> logs/FILTER_KRAKENUNIQ_OUTPUT</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Loop through the samples and filter the KrakenUniq output according to three thresholds. It should have at least 1000 unique kmers and 200 reads and it should be at the Species level (not Genus, not Family, subspecies or else). This part is implemented in the python script.</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># The second command extracts the column containing the taxID information for the species that match a pathogen in the pathogenFound.very_inclusive.tab.</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> sample <span class="kw">in</span> <span class="va">$(</span><span class="fu">ls</span> results/CUTADAPT_ADAPTER_TRIMMING/<span class="pp">*</span>.fastq.gz<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">sample_name</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$sample</span> .trimmed.fastq.gz<span class="va">)</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="ex">python</span> scripts/filter_krakenuniq.py results/KRAKENUNIQ/<span class="va">${sample_name}</span>/krakenuniq.output <span class="va">${n_unique_kmers}</span> <span class="va">${n_tax_reads}</span> resources/pathogensFound.very_inclusive.tab <span class="op">&amp;&gt;</span> logs/FILTER_KRAKENUNIQ_OUTPUT/<span class="va">${sample_name}</span>.log<span class="kw">;</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">cut</span> <span class="at">-f7</span> results/KRAKENUNIQ/<span class="va">${sample_name}</span>/krakenuniq.output.pathogens <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> +2 <span class="op">&gt;</span> results/KRAKENUNIQ/<span class="va">${sample_name}</span>/taxID.pathogens</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>In summary, this rule uses a python script to filter the output from KrakenUniq according to a specified minimum amount of unique kmers and minimum amount of taxReads (reads specific to the taxonomic clade of this species) and extract the information for the species that meet these criteria.</p>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> sample <span class="kw">in</span> <span class="va">$(</span><span class="fu">ls</span> results/CUTADAPT_ADAPTER_TRIMMING/<span class="pp">*</span>.fastq.gz<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">sample_name</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$sample</span> .trimmed.fastq.gz<span class="va">)</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        <span class="ex">python</span> scripts/filter_krakenuniq.py results/KRAKENUNIQ/<span class="va">${sample_name}</span>/krakenuniq.output <span class="va">${n_unique_kmers}</span> <span class="va">${n_tax_reads}</span> resources/pathogensFound.very_inclusive.tab <span class="op">&amp;&gt;</span> logs/FILTER_KRAKENUNIQ_OUTPUT/<span class="va">${sample_name}</span>.log<span class="kw">;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">cut</span> <span class="at">-f7</span> results/KRAKENUNIQ/<span class="va">${sample_name}</span>/krakenuniq.output.pathogens <span class="kw">|</span> <span class="fu">tail</span> <span class="at">-n</span> +2 <span class="op">&gt;</span> results/KRAKENUNIQ/<span class="va">${sample_name}</span>/taxID.pathogens</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In summary, this rule uses a python script to filter the output from KrakenUniq according to a specified minimum amount of unique kmers and minimum amount of taxReads (reads specific to the taxonomic clade of this species) and extract the information for the species that meet these criteria. The second command extracts the column containing the taxID information for the species that match a pathogen in the pathogenFound.very_inclusive.tab.</p>
 <p>Please run this code and do not forget to change your account name:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> KrakenUniq_Filter.sh <span class="at">--account</span><span class="op">=</span>your_user_account</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> KrakenUniq_Filter.sh <span class="at">--account</span><span class="op">=</span>your_username</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>And let’s check the output of one sample, <code>sample1</code>:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-ltrh</span> results/KRAKENUNIQ/sample1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Let’s check the output file:</p>
@@ -401,17 +396,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         exe_plot=WORKFLOW_DIR / "scripts/plot_krakenuniq_abundance_matrix.R",
         n_unique_kmers=config["n_unique_kmers"],
         n_tax_reads=config["n_tax_reads"],
-    message:
-        "KrakenUniq_AbundanceMatrix: COMPUTING KRAKENUNIQ MICROBIAL ABUNDANCE MATRIX"
     shell:
         "Rscript {params.exe} results/KRAKENUNIQ {output.out_dir} {params.n_unique_kmers} {params.n_tax_reads} &amp;&gt; {log};"
         "Rscript {params.exe_plot} {output.out_dir} {output.out_dir} &amp;&gt; {log}"</code></pre>
-<p>This rule combines krakenuniq abundance output files into one file <code>results/KRAKENUNIQ_ABUNDANCE_MATRIX/krakenuniq_abundance_matrix.txt</code>.</p>
+<p>Here is a shell version of this rule:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="va">n_unique_kmers</span><span class="op">=</span>1000</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="va">n_tax_reads</span><span class="op">=</span>200</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> scripts/krakenuniq_abundance_matrix.R results/KRAKENUNIQ results/KRAKENUNIQ_ABUNDANCE_MATRIX <span class="va">${n_unique_kmers}</span> <span class="va">${n_tax_reads}</span> <span class="op">&amp;&gt;</span> logs/KRAKENUNIQ_ABUNDANCE_MATRIX/KRAKENUNIQ_ABUNDANCE_MATRIX.log</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="ex">Rscript</span> scripts/plot_krakenuniq_abundance_matrix.R results/KRAKENUNIQ_ABUNDANCE_MATRIX/ results/KRAKENUNIQ_ABUNDANCE_MATRIX/ <span class="op">&amp;&gt;</span> logs/KRAKENUNIQ_ABUNDANCE_MATRIX/KRAKENUNIQ_ABUNDANCE_MATRIX.log</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In summary, this rule combines the filtered KrakenUniq outputs in a matrix <code>results/KRAKENUNIQ_ABUNDANCE_MATRIX/krakenuniq_abundance_matrix.txt</code>.</p>
 <p>Then, it creates a heatmap plot using the abundance data: <code>results/KRAKENUNIQ_ABUNDANCE_MATRIX/krakenuniq_absolute_abundance_heatmap.pdf</code></p>
-<p>Please run this script using this piece of code:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> KrakenUniq_AbundanceMatrix.sh <span class="at">--account</span><span class="op">=</span>your_account_name</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Please run this script this way:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">sbatch</span> KrakenUniq_AbundanceMatrix.sh <span class="at">--account</span><span class="op">=</span>your_username</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Then let’s check the output:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> results/KRAKENUNIQ_ABUNDANCE_MATRIX/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> results/KRAKENUNIQ_ABUNDANCE_MATRIX/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 
 </section>
