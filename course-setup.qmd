@@ -14,6 +14,9 @@ mkdir -p workshop/data
 mkdir -p workshop/logs/slurm
 mkdir -p workshop/scripts
 mkdir -p workshop/resources
+mkdir -p workshop/results/KRAKENUNIQ
+mkdir -p workshop/results/MALT_DB
+mkdir -p workshop/results/MALT
 ```
 Create links to the files you will use:
 
@@ -26,12 +29,18 @@ ln -s /truba/home/egitim/workshop/*.sh workshop
 ln -s /truba/home/egitim/workshop/scripts/* workshop/scripts
 # Create links for the necessary resources files
 ln -s /truba/home/egitim/workshop/resources/* workshop/resources
+# Create links to the KrakenUniq result
+ln -s /truba/home/egitim/workshop/results/KRAKENUNIQ/* workshop/results/KRAKENUNIQ
+# Create links to the MALT_DB result
+ln -s /truba/home/egitim/workshop/results/MALT_DB/* workshop/results/MALT_DB
+# Create links to the MALT result
+ln -s /truba/home/egitim/workshop/results/MALT/* workshop/results/MALT
 ```
 
-Great, you have now created your workshop folder. From now on, you will be working in this folder. Please enter your directory now using this command:
+Great, you have now created your workshop folder. From now on, you will be working **only** from within this folder. Please enter this folder now by using this command:
 
 ```bash
 cd workshop
 ```
 
-You can follow the pipeline step by step. Good luck !
+You can now follow the pipeline step by step. Good luck !
