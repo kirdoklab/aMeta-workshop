@@ -51,7 +51,7 @@ less /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/2047/node_list.txt
 
 ```
 
-THis pathogen name is *Burkholderia mallei*. Over the next steps, we will extract DNA reads assigned to this pathogen, and we will create authenticity metrics.
+THis pathogen name is *Rothia dentocariosa*. Over the next steps, we will extract DNA reads assigned to this pathogen, and we will create authenticity metrics.
 
 Then we will extract the sequence name of the reference sequence of the bacteria from the database:
 
