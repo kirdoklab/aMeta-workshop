@@ -200,12 +200,13 @@ Here is a simplified version of this code:
 
 ```bash
 # Create the output folder
-mkdir -p results/MALT_ABUNDANCE_MATRIX_RMA6 logs/MALT_ABUNDANCE_MATRIX_RMA6
+mkdir -p results/MALT_ABUNDANCE_MATRIX_RMA6 logs MALT_ABUNDANCE_MATRIX_RMA6
 
 for sample in $(ls results/CUTADAPT_ADAPTER_TRIMMING/*.fastq.gz); do
-        rma-tabuliser -d results/MALT/{sample}.trimmed.rma6 -r 'S' &> logs/MALT_ABUNDANCE_MATRIX_RMA6/MALT_ABUNDANCE_MATRIX_RMA6.log;
-        mv results/MALT/count_table.tsv results/MALT_ABUNDANCE_MATRIX_RMA6/;
-        mv results/MALT_ABUNDANCE_MATRIX_RMA6/count_table.tsv results/MALT_ABUNDANCE_MATRIX_RMA6/malt_abundance_matrix_rma6.txt
+	sample_name=$(basename $sample .trimmed.fastq.gz)
+	./scripts/rma-tabuliser -d results/MALT/${sample_name}.trimmed.rma6 -r 'S' &> logs/MALT_ABUNDANCE_MATRIX_RMA6/MALT_ABUNDANCE_MATRIX_RMA6.log;
+		mv results/MALT/count_table.tsv results/MALT_ABUNDANCE_MATRIX_RMA6/;
+		mv results/MALT_ABUNDANCE_MATRIX_RMA6/count_table.tsv results/MALT_ABUNDANCE_MATRIX_RMA6/malt_abundance_matrix_rma6.txt
 done
 ```
 
