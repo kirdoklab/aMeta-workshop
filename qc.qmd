@@ -41,6 +41,8 @@ done
 
 In summary, this rule loops through the sample files and generate statistics using FastQC for each of them in the form of an `html` and `zip` file. The `html` file contains the final report and you can open it to see information about the quality of sequencing and the presence of adapters. Alternatively, you can navigate the [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) website to see how an html output file looks like and how to interpret it.
 
+WARNING: If you would be running the shell command above directly on the terminal, you would need to export the PATH to the necessary modules first and to create the necessary output and log folders. You can see how the full command would look like by opening the bash script file FastQC_BeforeTrimming.sh using less `less FastQC_BeforeTrimming.sh`.  
+
 To run the different rules on TRUBA, we have prepared bash scripts. Before running it, verify that you have done the steps from the `course setup` section of this website and that you are located in your own newly created `workshop` folder. If this is the case, type this command:
 
 ```bash
@@ -55,7 +57,7 @@ Please, remember to check the status of your job using this command. Once your j
 squeue -u your_user_name
 ```
 
-Once your job has finished, please check that the  output files were created like this:
+Once your job has finished, please check that the output files were created like this:
 
 ```bash
 ls -ltrh results/FASTQC_BEFORE_TRIMMING/
