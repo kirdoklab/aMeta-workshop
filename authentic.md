@@ -5,7 +5,7 @@ title: "Authentication of the pathogens"
 
 ## Introduction
 
-In this part, we will start authenticating the pathogens found by the `krakenuniq` tool. This part is complex and needs database dependencies to work. So we will focus only one microbe (*taxid* 13373) from the sample `sample1`.
+In this part, we will start authenticating the pathogens found by the `krakenuniq` tool. This part is complex and needs database dependencies to work. So we will focus only one microbe (*taxid* 2047) from the sample `sample1`.
 
 We will run an `sbatch` script, and we will check the outputs. Before working on this part, lets export the `PATH` variable to check the output files:
 
@@ -47,7 +47,7 @@ Let's check the output:
 
 ```bash
 
-less /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/13373/node_list.txt
+less /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/2047/node_list.txt
 
 ```
 
@@ -56,7 +56,7 @@ THis pathogen name is *Burkholderia mallei*. Over the next steps, we will extrac
 Then we will extract the sequence name of the reference sequence of the bacteria from the database:
 
 ```bash
-/truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/13373/name_list.txt
+/truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/2047/name_list.txt
 ```
 
 ## DNA read extraction and postprocessing
@@ -67,7 +67,7 @@ Let's check this folder:
 
 ```bash
 
-ls /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/13373/MaltExtract_output/
+ls /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/2047/MaltExtract_output/
 ```
 
 The `ancient` folder contains statistics only for ancient DNA reads, and `default` folder contains statistics for all DNA reads.
@@ -75,7 +75,7 @@ The `ancient` folder contains statistics only for ancient DNA reads, and `defaul
 If we check the `default` folder, we can see that several parameters are organized into sub folders:
 
 ```bash
-s /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/13373/MaltExtract_output/modern/
+s /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/2047/MaltExtract_output/modern/
 ```
 
 ## Creating a `sam` file for the microbe of interest
@@ -85,26 +85,26 @@ In this step, we extract alignment entries from the malt `sam` file using this s
 Let's check the output file:
 
 ```bash
-samtools view /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/13373/sorted.bam | less
+samtools view /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/2047/sorted.bam | less
 ```
 
 From this file, we will extract breadth of coverage and read length distribution information:
 
 ```bash
-less /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/13373/breadth_of_coverage
-less /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/13373/read_length.txt
+less /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/2047/breadth_of_coverage
+less /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/2047/read_length.txt
 ```
 
 Then we extract DNA sequence of the reference file to use with IGV tool:
 
 ```bash
-less /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/13373/CP009643.1.fasta
+less /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/2047/CP009643.1.fasta
 ```
 
 We calculate PMD scores:
 
 ```bash
-less /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/13373/PMDscores.txt
+less /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/2047/PMDscores.txt
 
 ```
 
@@ -113,7 +113,7 @@ less /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/13373/PMDscores.txt
 Using the `authentic.R` script, we create the last authentication plot:
 
 ```bash
-ls /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/13373/authentic_Sample_sample1.trimmed rma6_TaxID_13373.pdf
+ls /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/2047/authentic_Sample_sample1.trimmed rma6_TaxID_2047.pdf
 ```
 
 Lets check the authentication plot:
@@ -124,11 +124,11 @@ And at last, authentication scores:
 
 ```bash
 
-less /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/13373/authentication_scores.txt
+less /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/2047/authentication_scores.txt
 ```
 The script should have finished by now. Let's check the output folder:
 
 
 ```bash
-ls results/AUTHENTICATION/sample1/13373
+ls results/AUTHENTICATION/sample1/2047
 ```
