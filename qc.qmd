@@ -46,7 +46,7 @@ WARNING: If you would be running the shell command above directly on the termina
 To run the different rules on TRUBA, we have prepared bash scripts. Before running it, verify that you have done the steps from the `course setup` section of this website and that you are located in your own newly created `workshop` folder. If this is the case, type this command:
 
 ```bash
-sbatch FastQC_BeforeTrimming.sh --account=your_user_name
+sbatch FastQC_BeforeTrimming.sh --account=your_username
 ```
 
 It is important to specify your account name anytime you run a bash script. You will get a better priority in the queue than if every user uses the same user name, and you will be able to check the progress status of your job using `squeue`.
@@ -54,7 +54,7 @@ It is important to specify your account name anytime you run a bash script. You 
 Please, remember to check the status of your job using this command. Once your job disappears from this command output, it means that it has terminated.
 
 ```bash
-squeue -u your_user_name
+squeue -u your_username
 ```
 
 Once your job has finished, please check that the output files were created like this:
@@ -63,13 +63,13 @@ Once your job has finished, please check that the output files were created like
 ls -ltrh results/FASTQC_BEFORE_TRIMMING/
 ```
 
-## Quality trimming step
+## Adapter trimming step
 
-After we run a first quality control, the pipeline will run `Cutadapt` to remove the remaining adapters and low quality bases. Here is the overview of this rule. 
+After we run a first quality control, the pipeline will run `Cutadapt` to remove the adapters and filter out the processed reads that have become too small. This step, was added because if users don't remove correctly and completely the adapters before running the pipeline, it will increase the amount of false positives. If you have already removed the adapters, no need to worry about this step, because it won't change much your FastQ file. 
 
-You can specify which adapters were used in the `config/config.yaml` file. If no adapter is specified, the default is Illumina adapters.
+You can specify which adapters were used in the `config/config.yaml` file. If no adapter is specified, the default used are Illumina adapters.
 
-For this rule, the inputs will be retrieved again from the samplesheet file. And the outputs will be placed in the `results/CUTADAPT_ADAPTER_TRIMMING/` folder. 
+Here is the snakemake rule:
 
 ```
 rule Cutadapt_Adapter_Trimming:
@@ -79,25 +79,25 @@ rule Cutadapt_Adapter_Trimming:
         fastq=lambda wildcards: samples.loc[wildcards.sample].fastq,
     params:
         adapters=" ".join([f"-a {x}" for x in ADAPTERS]),
-    message:
-        "Cutadapt_Adapter_Trimming: TRIMMING ADAPTERS FOR SAMPLE {input.fastq} WITH CUTADAPT"
-    threads: 1
     shell:
         "cutadapt {params.adapters} --minimum-length 30 -o {output.fastq} {input.fastq} &> {log}"
-
 ```
 
-Here is how we can run it for one file:
+Here is a shell command for this rule:
 
 ```bash
-cutadapt -a ADAPTERS --minimum-length 30 -o results/CUTADAPT_ADAPTER_TRIMMING/sample  
-
+for sample in $(ls data/*.fastq.gz); do
+        sample_name=$(basename $sample .fastq.gz)
+        cutadapt -a AGATCGGAAGAG --minimum-length 30 -o results/CUTADAPT_ADAPTER_TRIMMING/${sample_name}.trimmed.fastq.gz ${sample} &> logs/CUTADAPT_ADAPTER_TRIMMING/${sample_name}.log
+done
 ```
+
+# In summary, it loops through the samples and uses Cutadapt to remove the adapters. From now on, we will work using the trimmed FastQ files that it has created.
 
 Please run the script provided for this part like this:
 
 ```bash
-sbatch Cutadapt_Adapter_Trimming.sh --account=your_user_account
+sbatch Cutadapt_Adapter_Trimming.sh --account=your_username
 ```
 
 After your job has finished, please check the output files:
@@ -108,7 +108,7 @@ ls -ltrh results/CUTADAPT_ADAPTER_TRIMMING/
 
 ## Quality control after trimming
 
-Now that we have removed potentially remaining adapters, we will run a new quality control analysis. Normally, there should be no more adapters visible:
+Now that we have removed potentially remaining adapters, we will run a new quality control analysis. Normally, there should be no more adapters visible in the resulting html file:
 
 ```
 rule FastQC_AfterTrimming:
