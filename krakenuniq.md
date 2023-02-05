@@ -43,7 +43,9 @@ In summary, this command loops through the sample files created by Cutadapt and 
 
 ## Filter the KrakenUniq output
 
-After running KrakenUniq, we need to filter its output to remove as many false positives as possible. In order to do so, we select the species taxonomic level for each organism and we filter the results according to the amount of kmers and the amount of taxReads (reads specific to a species). A suggested value for this parameters is 1000 unique kmers to make sure that at least 1000 unique regions of the organim are covered and 200 taxReads in order to have enough reads to verify if the organism is ancient after alignment. 
+After running KrakenUniq, we need to filter its output to remove as many false positives as possible. In order to do so, we select the species taxonomic level for each organism and we filter the results according to the amount of kmers and the amount of taxReads (reads specific to a species). Suggested values for this parameters are:
++ 1000 unique kmers to make sure that at least 1000 unique regions of the organim are covered
++ 200 taxReads in order to have enough reads to verify if the organism is ancient after alignment
 
 ```
 rule Filter_KrakenUniq_Output:
@@ -73,11 +75,6 @@ Here is a shell version of this code:
 n_unique_kmers=1000
 n_tax_reads=200
 
-# Create the log folder
-mkdir -p logs/FILTER_KRAKENUNIQ_OUTPUT
-
-# Loop through the samples and filter the KrakenUniq output according to three thresholds. It should have at least 1000 unique kmers and 200 reads and it should be at the Species level (not Genus, not Family, subspecies or else). This part is implemented in the python script.
-# The second command extracts the column containing the taxID information for the species that match a pathogen in the pathogenFound.very_inclusive.tab.
 for sample in $(ls results/CUTADAPT_ADAPTER_TRIMMING/*.fastq.gz); do
         sample_name=$(basename $sample .trimmed.fastq.gz)
         python scripts/filter_krakenuniq.py results/KRAKENUNIQ/${sample_name}/krakenuniq.output ${n_unique_kmers} ${n_tax_reads} resources/pathogensFound.very_inclusive.tab &> logs/FILTER_KRAKENUNIQ_OUTPUT/${sample_name}.log;
@@ -85,12 +82,12 @@ for sample in $(ls results/CUTADAPT_ADAPTER_TRIMMING/*.fastq.gz); do
 done
 ```
 
-In summary, this rule uses a python script to filter the output from KrakenUniq according to a specified minimum amount of unique kmers and minimum amount of taxReads (reads specific to the taxonomic clade of this species) and extract the information for the species that meet these criteria. 
+In summary, this rule uses a python script to filter the output from KrakenUniq according to a specified minimum amount of unique kmers and minimum amount of taxReads (reads specific to the taxonomic clade of this species) and extract the information for the species that meet these criteria. The second command extracts the column containing the taxID information for the species that match a pathogen in the pathogenFound.very_inclusive.tab.
 
 Please run this code and do not forget to change your account name:
 
 ```bash
-sbatch KrakenUniq_Filter.sh --account=your_user_account
+sbatch KrakenUniq_Filter.sh --account=your_username
 ```
 
 And let's check the output of one sample, `sample1`:
@@ -126,22 +123,30 @@ rule KrakenUniq_AbundanceMatrix:
         exe_plot=WORKFLOW_DIR / "scripts/plot_krakenuniq_abundance_matrix.R",
         n_unique_kmers=config["n_unique_kmers"],
         n_tax_reads=config["n_tax_reads"],
-    message:
-        "KrakenUniq_AbundanceMatrix: COMPUTING KRAKENUNIQ MICROBIAL ABUNDANCE MATRIX"
     shell:
         "Rscript {params.exe} results/KRAKENUNIQ {output.out_dir} {params.n_unique_kmers} {params.n_tax_reads} &> {log};"
         "Rscript {params.exe_plot} {output.out_dir} {output.out_dir} &> {log}"
 ```
 
-This rule combines krakenuniq abundance output files into one file `results/KRAKENUNIQ_ABUNDANCE_MATRIX/krakenuniq_abundance_matrix.txt`.
+Here is a shell version of this rule:
+
+```bash
+n_unique_kmers=1000
+n_tax_reads=200
+
+Rscript scripts/krakenuniq_abundance_matrix.R results/KRAKENUNIQ results/KRAKENUNIQ_ABUNDANCE_MATRIX ${n_unique_kmers} ${n_tax_reads} &> logs/KRAKENUNIQ_ABUNDANCE_MATRIX/KRAKENUNIQ_ABUNDANCE_MATRIX.log
+
+Rscript scripts/plot_krakenuniq_abundance_matrix.R results/KRAKENUNIQ_ABUNDANCE_MATRIX/ results/KRAKENUNIQ_ABUNDANCE_MATRIX/ &> logs/KRAKENUNIQ_ABUNDANCE_MATRIX/KRAKENUNIQ_ABUNDANCE_MATRIX.log
+```
+
+In summary, this rule combines the filtered KrakenUniq outputs in a matrix `results/KRAKENUNIQ_ABUNDANCE_MATRIX/krakenuniq_abundance_matrix.txt`.
 
 Then, it creates a heatmap plot using the abundance data: `results/KRAKENUNIQ_ABUNDANCE_MATRIX/krakenuniq_absolute_abundance_heatmap.pdf`
 
-Please run this script using this piece of code:
+Please run this script this way:
 
 ```bash
-sbatch KrakenUniq_AbundanceMatrix.sh --account=your_account_name
-
+sbatch KrakenUniq_AbundanceMatrix.sh --account=your_username
 ```
 
 Then let's check the output:
