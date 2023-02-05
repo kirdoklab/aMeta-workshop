@@ -8,7 +8,7 @@ book:
   site-url: kirdoklab.gitub.io/aMeta-workshop/
 
   author: "Zoé Pochon, Nora Bergfeldt, Emrah Kırdök"
-  date: "30/01/2023"
+  date: "2023-01-30"
   chapters:
     - href: index.qmd
       text: Home
