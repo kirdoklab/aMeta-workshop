@@ -117,22 +117,23 @@ rule FastQC_AfterTrimming:
         zip="results/FASTQC_AFTER_TRIMMING/{sample}.trimmed_fastqc.zip",
     input:
         fastq="results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz",
-    threads: 2
-    message:
-        "FastQC_AfterTrimming: RUNNING QUALITY CONTROL WITH FASTQC FOR SAMPLE {input.fastq} AFTER TRIMMING ADAPTERS"
     shell:
         "fastqc {input.fastq} --threads {threads} --nogroup --outdir results/FASTQC_AFTER_TRIMMING &> {log}"
 ```
 
-Here is how we can run it for one file:
+Here is a shell command for this rule:
 
 ```bash
-fastqc results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz --threads 2 --nogroup --outdir results/FASTQC_AFTER_TRIMMING
+for sample in $(ls results/CUTADAPT_ADAPTER_TRIMMING/*.fastq.gz); do
+        sample_name=$(basename ${sample} .fastq.gz)
+        fastqc ${sample} --threads 4 --nogroup --outdir results/FASTQC_AFTER_TRIMMING &> logs/FASTQC_AFTER_TRIMMING/${sample_name}.log;
+done
 ```
+
 Please run the `sbatch` command for this part like this:
 
 ```bash
-sbatch FastQC_AfterTrimming.sh --account=your_user_account
+sbatch FastQC_AfterTrimming.sh --account=your_username
 ```
 
 Please check the outputs using this command:
@@ -143,26 +144,17 @@ ls -ltrh results/FASTQC_AFTER_TRIMMING/
 
 ## Combine quality control outputs
 
-At last the pipeline combines all the fastqc reports into one file using the tool MultiQC. **This part will not be executed in this tutorial.** 
+At last, the pipeline combines all the FastQC reports into one file using the tool MultiQC. **This part will not be executed in this tutorial.** 
 
 ``` 
 rule MultiQC:
-    """Run MultiQC"""
     output:
         html="results/MULTIQC/multiqc_report.html",
     input:
         unpack(multiqc_input),
     params:
         config=os.path.join(WORKFLOW_DIR, "envs", "multiqc_config.yaml"),
-    envmodules:
-        *config["envmodules"]["multiqc"],
-    benchmark:
-        "benchmarks/MULTIQC/MULTIQC.benchmark.txt"
-    message:
-        "MultiQC: COMBINING QUALITY CONTROL METRICS WITH MULTIQC"
     shell:
         'echo {input} | tr " " "\n" > {output.html}.fof;'
         "multiqc -c {params.config} -l {output.html}.fof --verbose --force --outdir results/MULTIQC &> {log}"
-
 ```
-
