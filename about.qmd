@@ -2,9 +2,9 @@
 title: "About"
 ---
 
-## About this site
+## About this website
 
-This site is built for the aMeta workshop in Mersin Feb 6 – 10 2023.
+This website was built for the aMeta Neomatrix workshop, taking place in Mersin Feb 6 – 10 2023.
 
 ## The team
 
@@ -18,7 +18,7 @@ By analyzing the remaining aDNA sequences with the state-of-the-art metagenomic 
 
 ### Zoé Pochon
 
-[Zoé](http://palaeogenetics.com/zp/) started her PhD in Archaeology at the Centre for Palaeogenetics in Stockholm in 2021. Zoé has training in biology and history and is interested in using archaeogenetics to bring new clues to debates on historical and biological questions. Her current work focuses on using bioinformatics tools to analyse the DNA and RNA of ancient viruses, as well as other microbes to get a better picture of the common pathogens at different time periods in history and to help understand past epidemics. Some of her research projects have included the DNA of combatants from a Bronze Age battlefield to infer their origin and estimate the selection coefficient of the lactase persistence, an allelic mutation already present in some of them. 
+[Zoé](http://palaeogenetics.com/zp/) started her PhD in Scientific archaeology at the Centre for Palaeogenetics, in Stockholm, in 2021. Zoé was trained in both biology and history and is interested in using archaeogenetics to bring new clues to debates on historical and biological questions. Her current work focuses on using bioinformatics tools to analyse the DNA (and hopefully one day RNA) of ancient viruses, as well as other microbes to get a better picture of the common pathogens at different time periods in history and to help understand past epidemics. Some of her former research projects have included the demographic analysis of combatants from a Bronze Age battlefield and the estimate of the selection coefficient of the lactase persistence, an allelic mutation already present in some of them. 
 
 
 ### Nora Bergfeldt
