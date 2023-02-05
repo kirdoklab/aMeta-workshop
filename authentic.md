@@ -3,21 +3,33 @@ title: "Authentication of the pathogens"
 
 ---
 
-In this part, we will start authenticating the pathogens found by the `krakenuniq` tool. This part is complex and needs database dependencies to work. So in this example part, we will focus on the pathogen (taxid 13373) particular for `sample1`.
+## Introduction
 
-Before working on this part, lets export the `PATH` variable to check the output files:
+In this part, we will start authenticating the pathogens found by the `krakenuniq` tool. This part is complex and needs database dependencies to work. So we will focus only one microbe (*taxid* 13373) from the sample `sample1`.
+
+We will run an `sbatch` script, and we will check the outputs. Before working on this part, lets export the `PATH` variable to check the output files:
 
 ```bash
 export PATH=${PATH}:/truba/home/egitim/miniconda3/envs/aMeta/bin/
 ```
 
-The main logic in this section, is to extract DNA reads aligned to one specific pathogen, and run authentication commands.
+The main logic in this section, is to:
 
-Let's first run our script, and check what is going in here.
++ Get information of the scientific name and sequence id information of the particular microbe
++ Extract DNA reads assigned to one specific microbe
++ Calculate several authentication parameters from the `sample1.trimmed.rma6` file
++ Create a `bam` file from the `sample1.trimmed.sam.gz` using the sequence id of the microbe
++ Extract read length, breadth of coverage, and post-mortem decay parameters from the `sam` file
++ Combine these information into nice looking pdf file
++ Calculate the authenticatio score for the particular microbe
+
+First, let's run the `sbatch` script, and then we will start checking the main output files while it is running:
 
 ```bash
 sbatch Authentic.sh --account=egitim  
 ```
+
+## Scientific name and sequence ID extraction
 
 Let's go step by step.
 
@@ -41,45 +53,52 @@ less /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/13373/node_list.txt
 
 THis pathogen name is *Burkholderia mallei*. Over the next steps, we will extract DNA reads assigned to this pathogen, and we will create authenticity metrics.
 
-Then we will use `MaltExtract` and `postprocessing.AMPS.r` tools to extract DNA reads assigned to this pathogen, from the rma6 file of the sample1.
-
-Let's check this folder:
-
-```bash
-
-ls /truba/home/egitim/aMeta/results/AUTHENTICtput//sample1/13373/MaltExtract_out/ancient
-```
-
 Then we will extract the sequence name of the reference sequence of the bacteria from the database:
 
 ```bash
 /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/13373/name_list.txt
 ```
 
-Then we extract alignment entries from the malt `sam` file using this sequence ID, Let's check the output file:
+## DNA read extraction and postprocessing
+
+Then we will use `MaltExtract` and `postprocessing.AMPS.r` tools to extract DNA reads assigned to this pathogen, from the rma6 file of the sample1.
+
+Let's check this folder:
 
 ```bash
-samtools view /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/${TAXID}/sorted.bam | less
+
+ls /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/13373/MaltExtract_output/
 ```
 
-Then we extract breadth of coverage information:
+The `ancient` folder contains statistics only for ancient DNA reads, and `default` folder contains statistics for all DNA reads.
+
+If we check the `default` folder, we can see that several parameters are organized into sub folders:
+
+```bash
+s /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/13373/MaltExtract_output/modern/
+```
+
+## Creating a `sam` file for the microbe of interest
+
+In this step, we extract alignment entries from the malt `sam` file using this sequence ID that we previously extracted, 
+
+Let's check the output file:
+
+```bash
+samtools view /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/13373/sorted.bam | less
+```
+
+From this file, we will extract breadth of coverage and read length distribution information:
 
 ```bash
 less /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/13373/breadth_of_coverage
-```
-
-Then we extract DNA sequence of the reference file:
-
-```bash
-
-less /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/13373/CP009643.1.fasta
-```
-
-We calculate read length distribution:
-
-```bash
 less /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/13373/read_length.txt
+```
 
+Then we extract DNA sequence of the reference file to use with IGV tool:
+
+```bash
+less /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/13373/CP009643.1.fasta
 ```
 
 We calculate PMD scores:
@@ -88,6 +107,8 @@ We calculate PMD scores:
 less /truba/home/egitim/aMeta/results/AUTHENTICATION/sample1/13373/PMDscores.txt
 
 ```
+
+## Combine authentication parameters and score
 
 Using the `authentic.R` script, we create the last authentication plot:
 
