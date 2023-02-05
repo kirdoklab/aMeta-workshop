@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>aMeta Workshop - 9&nbsp; KrakenUniq database</title>
+<title>aMeta Workshop - 9&nbsp; Prescreening with KrakenUniq</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -133,7 +133,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">KrakenUniq database</span></h1>
+      <h1 class="quarto-secondary-nav-title"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Prescreening with KrakenUniq</span></h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -278,11 +278,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#krakenuniq-workflow" id="toc-krakenuniq-workflow" class="nav-link active" data-scroll-target="#krakenuniq-workflow"><span class="toc-section-number">9.1</span>  KrakenUniq workflow</a>
+  <li><a href="#krakenuniq-prescreening-step" id="toc-krakenuniq-prescreening-step" class="nav-link active" data-scroll-target="#krakenuniq-prescreening-step"><span class="toc-section-number">9.1</span>  KrakenUniq prescreening step</a></li>
+  <li><a href="#krakenuniq-database" id="toc-krakenuniq-database" class="nav-link" data-scroll-target="#krakenuniq-database"><span class="toc-section-number">9.2</span>  KrakenUniq database</a></li>
+  <li><a href="#classification-with-krakenuniq" id="toc-classification-with-krakenuniq" class="nav-link" data-scroll-target="#classification-with-krakenuniq"><span class="toc-section-number">9.3</span>  Classification with KrakenUniq</a></li>
+  <li><a href="#filtering-the-krakenuniq-output" id="toc-filtering-the-krakenuniq-output" class="nav-link" data-scroll-target="#filtering-the-krakenuniq-output"><span class="toc-section-number">9.4</span>  Filtering the KrakenUniq output</a>
   <ul class="collapse">
-  <li><a href="#run-krakenuniq" id="toc-run-krakenuniq" class="nav-link" data-scroll-target="#run-krakenuniq"><span class="toc-section-number">9.1.1</span>  Run KrakenUniq</a></li>
-  <li><a href="#filtering-the-krakenuniq-output" id="toc-filtering-the-krakenuniq-output" class="nav-link" data-scroll-target="#filtering-the-krakenuniq-output"><span class="toc-section-number">9.1.2</span>  Filtering the KrakenUniq output</a></li>
-  <li><a href="#creating-an-abundance-matrix-from-the-krakenuniq-outputs" id="toc-creating-an-abundance-matrix-from-the-krakenuniq-outputs" class="nav-link" data-scroll-target="#creating-an-abundance-matrix-from-the-krakenuniq-outputs"><span class="toc-section-number">9.1.3</span>  Creating an abundance matrix from the KrakenUniq outputs</a></li>
+  <li><a href="#creating-an-abundance-matrix-from-the-krakenuniq-outputs" id="toc-creating-an-abundance-matrix-from-the-krakenuniq-outputs" class="nav-link" data-scroll-target="#creating-an-abundance-matrix-from-the-krakenuniq-outputs"><span class="toc-section-number">9.4.1</span>  Creating an abundance matrix from the KrakenUniq outputs</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -292,7 +293,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">KrakenUniq database</span></h1>
+<h1 class="title d-none d-lg-block"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Prescreening with KrakenUniq</span></h1>
 </div>
 
 
@@ -307,17 +308,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p>KrakenUniq is relatively fast and allows to screen aDNA samples against a database as large as possible. The KrakenUniq paper suggests that KrakenUniq is not less accurate compared to alignment tools such as <code>BLAST</code> and <code>MEGAN</code>.</p>
-<p>A full NT database for KrakenUniq is <a href="https://www.biorxiv.org/node/2777891.external-links.html">available for download</a> through SciLifeLab.</p>
-<section id="krakenuniq-workflow" class="level2" data-number="9.1">
-<h2 data-number="9.1" class="anchored" data-anchor-id="krakenuniq-workflow"><span class="header-section-number">9.1</span> KrakenUniq workflow</h2>
-<section id="run-krakenuniq" class="level3" data-number="9.1.1">
-<h3 data-number="9.1.1" class="anchored" data-anchor-id="run-krakenuniq"><span class="header-section-number">9.1.1</span> Run KrakenUniq</h3>
-<p><strong>Please note that it will not be possible to run this first step during this workshop due to issues with storage space. The output files will be provided by the course leaders.</strong></p>
-<p>To start, we need to set up the path to the database– we call it <code>DBNAME</code>.</p>
-<p>This is the rule in the workflow/rules/krakenuniq.smk file. Input files are retrieved from the output of the Quality Control step.</p>
+<section id="krakenuniq-prescreening-step" class="level2" data-number="9.1">
+<h2 data-number="9.1" class="anchored" data-anchor-id="krakenuniq-prescreening-step"><span class="header-section-number">9.1</span> KrakenUniq prescreening step</h2>
+<p>The first part of the pipeline includes a prescreening step with KrakenUniq. It is not an aligner but a k-mer based classifier. It means that it has a database with information about unique regions of the DNA of each organism and classifies the reads by comparing them to this database. It can assign the reads to different taxonomic clade depending on their uniqueness. If a read is specific to a species, it will be assigned to that species, if it is specific to a genus, it will be assigned to that genus and so on.</p>
+<p>KrakenUniq is fast and makes it possible to screen aDNA samples against a <strong>database as large as possible</strong>. With an aligner, this is rarely possible because it would take too much compute power and time to align to a very large database. The KrakenUniq paper suggests that KrakenUniq is not less accurate compared to alignment tools such as <code>BLAST</code> and <code>MEGAN</code>. However, we still want to have a secondary verification with an aligner later on in the pipeline, since we need to align the reads in order to verify the quality of the alignment and generate statistics.</p>
+</section>
+<section id="krakenuniq-database" class="level2" data-number="9.2">
+<h2 data-number="9.2" class="anchored" data-anchor-id="krakenuniq-database"><span class="header-section-number">9.2</span> KrakenUniq database</h2>
+<p>We have made two KrakenUniq databases available through the SciLifeLab repository. Description of the databases and information on how to download them can be found on the <a href="https://github.com/NBISweden/aMeta">official aMeta GitHub</a>.</p>
+</section>
+<section id="classification-with-krakenuniq" class="level2" data-number="9.3">
+<h2 data-number="9.3" class="anchored" data-anchor-id="classification-with-krakenuniq"><span class="header-section-number">9.3</span> Classification with KrakenUniq</h2>
+<p><strong>Please note that it will not be possible to run this first step during this workshop due to issues with storage space.</strong> If you followed the course setup correctly, you should have the expected output files of this rule in your <code>results</code> folder.</p>
 <pre><code>rule KrakenUniq:
-    """Run KrakenUniq on trimmed fastq data"""
     output:
         report="results/KRAKENUNIQ/{sample}/krakenuniq.output",
         seqs="results/KRAKENUNIQ/{sample}/sequences.krakenuniq",
@@ -325,19 +328,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         fastq="results/CUTADAPT_ADAPTER_TRIMMING/{sample}.trimmed.fastq.gz",
     params:
         DB=config["krakenuniq_db"],
-    threads: 10
     log:
         "logs/KRAKENUNIQ/{sample}.log",
     shell:
         "krakenuniq --preload --db {params.DB} --fastq-input {input.fastq} --threads {threads} --output {output.seqs} --report-file {output.report} --gzip-compressed --only-classified-out &amp;&gt; {log}"</code></pre>
-<p>Here is a simplified version of this code:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">DBNAME</span><span class="op">=</span>db/</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="va">PATH</span><span class="op">=</span><span class="va">${PATH}</span>:/truba/home/egitim/miniconda3/envs/aMeta/bin/</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="ex">krakenuniq</span> <span class="at">--preload</span> <span class="at">--db</span> <span class="va">$DBNAME</span> <span class="at">--fastq-input</span> <span class="va">${sample_name}</span> <span class="at">--threads</span> 4 <span class="at">--output</span> <span class="va">${sample_name}</span>.sequences.krakenuniq <span class="at">--report-file</span> <span class="va">${sample_name}</span>.krakenuniq.output <span class="at">--gzip-compressed</span> <span class="at">--only-classified-out</span> <span class="op">&amp;&gt;</span> logs/KRAKENUNIQ/<span class="va">${sample_name}</span>.log</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Here is a shell version of this code:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> sample <span class="kw">in</span> <span class="va">$(</span><span class="fu">ls</span> results/CUTADAPT_ADAPTER_TRIMMING/<span class="pp">*</span>.fastq.gz<span class="va">)</span><span class="kw">;</span> <span class="cf">do</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>       <span class="va">sample_name</span><span class="op">=</span><span class="va">$(</span><span class="fu">basename</span> <span class="va">$sample</span> .fastq.gz<span class="va">)</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>       <span class="ex">krakenuniq</span> <span class="at">--preload</span> <span class="at">--db</span> <span class="va">$DBNAME</span> <span class="at">--fastq-input</span> <span class="va">${sample_name}</span> <span class="at">--threads</span> 4 <span class="at">--output</span> <span class="va">${sample_name}</span>.sequences.krakenuniq <span class="at">--report-file</span> <span class="va">${sample_name}</span>.krakenuniq.output <span class="at">--gzip-compressed</span> <span class="at">--only-classified-out</span> <span class="op">&amp;&gt;</span> logs/KRAKENUNIQ/<span class="va">${sample_name}</span>.log</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In summary, this command loops through the sample files created by Cutadapt and classifies the reads using KrakenUniq.</p>
 </section>
-<section id="filtering-the-krakenuniq-output" class="level3" data-number="9.1.2">
-<h3 data-number="9.1.2" class="anchored" data-anchor-id="filtering-the-krakenuniq-output"><span class="header-section-number">9.1.2</span> Filtering the KrakenUniq output</h3>
-<p>After running KrakenUniq, the next step is to filter the output. The input is the <code>krakenuniq.output</code> generated in the previous step. The outputs will be a filtered KrakenUniq abundance file called <code>krakenuniq.output.filtered</code>, a pathogens file <code>krakenuniq.output.pathogens</code>, and taxids of these pathogens <code>taxID.pathogens</code>.</p>
+<section id="filtering-the-krakenuniq-output" class="level2" data-number="9.4">
+<h2 data-number="9.4" class="anchored" data-anchor-id="filtering-the-krakenuniq-output"><span class="header-section-number">9.4</span> Filtering the KrakenUniq output</h2>
+<p>After running KrakenUniq, we need to filter its output to remove as many false positives as possible. In order to do so, we select the species taxonomic level for each organism and we filter the results according to the amount of kmers and the amount of taxReads specific to that species. A suggested value for this parameters is 1000 unique kmers to make sure that at least 1000 unique regions of the organim are covered and that 200 taxReads in order to have enough reads to verify if the organism is ancient after alignment.</p>
 <pre><code>rule Filter_KrakenUniq_Output:
     output:
         filtered="results/KRAKENUNIQ/{sample}/krakenuniq.output.filtered",
@@ -378,9 +382,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span> <span class="at">-ltrh</span> results/KRAKENUNIQ/sample1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Let’s check the output file:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">less</span> results/KRAKENUNIQ/sample1/krakenuniq.output.filtered</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="creating-an-abundance-matrix-from-the-krakenuniq-outputs" class="level3" data-number="9.1.3">
-<h3 data-number="9.1.3" class="anchored" data-anchor-id="creating-an-abundance-matrix-from-the-krakenuniq-outputs"><span class="header-section-number">9.1.3</span> Creating an abundance matrix from the KrakenUniq outputs</h3>
+<section id="creating-an-abundance-matrix-from-the-krakenuniq-outputs" class="level3" data-number="9.4.1">
+<h3 data-number="9.4.1" class="anchored" data-anchor-id="creating-an-abundance-matrix-from-the-krakenuniq-outputs"><span class="header-section-number">9.4.1</span> Creating an abundance matrix from the KrakenUniq outputs</h3>
 <p>At last, we will combine the filtered outputs and create an abundance matrix. In this part, the inputs are the filtered krakenuniq outputs of all the samples.</p>
 <pre><code>rule KrakenUniq_AbundanceMatrix:
     output:
